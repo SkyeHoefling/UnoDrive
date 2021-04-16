@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -40,8 +40,8 @@
     <PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.0.1" />
     <PackageReference Include="Uno.UI.WebAssembly" Version="3.6.6" />
     <PackageReference Include="Uno.UI.RemoteControl" Version="3.6.6" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.3.4" />
-    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="1.3.4" />
+    <PackageReference Include="Uno.Wasm.Bootstrap" Version="2.0.2" />
+    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="2.0.2" />
   </ItemGroup>
   <Import Project="..\UnoDrive.Shared\UnoDrive.Shared.projitems" Label="Shared" Condition="Exists('..\UnoDrive.Shared\UnoDrive.Shared.projitems')" />
 </Project>
