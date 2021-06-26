@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="209bd836-eac9-44d7-9118-3f3e46cd6b38"
-    Publisher="CN=andre"
+    Name="b6efd9d4-846d-448f-8423-7403cfa3856c"
+    Publisher="O=MyCompany"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="0fba30cb-5606-45a2-a9dd-20638f05c335" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="a79bdb62-c201-44c9-a821-6b4bcd427d2e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>UnoDrive</DisplayName>

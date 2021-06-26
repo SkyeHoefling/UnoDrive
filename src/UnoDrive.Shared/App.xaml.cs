@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,14 +8,13 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using UnoDrive.Views;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace UnoDrive
 {
@@ -24,11 +23,18 @@ namespace UnoDrive
     /// </summary>
     public sealed partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
-        public App()
+#if NET5_0 && WINDOWS
+        private Window _window;
+
+#else
+        private Microsoft.UI.Xaml.Window _window;
+#endif
+
+	/// <summary>
+	/// Initializes the singleton application object.  This is the first line of authored code
+	/// executed, and as such is the logical equivalent of main() or WinMain().
+	/// </summary>
+	public App()
         {
             InitializeLogging();
 
@@ -44,7 +50,7 @@ namespace UnoDrive
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -54,13 +60,13 @@ namespace UnoDrive
 #endif
 
 #if NET5_0 && WINDOWS
-            var window = new Window();
-            window.Activate();
+            _window = new Window();
+            _window.Activate();
 #else
-            var window = Windows.UI.Xaml.Window.Current;
+			_window = Microsoft.UI.Xaml.Window.Current;
 #endif
 
-            var rootFrame = window.Content as Frame;
+            var rootFrame = _window.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -71,17 +77,17 @@ namespace UnoDrive
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (e.UWPLaunchActivatedEventArgs.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
-                window.Content = rootFrame;
+                _window.Content = rootFrame;
             }
 
 #if !(NET5_0 && WINDOWS)
-            if (e.PrelaunchActivated == false)
+            if (e.UWPLaunchActivatedEventArgs.PrelaunchActivated == false)
 #endif
             {
                 if (rootFrame.Content == null)
@@ -92,7 +98,7 @@ namespace UnoDrive
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Ensure the current window is active
-                window.Activate();
+                _window.Activate();
             }
         }
 
@@ -146,22 +152,22 @@ namespace UnoDrive
                 builder.AddFilter("Microsoft", LogLevel.Warning);
 
                 // Generic Xaml events
-                // builder.AddFilter("Windows.UI.Xaml", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.VisualStateGroup", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.StateTriggerBase", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.UIElement", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.FrameworkElement", LogLevel.Trace );
+                // builder.AddFilter("Microsoft.UI.Xaml", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.VisualStateGroup", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.StateTriggerBase", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.UIElement", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.FrameworkElement", LogLevel.Trace );
 
                 // Layouter specific messages
-                // builder.AddFilter("Windows.UI.Xaml.Controls", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Controls.Layouter", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Controls.Panel", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls.Layouter", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls.Panel", LogLevel.Debug );
 
                 // builder.AddFilter("Windows.Storage", LogLevel.Debug );
 
                 // Binding related messages
-                // builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug );
 
                 // Binder memory references tracking
                 // builder.AddFilter("Uno.UI.DataBinding.BinderReferenceHolder", LogLevel.Debug );
