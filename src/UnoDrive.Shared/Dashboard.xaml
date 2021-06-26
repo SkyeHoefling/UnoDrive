@@ -1,0 +1,44 @@
+<Page
+    x:Class="UnoDrive.Dashboard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <NavigationView x:Name="menu"
+                    IsBackButtonVisible="Collapsed"
+                    IsPaneOpen="False"
+                    PaneDisplayMode="LeftMinimal"
+                    IsSettingsVisible="False"
+                    PaneTitle="UnoDrive"
+                    ItemInvoked="MenuItemSelected">
+
+        <NavigationView.PaneCustomContent>
+            <StackPanel Margin="5, 0, 5, 0" Spacing="10">
+                <TextBlock Text="Andrew Hoefling" FontSize="20" HorizontalTextAlignment="Center" />
+                <TextBlock Text="myemail@email.com" FontSize="18" HorizontalTextAlignment="Center" />
+                <Line X1="0" X2="1" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="10, 0" />
+            </StackPanel>
+        </NavigationView.PaneCustomContent>
+
+        <NavigationView.MenuItems>
+            <NavigationViewItem Icon="Play" Content="My Files" x:Name="myFiles" />
+            <NavigationViewItem Icon="Save" Content="Recent" x:Name="recentFiles" />
+            <NavigationViewItem Icon="Refresh" Content="Shared" x:Name="sharedFiles" />
+            <NavigationViewItem Icon="Download" Content="Recycle Bin" x:Name="recycleBin" />
+        </NavigationView.MenuItems>
+
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem Icon="Download" Content="Logout" x:Name="logout" />
+            <NavigationViewItem Icon="Clear" Content="Exit" x:Name="exit" />
+        </NavigationView.FooterMenuItems>
+
+        <NavigationView.Header>
+            <TextBlock Text="Header" />
+        </NavigationView.Header>
+
+        <Frame x:Name="contentFrame" />
+
+    </NavigationView>
+</Page>
