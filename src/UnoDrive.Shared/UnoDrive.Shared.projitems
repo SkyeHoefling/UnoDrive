@@ -21,6 +21,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ExplorerItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MyFilesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MyFilesPage.xaml.cs">
       <DependentUpon>MyFilesPage.xaml</DependentUpon>
     </Compile>
