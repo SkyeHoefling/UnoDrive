@@ -20,9 +20,23 @@
 
             <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="My Files" FontSize="22" FontWeight="Bold" />
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="New" />
-                <Button Content="Upload" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+                <Button Background="#0078D4" Foreground="#fff">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" FontSize="14" />
+                            <TextBlock Text="New" FontSize="16" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" FontSize="14" />
+                            <TextBlock Text="Upload" FontSize="16" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </Grid>
 
