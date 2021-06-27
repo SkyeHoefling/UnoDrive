@@ -23,7 +23,7 @@
         </NavigationView.PaneCustomContent>
 
         <NavigationView.MenuItems>
-            <NavigationViewItem Icon="Play" Content="My Files" x:Name="myFiles" />
+            <NavigationViewItem Icon="Play" Content="My Files" x:Name="myFiles" IsSelected="True" />
             <NavigationViewItem Icon="Save" Content="Recent" x:Name="recentFiles" />
             <NavigationViewItem Icon="Refresh" Content="Shared" x:Name="sharedFiles" />
             <NavigationViewItem Icon="Download" Content="Recycle Bin" x:Name="recycleBin" />
