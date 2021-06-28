@@ -13,25 +13,26 @@ namespace UnoDrive
         public Dashboard()
         {
             this.InitializeComponent();
-            contentFrame.NavigateToType(typeof(MyFilesPage), null, new FrameNavigationOptions());
+            //contentFrame.Content = new MyFilesPage();
+            //contentFrame.NavigateToType(typeof(MyFilesPage), null);
         }
 
         void MenuItemSelected(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            var navOptions = new FrameNavigationOptions();
-            navOptions.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
+        //    var navOptions = new FrameNavigationOptions();
+        //    navOptions.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
 
-            Type pageType = default;
-            if (myFiles == args.InvokedItemContainer)
-                pageType = typeof(MyFilesPage);
-            else if (recentFiles == args.InvokedItemContainer)
-                pageType = typeof(RecentFilesPages);
-            else if (sharedFiles == args.InvokedItemContainer)
-                pageType = typeof(SharedFilesPage);
-            else if (recycleBin == args.InvokedItemContainer)
-                pageType = typeof(RecycleBinPage);
+        //    Type pageType = default;
+        //    if (myFiles == args.InvokedItemContainer)
+        //        pageType = typeof(MyFilesPage);
+        //    else if (recentFiles == args.InvokedItemContainer)
+        //        pageType = typeof(RecentFilesPages);
+        //    else if (sharedFiles == args.InvokedItemContainer)
+        //        pageType = typeof(SharedFilesPage);
+        //    else if (recycleBin == args.InvokedItemContainer)
+        //        pageType = typeof(RecycleBinPage);
 
-            contentFrame.NavigateToType(pageType, null, navOptions);
+        //    contentFrame.NavigateToType(pageType, null, navOptions);
 
         }
     }

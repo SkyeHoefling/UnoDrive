@@ -4,43 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:viewmodel="using:UnoDrive.ViewModels">
+    xmlns:viewmodel="using:UnoDrive.ViewModels"
+    mc:Ignorable="d">
 
-    <Page.DataContext>
+    <!--<Page.DataContext>
         <viewmodel:MyFilesViewModel />
-    </Page.DataContext>
-    
-    <StackPanel Padding="25, 25, 25, 0">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+    </Page.DataContext>-->
 
-            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="My Files" FontSize="22" FontWeight="Bold" />
-
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
-                <Button Background="#0078D4" Foreground="#fff">
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" FontSize="14" />
-                            <TextBlock Text="New" FontSize="16" />
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-                <Button>
-                    <Button.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" FontSize="14" />
-                            <TextBlock Text="Upload" FontSize="16" />
-                        </StackPanel>
-                    </Button.Content>
-                </Button>
-            </StackPanel>
-        </Grid>
-
-        <toolkit:DataGrid x:Name="dataGrid"
+    <StackPanel>
+        <TextBlock Text="Content goes here" />
+        <!--<toolkit:DataGrid x:Name="dataGrid"
                           AutoGenerateColumns="False"
                           ItemsSource="{Binding FilesAndFolders}">
             <toolkit:DataGrid.Columns>
@@ -65,7 +38,6 @@
                                             CanUserReorder="False"
                                             Binding="{Binding Sharing}" />
             </toolkit:DataGrid.Columns>
-        </toolkit:DataGrid>
-
+        </toolkit:DataGrid>-->
     </StackPanel>
 </Page>
