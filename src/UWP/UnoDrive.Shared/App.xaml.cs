@@ -49,6 +49,28 @@ namespace UnoDrive
 
         protected override void ConfigureServices(IServiceCollection services)
         {
+            ConfigureLogging(services);
+        }
+
+        void ConfigureLogging(IServiceCollection services)
+        {
+            services.AddLogging(builder =>
+            {
+                builder
+                    .ClearProviders()
+#if DEBUG
+                    .AddFilter("UnoDrive", LogLevel.Information)
+#else
+					.AddFilter("UnoDrive", LogLevel.Debug)
+#endif
+                    .AddFilter("Uno", LogLevel.Debug)
+                    .AddFilter("Windows", LogLevel.Debug)
+                    .AddFilter("Microsoft", LogLevel.Debug)
+#if NETFX_CORE
+                    .AddFile($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\logs\\{{Date}}.log")
+#endif
+                    .AddDebug();
+            });
         }
 
         /// <summary>

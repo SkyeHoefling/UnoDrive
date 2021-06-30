@@ -21,8 +21,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AuthenticationResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AuthenticationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
