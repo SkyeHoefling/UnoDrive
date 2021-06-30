@@ -9,9 +9,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Identity.Client" Version="4.33.0" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
     <PackageReference Include="Uno.UI.Skia.Wpf" Version="3.8.6" />
     <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.6" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />

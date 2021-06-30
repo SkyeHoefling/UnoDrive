@@ -1,4 +1,4 @@
-﻿namespace UnoDrive.Models
+﻿namespace UnoDrive.Authentication
 {
     public interface IAuthenticationResult
     {
