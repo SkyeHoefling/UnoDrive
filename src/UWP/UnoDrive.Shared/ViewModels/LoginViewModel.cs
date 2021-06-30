@@ -5,17 +5,23 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using UnoDrive.Authentication;
+using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
 {
     public class LoginViewModel : ObservableObject
     {
         readonly IAuthenticationService authentication;
+        readonly INavigationService navigation;
         readonly ILogger logger;
 
-        public LoginViewModel(IAuthenticationService authentication, ILogger<LoginViewModel> logger)
+        public LoginViewModel(
+            IAuthenticationService authentication,
+            INavigationService navigation,
+            ILogger<LoginViewModel> logger)
         {
             this.authentication = authentication;
+            this.navigation = navigation;
             this.logger = logger;
 
             Login = new AsyncRelayCommand(OnLogin);
@@ -72,8 +78,7 @@ namespace UnoDrive.ViewModels
             if (!string.IsNullOrWhiteSpace(token.Message))
                 Message = token.Message;
 
-            // todo - add navigation service
-            //NavigationService.NavigateToDashboard();
+            navigation.NavigateToDashboard();
         }
     }
 }
