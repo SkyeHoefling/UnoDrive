@@ -15,13 +15,15 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Extensions.DependencyInjection;
+using UnoDrive.Mvvm;
 
 namespace UnoDrive
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : MvvmApplication
     {
 #if NET5_0 && WINDOWS
         private Window _window;
@@ -30,11 +32,11 @@ namespace UnoDrive
         private Windows.UI.Xaml.Window _window;
 #endif
 
-	/// <summary>
-	/// Initializes the singleton application object.  This is the first line of authored code
-	/// executed, and as such is the logical equivalent of main() or WinMain().
-	/// </summary>
-	public App()
+	    /// <summary>
+	    /// Initializes the singleton application object.  This is the first line of authored code
+	    /// executed, and as such is the logical equivalent of main() or WinMain().
+	    /// </summary>
+	    public App()
         {
             InitializeLogging();
 
@@ -43,6 +45,10 @@ namespace UnoDrive
 #if HAS_UNO || NETFX_CORE
             this.Suspending += OnSuspending;
 #endif
+        }
+
+        protected override void ConfigureServices(IServiceCollection services)
+        {
         }
 
         /// <summary>
