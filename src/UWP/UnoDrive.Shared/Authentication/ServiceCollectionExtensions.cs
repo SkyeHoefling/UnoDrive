@@ -13,6 +13,7 @@ namespace UnoDrive.Authentication
                 .WithRedirectUri("unodrive://auth");
 
             // TODO - implement for other platforms
+            // WASM - https://platform.uno/blog/announcing-uno-platform-support-for-msal-net-for-webassembly-applications/
 #if __ANDROID__
 			builder.WithParentActivityOrWindow(() => Windows.UI.Xaml.ApplicationActivity.Current);
 #endif
