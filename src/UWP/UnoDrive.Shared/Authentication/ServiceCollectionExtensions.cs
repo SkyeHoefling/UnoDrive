@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client;
+using Uno.UI.MSAL;
 
 namespace UnoDrive.Authentication
 {
@@ -8,15 +9,13 @@ namespace UnoDrive.Authentication
     {
         public static void UseAuthentication(this IServiceCollection services)
         {
+            // Secret Sauce is to use UnoHelpers()
+
             var builder = PublicClientApplicationBuilder
                 .Create("a7410051-6505-4852-9b08-45a54d07c0bc")
-                .WithRedirectUri("unodrive://auth");
-
-            // TODO - implement for other platforms
-            // WASM - https://platform.uno/blog/announcing-uno-platform-support-for-msal-net-for-webassembly-applications/
-#if __ANDROID__
-			builder.WithParentActivityOrWindow(() => Windows.UI.Xaml.ApplicationActivity.Current);
-#endif
+                .WithRedirectUri("unodrive://auth")
+                .WithHttpClientFactory(new MsalHttpClientFactory())
+                .WithUnoHelpers();
 
             services.AddSingleton(builder.Build());
             services.AddTransient<IAuthenticationService, AuthenticationService>();
