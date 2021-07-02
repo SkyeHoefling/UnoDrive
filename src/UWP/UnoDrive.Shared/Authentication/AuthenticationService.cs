@@ -66,6 +66,7 @@ namespace UnoDrive.Authentication
                 Logger.LogError("Unable to retrieve Access Token from Azure Active Directory; 'authResult' is null");
 
                 // This throws an exception on WPF
+                // Xamarin Essentials doesn't support all the target heads
                 if (Connectivity.NetworkAccess != NetworkAccess.Internet)
                     Logger.LogCritical("NO INTERNET CONNECTION: Internet required to retrieve an Access Token for the first time");
             }
@@ -77,6 +78,9 @@ namespace UnoDrive.Authentication
             return result;
         }
 
+        // This won't work on all platforms and we will need to test it.
+        // We may need to store the refresh token in a sqlite database and manually
+        // request a new token
         public async Task<IAuthenticationResult> AcquireSilentTokenAsync()
         {
             string message = string.Empty;
