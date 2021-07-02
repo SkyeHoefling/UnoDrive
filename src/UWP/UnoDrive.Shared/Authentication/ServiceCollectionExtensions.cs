@@ -5,6 +5,7 @@ using Uno.UI.MSAL;
 namespace UnoDrive.Authentication
 {
     // For public use Azure B2C - https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
+    // useful uno link - https://github.com/unoplatform/Uno.MSAL.Graph.Demo/blob/master/Uno.MSAL.Graph.Demo/Uno.MSAL.Graph.Demo.Shared/MainPage.xaml.cs
     public static class ServiceCollectionExtensions
     {
         public static void UseAuthentication(this IServiceCollection services)

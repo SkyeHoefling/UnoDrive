@@ -2,7 +2,13 @@
 
 namespace UnoDrive.Models
 {
-    public class ExplorerItem
+    public enum OneDriveItemType
+    {
+        File = 0,
+        Folder = 1
+    }
+
+    public class OneDriveItem
     {
         public string Name { get; set; }
         public DateTime Modified { get; set; }

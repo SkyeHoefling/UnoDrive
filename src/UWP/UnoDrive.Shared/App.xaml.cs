@@ -27,6 +27,8 @@ namespace UnoDrive
     /// </summary>
     public sealed partial class App : MvvmApplication
     {
+        public IAuthenticationResult AuthenticationResult { get; set; }
+
 #if NET5_0 && WINDOWS
         private Window _window;
 
