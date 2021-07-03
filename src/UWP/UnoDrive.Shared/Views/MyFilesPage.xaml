@@ -4,12 +4,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="microsoft.toolkit.uwp.ui"
     xmlns:viewmodel="using:UnoDrive.ViewModels"
     xmlns:mvvm="using:UnoDrive.Mvvm"
     mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="FolderTemplate" />
+            <DataTemplate x:Key="ItemTemplate" />
+            
+        </ResourceDictionary>
+    </Page.Resources>
+
     <StackPanel>
+        <!-- convert to winui -->
+        <TreeView
+            ItemsSource="{Binding FilesAndFolders}"
+            ItemTemplateSelector="{StaticResource DriveItemSelector}" />
         <!--<toolkit:DataGrid x:Name="dataGrid"
                           AutoGenerateColumns="False"
                           ItemsSource="{Binding FilesAndFolders}">

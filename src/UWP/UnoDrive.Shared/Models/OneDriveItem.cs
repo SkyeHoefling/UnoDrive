@@ -15,5 +15,6 @@ namespace UnoDrive.Models
         public string ModifiedBy { get; set; }
         public string FileSize { get; set; }
         public string Sharing { get; set; }
+        public OneDriveItemType Type { get; set; }
     }
 }

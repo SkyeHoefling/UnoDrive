@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Selectors\DriveItemTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DashboardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
