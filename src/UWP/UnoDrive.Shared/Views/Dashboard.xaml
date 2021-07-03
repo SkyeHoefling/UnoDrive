@@ -41,6 +41,7 @@
             <NavigationViewItem Icon="Save" Content="Recent" x:Name="recentFiles" />
             <NavigationViewItem Icon="Refresh" Content="Shared" x:Name="sharedFiles" />
             <NavigationViewItem Icon="Download" Content="Recycle Bin" x:Name="recycleBin" />
+            <NavigationViewItem Icon="ClosePane" Content="Sign Out" x:Name="signOut" />
         </NavigationView.MenuItems>
 
         <!-- this is included in the Winui 3 version. Let's try adding the NuGet and see if it works -->
