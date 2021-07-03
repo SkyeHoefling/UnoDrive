@@ -31,7 +31,7 @@ namespace UnoDrive.Authentication
         {
             PublicClientApp = publicClientApp;
             Logger = logger;
-            _scopes = new[] { "user.read" };
+            _scopes = new[] { "email", "Files.ReadWrite.All", "offline_access", "profile", "User.Read" };
         }
 
         public async Task<IAuthenticationResult> AcquireTokenAsync()
