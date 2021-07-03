@@ -21,17 +21,23 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid HorizontalAlignment="Center">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" VerticalAlignment="Center">
-            <TextBlock Text="Welcome to UnoDrive" FontSize="40" />
-            <TextBlock Text="Uno Platform ♥ OneDrive = UnoDrive" FontSize="24" />
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
-            <Button Content="Login to UnoDrive" FontSize="30" Padding="40, 10" Command="{Binding Login}" />
-        </StackPanel>
+    <Grid>
+        <Grid HorizontalAlignment="Center" Visibility="{Binding IsBusy, Converter={StaticResource BoolNegationToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock Text="Welcome to UnoDrive" FontSize="40" />
+                <TextBlock Text="Uno Platform ♥ OneDrive = UnoDrive" FontSize="24" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
+                <Button Content="Login to UnoDrive" FontSize="30" Padding="40, 10" Command="{Binding Login}" />
+            </StackPanel>
+        </Grid>
+        <ProgressRing
+            Width="300" Height="300"
+            IsActive="{Binding IsBusy}"
+            Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
     </Grid>
 </Page>
