@@ -32,6 +32,17 @@ namespace UnoDrive.ViewModels
         
         public void ItemClick(object sender, ItemClickEventArgs args)
         {
+	        if (args.ClickedItem is OneDriveItem driveItem)
+	        {
+		        if (driveItem.Type == OneDriveItemType.Folder)
+		        {
+			        // TODO - open folder
+		        }
+		        else
+		        {
+			        // TODO - open file
+		        }
+	        }
         }
 
         async void LoadData()
@@ -52,6 +63,7 @@ namespace UnoDrive.ViewModels
             FilesAndFolders = rootChildren
                 .Select(driveItem => new OneDriveItem
                 {
+	                Id = driveItem.Id,
                     Name = driveItem.Name,
                     FileSize = $"{driveItem.Size}",
                     Modified = driveItem.LastModifiedDateTime.HasValue ?
