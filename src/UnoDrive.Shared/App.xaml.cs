@@ -57,6 +57,7 @@ namespace UnoDrive
             services.UseAuthentication();
 
             services.AddTransient<INavigationService, NavigationService>();
+            services.AddTransient<IGraphFileService, GraphFileService>();
         }
 
         void ConfigureLogging(IServiceCollection services)

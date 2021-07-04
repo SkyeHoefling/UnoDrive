@@ -24,11 +24,11 @@
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationResult.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Mvvm\EventToCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Selectors\DriveItemTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\GraphFileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DashboardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
