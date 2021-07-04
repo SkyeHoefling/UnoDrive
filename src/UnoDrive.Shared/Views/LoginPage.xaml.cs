@@ -2,9 +2,9 @@
 
 namespace UnoDrive.Views
 {
-    public sealed partial class LoginPage : Page
-    {
-        public LoginPage() =>
-            InitializeComponent();
-    }
+	public sealed partial class LoginPage : Page
+	{
+		public LoginPage() =>
+			InitializeComponent();
+	}
 }

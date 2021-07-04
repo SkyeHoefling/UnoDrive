@@ -2,11 +2,9 @@
 
 namespace UnoDrive.Controls
 {
-    public sealed partial class HeaderControl : UserControl
-    {
-        public HeaderControl()
-        {
-            this.InitializeComponent();
-        }
-    }
+	public sealed partial class HeaderControl : UserControl
+	{
+		public HeaderControl() =>
+			this.InitializeComponent();
+	}
 }

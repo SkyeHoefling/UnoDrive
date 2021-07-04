@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -14,7 +13,7 @@ namespace UnoDrive.Services
 	{
 		Task<IEnumerable<OneDriveItem>> GetRootFiles();
 	}
-	
+
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
 	{
 		readonly GraphServiceClient graphClient;
@@ -29,7 +28,7 @@ namespace UnoDrive.Services
 			graphClient = new GraphServiceClient(httpClient);
 			graphClient.AuthenticationProvider = this;
 		}
-		
+
 		public async Task<IEnumerable<OneDriveItem>> GetRootFiles()
 		{
 			var rootChildren = await graphClient.Me.Drive.Root.Children
