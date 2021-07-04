@@ -71,7 +71,7 @@
                         Stretch="UniformToFill"
                         Source="ms-appx:///Assets/Images/folder.png"
                         Width="150" />
-                    <android:Image Source="ms-appx:///Assets/Images/folder.png" />
+                    <Image Source="ms-appx:///Assets/Images/folder.png" />
                     <TextBlock
                         Text="{x:Bind Name}"
                         HorizontalAlignment="Center"
@@ -98,7 +98,8 @@
             CanReorderItems="False"
             SelectionMode="Single"
             FlowDirection="LeftToRight"
-            HorizontalContentAlignment="Center"/>
+            HorizontalContentAlignment="Center"
+            />
     </ScrollViewer>
     
 </Page>
