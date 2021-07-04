@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using UnoDrive.ViewModels;
 
 namespace UnoDrive.Views
 {
@@ -9,5 +10,7 @@ namespace UnoDrive.Views
     {
         public MyFilesPage() =>
             this.InitializeComponent();
+
+        public MyFilesViewModel ViewModel => (MyFilesViewModel) DataContext;
     }
 }
