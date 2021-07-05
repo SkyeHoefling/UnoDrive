@@ -28,14 +28,12 @@ namespace UnoDrive.ViewModels
 			set => SetProperty(ref filesAndFolders, value);
 		}
 
-		public void ItemClick(object sender, ItemClickEventArgs args)
+		public async void ItemClick(object sender, ItemClickEventArgs args)
 		{
 			if (args.ClickedItem is OneDriveItem driveItem)
 			{
 				if (driveItem.Type == OneDriveItemType.Folder)
-				{
-					// TODO - open folder
-				}
+					FilesAndFolders = (await graphFileService.GetFiles(driveItem.Id)).ToList();
 				else
 				{
 					// TODO - open file
