@@ -13,6 +13,7 @@ namespace UnoDrive.Services
 	{
 		Task<IEnumerable<OneDriveItem>> GetRootFiles();
 		Task<IEnumerable<OneDriveItem>> GetFiles(string id);
+		Task<IEnumerable<OneDriveItem>> GetFilesByPath(string path);
 	}
 
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
@@ -42,6 +43,7 @@ namespace UnoDrive.Services
 					Id = driveItem.Id,
 					Name = driveItem.Name,
 					Path = driveItem.ParentReference.Path,
+					PathId = driveItem.ParentReference.Id,
 					FileSize = $"{driveItem.Size}",
 					Modified = driveItem.LastModifiedDateTime.HasValue ?
 						driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
@@ -63,6 +65,31 @@ namespace UnoDrive.Services
 					Id = driveItem.Id,
 					Name = driveItem.Name,
 					Path = driveItem.ParentReference.Path,
+					PathId = driveItem.ParentReference.Id,
+					FileSize = $"{driveItem.Size}",
+					Modified = driveItem.LastModifiedDateTime.HasValue ?
+						driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
+					Type = driveItem.Folder != null ? OneDriveItemType.Folder : OneDriveItemType.File
+					//ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
+					//Sharing = ""
+				});
+		}
+		
+		public async Task<IEnumerable<OneDriveItem>> GetFilesByPath(string path)
+		{
+			var children = await graphClient.Me.Drive.Root
+				.ItemWithPath(path)
+				.Children
+				.Request()
+				.GetAsync();
+
+			return children
+				.Select(driveItem => new OneDriveItem
+				{
+					Id = driveItem.Id,
+					Name = driveItem.Name,
+					Path = driveItem.ParentReference.Path,
+					PathId = driveItem.ParentReference.Id,
 					FileSize = $"{driveItem.Size}",
 					Modified = driveItem.LastModifiedDateTime.HasValue ?
 						driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
