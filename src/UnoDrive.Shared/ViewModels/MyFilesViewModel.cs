@@ -10,6 +10,7 @@ using UnoDrive.Services;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System;
+using UnoDrive.Exceptions;
 
 namespace UnoDrive.ViewModels
 {
@@ -27,7 +28,7 @@ namespace UnoDrive.ViewModels
 			Back = new AsyncRelayCommand(OnBackAsync);
 
 			FilesAndFolders = new List<OneDriveItem>();
-			LoadDataAsync();
+			LoadDataAsync(null, true);
 		}
 
 		public ICommand Forward { get; }
@@ -55,19 +56,15 @@ namespace UnoDrive.ViewModels
 			{
 				if (driveItem.Type == OneDriveItemType.Folder)
 				{
-					FilesAndFolders = (await graphFileService.GetFiles(driveItem.Id)).ToList();
-
-					var firstItem = FilesAndFolders.FirstOrDefault();
-					if (firstItem != null)
+					await LoadDataAsync(driveItem.Id);
+					location.Forward = new Location
 					{
-						location.Forward = new Location 
-						{
-							Id = firstItem.PathId,
-							Back = location
-						};
+						Id = driveItem.Id,
+						Back = location
+					};
 
-						location = location.Forward;
-					}
+					location = location.Forward;
+
 				}
 				else
 				{
@@ -95,7 +92,7 @@ namespace UnoDrive.ViewModels
 			location = location.Back;
 		}
 
-		async Task LoadDataAsync(string pathId = null)
+		async Task LoadDataAsync(string pathId = null, bool isFirstLoad = false)
 		{
 			try
 			{
@@ -106,6 +103,19 @@ namespace UnoDrive.ViewModels
 					data = await graphFileService.GetFiles(pathId, UpdateFiles);
 
 				UpdateFiles(data);
+				
+				if (isFirstLoad)
+				{
+					// Configure the root pathId on first load
+					var firstItem = FilesAndFolders.FirstOrDefault();
+					if (firstItem != null)
+						location.Id = firstItem.PathId;
+				}
+			}
+			catch (NoDataException ex)
+			{
+				// TODO - Display warning to user that the data isn't available in offline mode.
+				logger.LogError(ex, ex.Message);
 			}
 			catch (Exception ex)
 			{
@@ -114,11 +124,10 @@ namespace UnoDrive.ViewModels
 
 			void UpdateFiles(IEnumerable<OneDriveItem> files)
 			{
-				FilesAndFolders = files.ToList();
+				if (files == null)
+					return;
 
-				var firstItem = FilesAndFolders.FirstOrDefault();
-				if (firstItem != null)
-					location.Id = firstItem.PathId;
+				FilesAndFolders = files.ToList();
 			}
 		}
 	}
