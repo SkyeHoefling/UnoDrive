@@ -15,7 +15,7 @@ namespace UnoDrive.Views
 		{
 			this.InitializeComponent();
 			//contentFrame.Content = new MyFilesPage();
-			//contentFrame.NavigateToType(typeof(MyFilesPage), null);
+			contentFrame.Navigate(typeof(MyFilesPage));
 		}
 
 		async void MenuItemSelected(NavigationView sender, NavigationViewItemInvokedEventArgs args)

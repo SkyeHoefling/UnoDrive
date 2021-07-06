@@ -32,7 +32,7 @@ namespace UnoDrive.Mvvm
 			}
 		}
 
-		private static Type FindViewModel(Type viewType)
+		static Type FindViewModel(Type viewType)
 		{
 			string viewName = string.Empty;
 

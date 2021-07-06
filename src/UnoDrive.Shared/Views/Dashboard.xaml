@@ -56,9 +56,7 @@
             </Frame>
         </NavigationView.Header>
 
-        <Frame x:Name="contentFrame" Padding="15, 10">
-            <v:MyFilesPage />
-        </Frame>
+		<Frame x:Name="contentFrame" Padding="15, 10" />
 
     </NavigationView>
 </Page>
