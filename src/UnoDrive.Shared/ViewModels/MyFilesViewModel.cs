@@ -7,6 +7,9 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using UnoDrive.Data;
 using UnoDrive.Services;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace UnoDrive.ViewModels
 {
@@ -14,15 +17,17 @@ namespace UnoDrive.ViewModels
 	{
 		Location location = new Location();
 		readonly IGraphFileService graphFileService;
-		public MyFilesViewModel(IGraphFileService graphFileService)
+		readonly ILogger logger;
+		public MyFilesViewModel(IGraphFileService graphFileService, ILogger<MyFilesViewModel> logger)
 		{
 			this.graphFileService = graphFileService;
+			this.logger = logger;
 
-			Forward = new RelayCommand(OnForward);
-			Back = new RelayCommand(OnBack);
+			Forward = new AsyncRelayCommand(OnForwardAsync);
+			Back = new AsyncRelayCommand(OnBackAsync);
 
 			FilesAndFolders = new List<OneDriveItem>();
-			LoadData();
+			LoadDataAsync();
 		}
 
 		public ICommand Forward { get; }
@@ -71,31 +76,50 @@ namespace UnoDrive.ViewModels
 			}
 		}
 
-		async void OnForward()
+		async Task OnForwardAsync()
 		{
 			if (!location.CanMoveForward)
 				return;
 
-			FilesAndFolders = (await graphFileService.GetFiles(location.Forward.Id)).ToList();
+			// This doesn't appear to be working
+			await LoadDataAsync(location.Forward.Id);
 			location = location.Forward;
 		}
 
-		async void OnBack()
+		async Task OnBackAsync()
 		{
 			if (!location.CanMoveBack)
 				return;
 
-			FilesAndFolders = (await graphFileService.GetFiles(location.Back.Id)).ToList();
+			await LoadDataAsync(location.Back.Id);
 			location = location.Back;
 		}
 
-		async void LoadData()
+		async Task LoadDataAsync(string pathId = null)
 		{
-			FilesAndFolders = (await graphFileService.GetRootFiles()).ToList();
+			try
+			{
+				IEnumerable<OneDriveItem> data;
+				if (string.IsNullOrEmpty(pathId))
+					data = await graphFileService.GetRootFiles(UpdateFiles);
+				else
+					data = await graphFileService.GetFiles(pathId, UpdateFiles);
 
-			var firstItem = FilesAndFolders.FirstOrDefault();
-			if (firstItem != null)
-				location.Id = firstItem.PathId;
+				UpdateFiles(data);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex, ex.Message);
+			}
+
+			void UpdateFiles(IEnumerable<OneDriveItem> files)
+			{
+				FilesAndFolders = files.ToList();
+
+				var firstItem = FilesAndFolders.FirstOrDefault();
+				if (firstItem != null)
+					location.Id = firstItem.PathId;
+			}
 		}
 	}
 }
