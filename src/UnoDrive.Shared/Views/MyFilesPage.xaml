@@ -8,32 +8,46 @@
 	mvvm:ViewModelLocator.AutoWireViewModel="True"
 	mc:Ignorable="d">
 
-	<!-- TODO - Let's try and make the scroll viewer only appear after the location header -->
-	<ScrollViewer>
-		<StackPanel>
-			<Grid Margin="0, 0, 0, 20" ColumnSpacing="10">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition />
-				</Grid.ColumnDefinitions>
-				<StackPanel Orientation="Horizontal" Spacing="10">
-					<Button Content="Back" Command="{Binding Back}" />
-					<Button Content="Forward" Command="{Binding Forward}" />
-				</StackPanel>
-				<TextBox 
-					Grid.Column="1"
-					IsReadOnly="True"
-					IsFocusEngaged="False"
-					Text="{Binding CurrentFolderPath}"/>
-			</Grid>
-			<GridView 
-				ItemsSource="{Binding FilesAndFolders}"
-				ItemClick="{x:Bind ViewModel.ItemClick}"
-				Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolNegationToVisibilityConverter}}"/>
-			<TextBlock 
-				Text="No data found"
-				Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolToVisibilityConverter}}"/>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Margin="0, 0, 0, 20" ColumnSpacing="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10">
+				<Button Content="Back" Command="{Binding Back}" />
+				<Button Content="Forward" Command="{Binding Forward}" />
+			</StackPanel>
+			<TextBox 
+				Grid.Column="1"
+				IsReadOnly="True"
+				IsFocusEngaged="False"
+				Text="{Binding CurrentFolderPath}"/>
+		</Grid>
+		<ScrollViewer Grid.Row="1">
+			<StackPanel>
+				<GridView 
+					ItemsSource="{Binding FilesAndFolders}"
+					ItemClick="{x:Bind ViewModel.ItemClick}"
+					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolNegationToVisibilityConverter}}"/>
+				<TextBlock 
+					Text="No data found"
+					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolToVisibilityConverter}}"/>
+			</StackPanel>
+		</ScrollViewer>
+		<StackPanel 
+			Grid.Row="2" 
+			Orientation="Horizontal" 
+			Background="LightGray" 
+			Padding="15, 5"
+			Visibility="{Binding IsNetworkConnected, Converter={StaticResource BoolNegationToVisibilityConverter}}">
+			<TextBlock Text="Offline Mode - Check Network Status. Some data may not be available" />
 		</StackPanel>
-	</ScrollViewer>
+	</Grid>
 
 </Page>
