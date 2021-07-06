@@ -17,6 +17,7 @@ namespace UnoDrive.Data
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			// TODO - Get correct path for each platform.
+			// Android - add system.data
 			var local = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 			var dbPath = Path.Combine(local, "unodrive.db");
 			optionsBuilder.UseSqlite($"data source={dbPath}");

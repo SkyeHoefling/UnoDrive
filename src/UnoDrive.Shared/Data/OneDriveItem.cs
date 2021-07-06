@@ -11,6 +11,8 @@ namespace UnoDrive.Data
 
 	public class OneDriveItem
 	{
+		// Android, iOS, MacOS - https://stackoverflow.com/questions/67364599/is-not-surpported-system-componentmodel-dataannotations-in-uno-platform
+		// Add system reference to `System.ComponentModel.DataAnnotations`
 		[Key]
 		public string Id { get; set; }
 		public string Name { get; set; }
