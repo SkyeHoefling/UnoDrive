@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using UnoDrive.Data;
-using UnoDrive.Exceptions;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
@@ -45,10 +44,20 @@ namespace UnoDrive.ViewModels
 			{
 				SetProperty(ref filesAndFolders, value);
 				OnPropertyChanged(nameof(CurrentFolderPath));
+				OnPropertyChanged(nameof(IsPageEmpty));
 			}
 		}
 
+		public bool IsPageEmpty => !FilesAndFolders.Any();
+
 		public string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
+
+		string noDataMessage;
+		public string NoDataMessage
+		{
+			get => noDataMessage;
+			set => SetProperty(ref noDataMessage, value);
+		}
 
 		public async void ItemClick(object sender, ItemClickEventArgs args)
 		{
@@ -113,9 +122,12 @@ namespace UnoDrive.ViewModels
 			{
 				if (files == null)
 				{
+					NoDataMessage = "Unable to retrieve data from API, check network connection";
 					logger.LogInformation("No data retrieved from API, ensure you have a stable internet connection");
 					return;
 				}
+				else if (!files.Any())
+					NoDataMessage = "No files or folders";
 
 				FilesAndFolders = files.ToList();
 			}
