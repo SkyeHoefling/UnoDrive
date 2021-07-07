@@ -29,7 +29,7 @@
 				IsFocusEngaged="False"
 				Text="{Binding CurrentFolderPath}"/>
 		</Grid>
-		<ScrollViewer Grid.Row="1">
+		<ScrollViewer Grid.Row="1" Visibility="{Binding IsBusy, Converter={StaticResource BoolNegationToVisibilityConverter}}">
 			<StackPanel>
 				<GridView 
 					ItemsSource="{Binding FilesAndFolders}"
@@ -40,6 +40,10 @@
 					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolToVisibilityConverter}}"/>
 			</StackPanel>
 		</ScrollViewer>
+		<ProgressRing 
+			Grid.Row="1"
+			IsActive="True"
+			Visibility="{Binding IsBusy}" />
 		<StackPanel 
 			Grid.Row="2" 
 			Orientation="Horizontal" 
@@ -49,6 +53,5 @@
 			<TextBlock Text="Offline Mode - Check Network Status. Some data may not be available" />
 		</StackPanel>
 	</Grid>
-	<!--<TextBlock Text="Hello World!" />-->
 
 </Page>

@@ -14,8 +14,8 @@ namespace UnoDrive.Services
 {
 	public interface IGraphFileService
 	{
-		Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>> cachedCallback = null);
-		Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>> cachedCallback = null);
+		Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null);
+		Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null);
 	}
 
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
@@ -36,7 +36,7 @@ namespace UnoDrive.Services
 			graphClient.AuthenticationProvider = this;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>> cachedCallback = null)
+		public async Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null)
 		{
 			if (cachedCallback != null)
 			{
@@ -44,13 +44,13 @@ namespace UnoDrive.Services
 				if (!string.IsNullOrEmpty(rootId))
 				{
 					var cachedRootChildren = await GetCachedFilesAsync(rootId);
-					cachedCallback(cachedRootChildren);
+					cachedCallback(cachedRootChildren, true);
 				}
 			}
 
 			// If the response is null that means we couldn't retrieve data
 			// due to no internet connectivity
-			if (networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess)
+			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
 			var rootChildren = (await graphClient.Me.Drive.Root.Children
@@ -96,17 +96,17 @@ namespace UnoDrive.Services
 			return rootChildren;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>> cachedCallback = null)
+		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null)
 		{
 			if (cachedCallback != null)
 			{
 				var cachedChildren = await GetCachedFilesAsync(id);
-				cachedCallback(cachedChildren);
+				cachedCallback(cachedChildren, true);
 			}
 
 			// If the response is null that means we couldn't retrieve data
 			// due to no internet connectivity
-			if (networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess)
+			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
 			var children = (await graphClient.Me.Drive.Items[id].Children
