@@ -37,7 +37,7 @@
 				IsActive="{Binding IsStatusBarLoading}"
 				Visibility="{Binding IsStatusBarLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 		</Grid>
-		<ScrollViewer Grid.Row="1" Visibility="{Binding IsBusy, Converter={StaticResource BoolNegationToVisibilityConverter}}">
+		<ScrollViewer Grid.Row="1" Visibility="{Binding IsMainFrameLoading, Converter={StaticResource BoolNegationToVisibilityConverter}}">
 			<StackPanel>
 				<GridView 
 					ItemsSource="{Binding FilesAndFolders}"
@@ -52,7 +52,7 @@
 			Grid.Row="1"
 			Width="300" Height="300"
 			IsActive="True"
-			Visibility="{Binding IsBusy}" />
+			Visibility="{Binding IsMainFrameLoading}" />
 		<StackPanel 
 			Grid.Row="2" 
 			Orientation="Horizontal" 
