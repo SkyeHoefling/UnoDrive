@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Graph;
@@ -13,12 +14,16 @@ namespace UnoDrive.Services
 {
 	public interface IGraphFileService
 	{
-		Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null);
-		Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null);
+		Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
+		Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
 	}
 
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
 	{
+#if DEBUG
+		const int ApiDelayInMilliseconds = 500;
+#endif
+
 		readonly GraphServiceClient graphClient;
 		readonly INetworkConnectivityService networkConnectivity;
 		readonly CachedGraphFileService cachedService;
@@ -37,7 +42,7 @@ namespace UnoDrive.Services
 			graphClient.AuthenticationProvider = this;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null)
+		public async Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
 			if (cachedCallback != null)
 			{
@@ -56,10 +61,15 @@ namespace UnoDrive.Services
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
-			await Task.Delay(5000);
+			cancellationToken.ThrowIfCancellationRequested();
+
+#if DEBUG
+			await Task.Delay(ApiDelayInMilliseconds, cancellationToken);
+#endif
+
 			var rootChildren = (await graphClient.Me.Drive.Root.Children
 				.Request()
-				.GetAsync())
+				.GetAsync(cancellationToken))
 				.Select(driveItem => new OneDriveItem
 				{
 					Id = driveItem.Id,
@@ -76,6 +86,8 @@ namespace UnoDrive.Services
 				.OrderByDescending(item => item.Type)
 				.ThenBy(item => item.Name);
 
+			cancellationToken.ThrowIfCancellationRequested();
+
 			if (!rootChildren.Any())
 				return new OneDriveItem[0];
 
@@ -85,7 +97,7 @@ namespace UnoDrive.Services
 			return rootChildren;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null)
+		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
 			if (cachedCallback != null)
 			{
@@ -98,10 +110,15 @@ namespace UnoDrive.Services
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
-			await Task.Delay(5000);
+			cancellationToken.ThrowIfCancellationRequested();
+
+#if DEBUG
+			await Task.Delay(ApiDelayInMilliseconds, cancellationToken);
+#endif
+
 			var children = (await graphClient.Me.Drive.Items[id].Children
 				.Request()
-				.GetAsync())
+				.GetAsync(cancellationToken))
 				.Select(driveItem => new OneDriveItem
 				{
 					Id = driveItem.Id,
@@ -117,6 +134,8 @@ namespace UnoDrive.Services
 				})
 				.OrderByDescending(item => item.Type)
 				.ThenBy(item => item.Name);
+
+			cancellationToken.ThrowIfCancellationRequested();
 
 			await cachedService.SaveCachedFilesAsync(children);
 			return children;
