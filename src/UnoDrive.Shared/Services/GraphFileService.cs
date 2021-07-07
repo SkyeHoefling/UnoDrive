@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Graph;
 using UnoDrive.Data;
 using Windows.Networking.Connectivity;
-using Xamarin.Essentials;
 
 namespace UnoDrive.Services
 {
@@ -22,6 +21,7 @@ namespace UnoDrive.Services
 	{
 		readonly GraphServiceClient graphClient;
 		readonly INetworkConnectivityService networkConnectivity;
+		readonly CachedGraphFileService cachedService;
 		public GraphFileService(INetworkConnectivityService networkConnectivity)
 		{
 			this.networkConnectivity = networkConnectivity;
@@ -32,6 +32,7 @@ namespace UnoDrive.Services
 			var httpClient = new HttpClient();
 #endif
 
+			cachedService = new CachedGraphFileService();
 			graphClient = new GraphServiceClient(httpClient);
 			graphClient.AuthenticationProvider = this;
 		}
@@ -40,12 +41,14 @@ namespace UnoDrive.Services
 		{
 			if (cachedCallback != null)
 			{
-				var rootId = await GetRootId();
+				var rootId = await cachedService.GetRootId();
 				if (!string.IsNullOrEmpty(rootId))
 				{
-					var cachedRootChildren = await GetCachedFilesAsync(rootId);
+					var cachedRootChildren = await cachedService.GetCachedFilesAsync(rootId);
 					cachedCallback(cachedRootChildren, true);
 				}
+				else
+					cachedCallback(new OneDriveItem[0], true);
 			}
 
 			// If the response is null that means we couldn't retrieve data
@@ -53,6 +56,7 @@ namespace UnoDrive.Services
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
+			//await Task.Delay(5000);
 			var rootChildren = (await graphClient.Me.Drive.Root.Children
 				.Request()
 				.GetAsync())
@@ -75,23 +79,8 @@ namespace UnoDrive.Services
 			if (!rootChildren.Any())
 				return new OneDriveItem[0];
 
-			await SaveCachedFilesAsync(rootChildren);
-			using (var dbContext = new UnoDriveDbContext())
-			{
-				var findRootIdSetting = await dbContext.Settings.FindAsync("RootId");
-				if (findRootIdSetting != null)
-				{
-					findRootIdSetting.Value = rootChildren.FirstOrDefault().PathId;
-					dbContext.Settings.Update(findRootIdSetting);
-				}
-				else
-				{
-					var setting = new Setting {Key = "RootId", Value = rootChildren.FirstOrDefault().PathId};
-					await dbContext.Settings.AddAsync(setting);
-				}
-
-				await dbContext.SaveChangesAsync();
-			}
+			await cachedService.SaveCachedFilesAsync(rootChildren);
+			await cachedService.SaveRootIdAsync(rootChildren.FirstOrDefault().PathId);
 
 			return rootChildren;
 		}
@@ -100,7 +89,7 @@ namespace UnoDrive.Services
 		{
 			if (cachedCallback != null)
 			{
-				var cachedChildren = await GetCachedFilesAsync(id);
+				var cachedChildren = await cachedService.GetCachedFilesAsync(id);
 				cachedCallback(cachedChildren, true);
 			}
 
@@ -109,6 +98,7 @@ namespace UnoDrive.Services
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
+			//await Task.Delay(5000);
 			var children = (await graphClient.Me.Drive.Items[id].Children
 				.Request()
 				.GetAsync())
@@ -128,55 +118,8 @@ namespace UnoDrive.Services
 				.OrderByDescending(item => item.Type)
 				.ThenBy(item => item.Name);
 
-			await SaveCachedFilesAsync(children);
+			await cachedService.SaveCachedFilesAsync(children);
 			return children;
-		}
-
-		async Task<string> GetRootId()
-		{
-			using (var dbContext = new UnoDriveDbContext())
-			{
-				var rootId = await dbContext.Settings.FindAsync("RootId");
-				return rootId != null ? rootId.Value : string.Empty;
-			}
-		}
-
-		async Task<IEnumerable<OneDriveItem>> GetCachedFilesAsync(string pathId)
-		{
-			if (string.IsNullOrEmpty(pathId))
-				return new OneDriveItem[0];
-
-			using (var dbContext = new UnoDriveDbContext())
-			{
-				return await dbContext.OneDriveItems
-					.AsNoTracking()
-					.Where(item => item.PathId == pathId)
-					.OrderByDescending(item => item.Type)
-					.ThenBy(item => item.Name)
-					.ToArrayAsync();
-			}
-		}
-
-		async Task SaveCachedFilesAsync(IEnumerable<OneDriveItem> children)
-		{
-			// TODO - ensure stale data is removed
-			if (!children.Any())
-				return;
-
-			using (var dbContext = new UnoDriveDbContext())
-			{
-				foreach (var item in children)
-				{
-					var findItem = await dbContext.OneDriveItems.AsNoTracking()
-						.FirstOrDefaultAsync(i => i.Id == item.Id);
-					if (findItem != null)
-						dbContext.OneDriveItems.Update(item);
-					else
-						await dbContext.OneDriveItems.AddAsync(item);
-				}
-
-				await dbContext.SaveChangesAsync();
-			}
 		}
 
 		Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)
@@ -187,6 +130,76 @@ namespace UnoDrive.Services
 
 			request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 			return Task.CompletedTask;
+		}
+
+		class CachedGraphFileService
+		{
+			public async Task SaveRootIdAsync(string rootId)
+			{
+				using (var dbContext = new UnoDriveDbContext())
+				{
+					var findRootIdSetting = await dbContext.Settings.FindAsync("RootId");
+					if (findRootIdSetting != null)
+					{
+						findRootIdSetting.Value = rootId;
+						dbContext.Settings.Update(findRootIdSetting);
+					}
+					else
+					{
+						var setting = new Setting { Key = "RootId", Value = rootId };
+						await dbContext.Settings.AddAsync(setting);
+					}
+
+					await dbContext.SaveChangesAsync();
+				}
+			}
+
+			public async Task<string> GetRootId()
+			{
+				using (var dbContext = new UnoDriveDbContext())
+				{
+					var rootId = await dbContext.Settings.FindAsync("RootId");
+					return rootId != null ? rootId.Value : string.Empty;
+				}
+			}
+
+			public async Task<IEnumerable<OneDriveItem>> GetCachedFilesAsync(string pathId)
+			{
+				if (string.IsNullOrEmpty(pathId))
+					return new OneDriveItem[0];
+
+				using (var dbContext = new UnoDriveDbContext())
+				{
+					return await dbContext.OneDriveItems
+						.AsNoTracking()
+						.Where(item => item.PathId == pathId)
+						.OrderByDescending(item => item.Type)
+						.ThenBy(item => item.Name)
+						.ToArrayAsync();
+				}
+			}
+
+			public async Task SaveCachedFilesAsync(IEnumerable<OneDriveItem> children)
+			{
+				// TODO - ensure stale data is removed
+				if (!children.Any())
+					return;
+
+				using (var dbContext = new UnoDriveDbContext())
+				{
+					foreach (var item in children)
+					{
+						var findItem = await dbContext.OneDriveItems.AsNoTracking()
+							.FirstOrDefaultAsync(i => i.Id == item.Id);
+						if (findItem != null)
+							dbContext.OneDriveItems.Update(item);
+						else
+							await dbContext.OneDriveItems.AddAsync(item);
+					}
+
+					await dbContext.SaveChangesAsync();
+				}
+			}
 		}
 	}
 }
