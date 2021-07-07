@@ -18,16 +18,24 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition />
+				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10">
 				<Button Content="Back" Command="{Binding Back}" />
 				<Button Content="Forward" Command="{Binding Forward}" />
 			</StackPanel>
-			<TextBox 
+			<TextBox
 				Grid.Column="1"
+				Padding="10, 6, 36, 5"
 				IsReadOnly="True"
 				IsFocusEngaged="False"
 				Text="{Binding CurrentFolderPath}"/>
+			<ProgressRing
+				Grid.Column="1"
+				HorizontalAlignment="Right"
+				Margin="0, 0, 10, 0"
+				IsActive="{Binding IsLoading}"
+				Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 		</Grid>
 		<ScrollViewer Grid.Row="1" Visibility="{Binding IsBusy, Converter={StaticResource BoolNegationToVisibilityConverter}}">
 			<StackPanel>
@@ -42,6 +50,7 @@
 		</ScrollViewer>
 		<ProgressRing 
 			Grid.Row="1"
+			Width="300" Height="300"
 			IsActive="True"
 			Visibility="{Binding IsBusy}" />
 		<StackPanel 
