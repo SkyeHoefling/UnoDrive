@@ -4,6 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:android="http://uno.ui/android"
 	xmlns:mvvm="using:UnoDrive.Mvvm"
 	mvvm:ViewModelLocator.AutoWireViewModel="True"
 	mc:Ignorable="d">
@@ -32,6 +33,7 @@
 				Text="{Binding CurrentFolderPath}"/>
 			<ProgressRing
 				Grid.Column="1"
+				android:Width="15" android:Height="15"
 				HorizontalAlignment="Right"
 				Margin="0, 0, 10, 0"
 				IsActive="{Binding IsStatusBarLoading}"
