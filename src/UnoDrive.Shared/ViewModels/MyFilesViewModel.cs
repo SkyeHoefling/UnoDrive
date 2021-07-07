@@ -10,6 +10,7 @@ using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
+using Windows.Networking.Connectivity;
 using Windows.UI.Xaml.Controls;
 
 namespace UnoDrive.ViewModels
@@ -19,16 +20,18 @@ namespace UnoDrive.ViewModels
 		Location location = new Location();
 		readonly IGraphFileService graphFileService;
 		readonly ILogger logger;
-		public MyFilesViewModel(IGraphFileService graphFileService, ILogger<MyFilesViewModel> logger)
+		readonly INetworkConnectivityService networkConnectivity;
+		public MyFilesViewModel(IGraphFileService graphFileService, ILogger<MyFilesViewModel> logger, INetworkConnectivityService networkConnectivity)
 		{
 			this.graphFileService = graphFileService;
 			this.logger = logger;
+			this.networkConnectivity = networkConnectivity;
 
 			Forward = new AsyncRelayCommand(OnForwardAsync);
 			Back = new AsyncRelayCommand(OnBackAsync);
 
 			FilesAndFolders = new List<OneDriveItem>();
-			Xamarin.Essentials.Connectivity.ConnectivityChanged += OnConnectivityChanged;
+			this.networkConnectivity.NetworkStatusChanged += OnNetworkStatusChanged;
 		}
 
 		public ICommand Forward { get; }
@@ -53,7 +56,8 @@ namespace UnoDrive.ViewModels
 
 		public string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
 
-		public bool IsNetworkConnected => Xamarin.Essentials.Connectivity.NetworkAccess == Xamarin.Essentials.NetworkAccess.Internet;
+		public bool IsNetworkConnected =>
+			networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess;
 
 		string noDataMessage;
 		public string NoDataMessage
@@ -85,7 +89,7 @@ namespace UnoDrive.ViewModels
 			}
 		}
 
-		void OnConnectivityChanged(object sender, Xamarin.Essentials.ConnectivityChangedEventArgs e) =>
+		void OnNetworkStatusChanged(object sender) =>
 			OnPropertyChanged(nameof(IsNetworkConnected));
 
 		async Task OnForwardAsync()

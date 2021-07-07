@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Graph;
 using UnoDrive.Data;
+using Windows.Networking.Connectivity;
 using Xamarin.Essentials;
 
 namespace UnoDrive.Services
@@ -20,8 +21,11 @@ namespace UnoDrive.Services
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
 	{
 		readonly GraphServiceClient graphClient;
-		public GraphFileService()
+		readonly INetworkConnectivityService networkConnectivity;
+		public GraphFileService(INetworkConnectivityService networkConnectivity)
 		{
+			this.networkConnectivity = networkConnectivity;
+
 #if __WASM__
             var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
 #else
@@ -46,7 +50,7 @@ namespace UnoDrive.Services
 
 			// If the response is null that means we couldn't retrieve data
 			// due to no internet connectivity
-			if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+			if (networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess)
 				return null;
 
 			var rootChildren = (await graphClient.Me.Drive.Root.Children
@@ -102,7 +106,7 @@ namespace UnoDrive.Services
 
 			// If the response is null that means we couldn't retrieve data
 			// due to no internet connectivity
-			if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+			if (networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess)
 				return null;
 
 			var children = (await graphClient.Me.Drive.Items[id].Children
