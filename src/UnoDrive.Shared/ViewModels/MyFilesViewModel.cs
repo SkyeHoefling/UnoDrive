@@ -132,6 +132,7 @@ namespace UnoDrive.ViewModels
 			{
 				if (files == null)
 				{
+					// This doesn't appear to be getting triggered correctly
 					NoDataMessage = "Unable to retrieve data from API, check network connection";
 					logger.LogInformation("No data retrieved from API, ensure you have a stable internet connection");
 					return;
