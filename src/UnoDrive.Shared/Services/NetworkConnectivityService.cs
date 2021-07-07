@@ -48,6 +48,10 @@ namespace UnoDrive.Services
 
 		public event NetworkStatusChangedEventHandler NetworkStatusChanged;
 
+		// This api is invoked from a background thread.
+		// We must ensure that it is marshaled to the
+		// main UI thread as consumers will want to update
+		// the UI on network status change.
 		async void OnNetworkStatusChanged(object sender)
 		{
 			if (NetworkStatusChanged == null)
