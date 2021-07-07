@@ -32,6 +32,7 @@ namespace UnoDrive.ViewModels
 			Back = new AsyncRelayCommand(OnBackAsync);
 
 			FilesAndFolders = new List<OneDriveItem>();
+
 			this.networkConnectivity.NetworkStatusChanged += OnNetworkStatusChanged;
 		}
 
@@ -83,40 +84,46 @@ namespace UnoDrive.ViewModels
 
 		public async void ItemClick(object sender, ItemClickEventArgs args)
 		{
-			if (args.ClickedItem is OneDriveItem driveItem)
+			if (args.ClickedItem is not OneDriveItem driveItem)
+				return;
+			
+			if (driveItem.Type == OneDriveItemType.Folder)
 			{
-				if (driveItem.Type == OneDriveItemType.Folder)
+				try
 				{
 					await LoadDataAsync(driveItem.Id, () =>
-					{
-						location.Forward = new Location
-						{
-							Id = driveItem.Id,
-							Back = location
-						};
+								{
+									location.Forward = new Location
+									{
+										Id = driveItem.Id,
+										Back = location
+									};
 
-						location = location.Forward;
-					});
-
+									location = location.Forward;
+								});
 				}
-				else
+				catch (Exception ex)
 				{
-					// TODO - open file
+					logger.LogInformation(ex, ex.Message);
 				}
+			}
+			else
+			{
+				// TODO - open file
 			}
 		}
 
 		void OnNetworkStatusChanged(object sender) =>
 			OnPropertyChanged(nameof(IsNetworkConnected));
 
-		async Task OnForwardAsync()
+		Task OnForwardAsync()
 		{
 			if (!location.CanMoveForward)
-				return;
+				return Task.CompletedTask;
 
 			var forwardId = location.Forward.Id;
 			location = location.Forward;
-			await LoadDataAsync(forwardId);
+			return LoadDataAsync(forwardId);
 		}
 
 		async Task OnBackAsync()
@@ -126,7 +133,7 @@ namespace UnoDrive.ViewModels
 
 			var backId = location.Back.Id;
 			location = location.Back;
-			await LoadDataAsync(backId);
+			await LoadDataAsync(backId).ConfigureAwait(false);
 		}
 
 		CancellationTokenSource cancellationTokenSource;
@@ -142,7 +149,7 @@ namespace UnoDrive.ViewModels
 				await currentLoadDataTask.Task;
 			}
 
-			currentLoadDataTask = new TaskCompletionSource<bool>();
+			currentLoadDataTask = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 			cancellationTokenSource = new CancellationTokenSource();
 			cancellationToken = cancellationTokenSource.Token;
 
@@ -169,7 +176,6 @@ namespace UnoDrive.ViewModels
 			}
 			finally
 			{
-				cancellationTokenSource.Dispose();
 				cancellationTokenSource = default;
 				cancellationToken = default;
 
