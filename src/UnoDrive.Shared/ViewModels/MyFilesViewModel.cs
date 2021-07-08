@@ -33,6 +33,7 @@ namespace UnoDrive.ViewModels
 
 			FilesAndFolders = new List<OneDriveItem>();
 
+			// TODO - Add weak event handler from WCT
 			this.networkConnectivity.NetworkStatusChanged += OnNetworkStatusChanged;
 		}
 
@@ -84,7 +85,8 @@ namespace UnoDrive.ViewModels
 
 		public async void ItemClick(object sender, ItemClickEventArgs args)
 		{
-			if (args.ClickedItem is not OneDriveItem driveItem)
+			// TODO - Enable C# 9 for all projects
+			if (!(args.ClickedItem is OneDriveItem driveItem))
 				return;
 			
 			if (driveItem.Type == OneDriveItemType.Folder)
@@ -92,19 +94,19 @@ namespace UnoDrive.ViewModels
 				try
 				{
 					await LoadDataAsync(driveItem.Id, () =>
-								{
-									location.Forward = new Location
-									{
-										Id = driveItem.Id,
-										Back = location
-									};
+					{
+						location.Forward = new Location
+						{
+							Id = driveItem.Id,
+							Back = location
+						};
 
-									location = location.Forward;
-								});
+						location = location.Forward;
+					});
 				}
 				catch (Exception ex)
 				{
-					logger.LogInformation(ex, ex.Message);
+					logger.LogError(ex, ex.Message);
 				}
 			}
 			else
@@ -126,14 +128,14 @@ namespace UnoDrive.ViewModels
 			return LoadDataAsync(forwardId);
 		}
 
-		async Task OnBackAsync()
+		Task OnBackAsync()
 		{
 			if (!location.CanMoveBack)
-				return;
+				return Task.CompletedTask;
 
 			var backId = location.Back.Id;
 			location = location.Back;
-			await LoadDataAsync(backId).ConfigureAwait(false);
+			return LoadDataAsync(backId);
 		}
 
 		CancellationTokenSource cancellationTokenSource;
