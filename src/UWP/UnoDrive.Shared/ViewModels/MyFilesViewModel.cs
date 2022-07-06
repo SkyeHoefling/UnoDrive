@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -63,9 +64,23 @@ namespace UnoDrive.ViewModels
             var graphClient = new GraphServiceClient(httpClient);
             graphClient.AuthenticationProvider = this;
 
-            var data = await graphClient.Drives
+            var rootChildren = await graphClient.Me.Drive.Root.Children
                 .Request()
                 .GetAsync();
+
+            FilesAndFolders.Clear();
+            foreach (var driveItem in rootChildren)
+            {
+                FilesAndFolders.Add(new OneDriveItem
+                {
+                    Name = driveItem.Name,
+                    FileSize = $"{driveItem.Size}",
+                    Modified = driveItem.LastModifiedDateTime.HasValue ?
+                        driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
+                    ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
+                    Sharing = ""
+                });
+            }
         }
 
         public Task AuthenticateRequestAsync(HttpRequestMessage request)
