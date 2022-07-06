@@ -9,16 +9,16 @@
     xmlns:android="http://uno.ui/android"
     xmlns:ios="http://uno.ui/ios"
     xmlns:wasm="http://uno.ui/wasm"
+	xmlns:not_ios="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:skia="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:c="using:UnoDrive.Controls"
-    mc:Ignorable="d android ios wasm">
+    mc:Ignorable="d android ios wasm not_ios">
 
 	<NavigationView 
 		x:Name="menu"
 		IsBackButtonVisible="Collapsed"
-		win:IsPaneOpen="False"
-		win:PaneDisplayMode="Left"
-		wasm:IsPaneOpen="False"
+		IsPaneOpen="False"
+		not_ios:PaneDisplayMode="Left"
 		wasm:PaneDisplayMode="Left"
 		android:PaneDisplayMode="LeftMinimal"
 		ios:PaneDisplayMode="LeftMinimal"
