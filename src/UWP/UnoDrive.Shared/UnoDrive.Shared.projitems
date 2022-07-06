@@ -53,6 +53,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Assets\README.md" />
     <None Include="$(MSBuildThisFileDirectory)Assets\SharedAssets.md" />
   </ItemGroup>
   <ItemGroup>
@@ -103,5 +104,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-125.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-150.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-300.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-125.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-150.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-300.png" />
   </ItemGroup>
 </Project>

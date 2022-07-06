@@ -77,8 +77,9 @@ namespace UnoDrive.ViewModels
                     FileSize = $"{driveItem.Size}",
                     Modified = driveItem.LastModifiedDateTime.HasValue ?
                         driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
-                    ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
-                    Sharing = ""
+                    Type = driveItem.Folder != null ? OneDriveItemType.Folder : OneDriveItemType.File
+                    //ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
+                    //Sharing = ""
                 });
             }
         }
