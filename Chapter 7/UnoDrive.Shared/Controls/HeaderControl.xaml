@@ -10,7 +10,7 @@
 	xmlns:macos="http://uno.ui/macos"
 	xmlns:ios="http://uno.ui/ios"
 	xmlns:skia="http://uno.ui/skia"
-    mc:Ignorable="d android wasm macos ios">
+    mc:Ignorable="d android wasm macos ios skia">
 
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -48,7 +48,7 @@
 						Margin="5, 2">
 
 						<FontIcon
-							FontFamily="Segoe MDL2 Assets"
+							FontFamily="{StaticResource SegoeMDL2Assets}" 
 							Glyph="&#xE109;"
 							win:FontSize="14"
 							skia:FontSize="14"
@@ -78,7 +78,7 @@
 						Margin="5, 2">
 						
 						<FontIcon
-							FontFamily="Segoe MDL2 Assets"
+							FontFamily="{StaticResource SegoeMDL2Assets}" 
 							Glyph="&#xE11C;"
 							win:FontSize="14"
 							wasm:FontSize="14"

@@ -10,7 +10,7 @@
 	xmlns:macos="http://uno.ui/macos"
 	xmlns:ios="http://uno.ui/ios"
 	xmlns:skia="http://uno.ui/skia"
-    mc:Ignorable="d android wasm macos ios">
+    mc:Ignorable="d android wasm macos ios skia">
 
 	<Grid>
 		<Grid.ColumnDefinitions>
