@@ -18,7 +18,7 @@ namespace UnoDrive.Services
 			{
 				// WORKAROUND - network profile is always null in Skia Linux. Once https://github.com/unoplatform/uno/pull/8621 is merged this can be removed
 				// WORKAROUND - network profile is always 'InternetAccess' in WASM windows
-#if __WASM__ || (HAS_UNO_SKIA && !HAS_UNO_SKIA_WPF)
+#if HAS_UNO_SKIA && !HAS_UNO_SKIA_WPF
 				try
 				{
 					using (var ping = new System.Net.NetworkInformation.Ping())
