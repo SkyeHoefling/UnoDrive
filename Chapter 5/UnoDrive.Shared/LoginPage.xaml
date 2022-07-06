@@ -30,6 +30,7 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
 			<TextBlock
+				x:Name="header"
 				win:Text="Hello from Windows"
 				android:Text="Hello from Android"
 				ios:Text="Hello from iOS"

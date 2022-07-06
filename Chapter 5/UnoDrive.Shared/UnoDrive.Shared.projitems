@@ -18,6 +18,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)LoginPage.android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoginPage.ios.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoginPage.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoginPage.skia.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoginPage.wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoginPage.windows.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

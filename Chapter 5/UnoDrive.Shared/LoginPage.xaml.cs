@@ -7,6 +7,11 @@ namespace UnoDrive
         public LoginPage()
         {
             this.InitializeComponent();
+
+			// If you want to use platform specific C# uncomment the code below
+			//SetHeaderText();
 		}
+
+		partial void SetHeaderText();
     }
 }
