@@ -63,6 +63,11 @@ namespace UnoDrive
             {
                 builder
                     .ClearProviders()
+#if __WASM__
+                    .AddProvider(new global::Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider())
+#elif __IOS__
+                    .AddProvider(new global::Uno.Extensions.Logging.OSLogLoggerProvider())
+#endif
 #if DEBUG
                     .AddFilter("UnoDrive", LogLevel.Information)
 #else

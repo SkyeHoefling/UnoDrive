@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using Uno.UI.MSAL;
 using Xamarin.Essentials;
@@ -50,19 +49,14 @@ namespace UnoDrive.Authentication
                     .AcquireTokenInteractive(_scopes)
                     .WithUnoHelpers()
                     .ExecuteAsync();
-
-                Console.WriteLine("Complete");
-                Console.WriteLine(authResult.AccessToken);
             }
             catch (MsalException ex)
             {
-                Console.WriteLine(ex);
                 Logger.LogError(ex, ex.Message);
                 message = ex.Message;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
                 Logger.LogError(ex, ex.Message);
                 message = "Unable to sign-in, try again";
             }

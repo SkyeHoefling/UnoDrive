@@ -48,7 +48,6 @@ namespace UnoDrive.ViewModels
         {
             IsBusy = true;
 
-            Console.WriteLine("Test");
             logger.LogInformation("Login tapped/clicked");
 
             try
