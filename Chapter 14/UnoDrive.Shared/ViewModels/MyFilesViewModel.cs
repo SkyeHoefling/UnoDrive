@@ -56,7 +56,11 @@ namespace UnoDrive.ViewModels
 		public bool IsStatusBarLoading
 		{
 			get => isStatusBarLoading;
-			set => SetProperty(ref isStatusBarLoading, value);
+			set
+			{
+				SetProperty(ref isStatusBarLoading, value);
+				OnPropertyChanged(nameof(IsPageEmpty));
+			}
 		}
 
 		async Task LoadDataAsync(string pathId = null)
