@@ -25,8 +25,14 @@ namespace UnoDrive.ViewModels
 		public List<OneDriveItem> FilesAndFolders
 		{
 			get => filesAndFolders;
-			set => SetProperty(ref filesAndFolders, value);
+			set
+			{
+				SetProperty(ref filesAndFolders, value);
+				OnPropertyChanged(nameof(CurrentFolderPath));
+			}
 		}
+
+		public string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
 
 		public async void ItemClick(object sender, ItemClickEventArgs args)
 		{

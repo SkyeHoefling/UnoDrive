@@ -41,6 +41,7 @@ namespace UnoDrive.Services
 				{
 					Id = driveItem.Id,
 					Name = driveItem.Name,
+					Path = driveItem.ParentReference.Path,
 					FileSize = $"{driveItem.Size}",
 					Modified = driveItem.LastModifiedDateTime.HasValue ?
 						driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
@@ -55,12 +56,13 @@ namespace UnoDrive.Services
 			var children = await graphClient.Me.Drive.Items[id].Children
 				.Request()
 				.GetAsync();
-			
+
 			return children
 				.Select(driveItem => new OneDriveItem
 				{
 					Id = driveItem.Id,
 					Name = driveItem.Name,
+					Path = driveItem.ParentReference.Path,
 					FileSize = $"{driveItem.Size}",
 					Modified = driveItem.LastModifiedDateTime.HasValue ?
 						driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,

@@ -7,11 +7,28 @@
 	    xmlns:mvvm="using:UnoDrive.Mvvm"
 	    mvvm:ViewModelLocator.AutoWireViewModel="True"
 	    mc:Ignorable="d">
-		
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <GridView 
-	        ItemsSource="{Binding FilesAndFolders}"
-            ItemClick="{x:Bind ViewModel.ItemClick}" />
-    </ScrollViewer>
-    
+
+	<StackPanel>
+		<Grid Margin="0, 0, 0, 20" ColumnSpacing="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<StackPanel Orientation="Horizontal" Spacing="10">
+				<Button Content="Back" />
+				<Button Content="Forward" />
+			</StackPanel>
+			<TextBox 
+				Grid.Column="1"
+				IsReadOnly="True"
+				IsFocusEngaged="False"
+				Text="{Binding CurrentFolderPath}"/>
+		</Grid>
+		<ScrollViewer VerticalScrollBarVisibility="Auto">
+			<GridView 
+				ItemsSource="{Binding FilesAndFolders}"
+				ItemClick="{x:Bind ViewModel.ItemClick}" />
+		</ScrollViewer>
+	</StackPanel>
+
 </Page>
