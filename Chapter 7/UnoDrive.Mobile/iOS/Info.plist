@@ -53,5 +53,10 @@
 	<string>{320, 568}</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+    <key>UIAppFonts</key>
+    <array>
+      <string>Fonts/uno-fluentui-assets.ttf</string>
+      <string>Fonts/SegMDL2.ttf</string>
+    </array>
 </dict>
 </plist>
