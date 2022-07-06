@@ -30,7 +30,7 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
 			<TextBlock
-				win:Text="Hello from UWP"
+				win:Text="Hello from Windows"
 				ios:Text="Hello from iOS"
 				macos:Text="Hello from macOS"
 				Style="{StaticResource Header}" />
