@@ -34,7 +34,7 @@ namespace UnoDrive.ViewModels
 
 			FilesAndFolders = new List<OneDriveItem>();
 
-			
+
 		}
 
 		public ICommand Forward { get; }
@@ -88,7 +88,7 @@ namespace UnoDrive.ViewModels
 			// TODO - Enable C# 9 for all projects
 			if (!(args.ClickedItem is OneDriveItem driveItem))
 				return;
-			
+
 			if (driveItem.Type == OneDriveItemType.Folder)
 			{
 				try
