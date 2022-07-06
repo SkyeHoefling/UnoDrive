@@ -162,7 +162,9 @@ namespace UnoDrive.Services
 
 
 
-#if __UNO_DRIVE_WINDOWS__ || __ANDROID__ || __IOS__ || __MACOS__
+					// If thumbnails aren't loading using thed Uri code path, try
+					// using the fallback strategy with the MemoryStream
+#if __UNO_DRIVE_WINDOWS__ || __ANDROID__ || __IOS__
 					var image = new BitmapImage(new Uri(localFilePath));
 #else
 					var image = new BitmapImage();
