@@ -49,5 +49,6 @@
 			<TextBlock Text="Offline Mode - Check Network Status. Some data may not be available" />
 		</StackPanel>
 	</Grid>
+	<!--<TextBlock Text="Hello World!" />-->
 
 </Page>

@@ -3,6 +3,7 @@ using UnoDrive.Services;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Uno.Extensions;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace UnoDrive.Views
 {
@@ -15,7 +16,7 @@ namespace UnoDrive.Views
 		{
 			this.InitializeComponent();
 			//contentFrame.Content = new MyFilesPage();
-			contentFrame.Navigate(typeof(MyFilesPage));
+			contentFrame.Navigate(typeof(MyFilesPage), null, new SuppressNavigationTransitionInfo());
 		}
 
 		async void MenuItemSelected(NavigationView sender, NavigationViewItemInvokedEventArgs args)

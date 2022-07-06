@@ -19,7 +19,6 @@ namespace UnoDrive.Views
 		{
 			base.OnNavigatedTo(e);
 
-			// TODO - This is not executing on Android
 			if (ViewModel is IInitialize initializeViewModel)
 				await initializeViewModel.InitializeAsync();
 		}

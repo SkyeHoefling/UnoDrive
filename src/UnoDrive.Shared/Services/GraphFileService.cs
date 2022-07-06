@@ -46,7 +46,7 @@ namespace UnoDrive.Services
 
 			// If the response is null that means we couldn't retrieve data
 			// due to no internet connectivity
-			if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+			if (Connectivity.NetworkAccess == NetworkAccess.Internet)
 				return null;
 
 			var rootChildren = (await graphClient.Me.Drive.Root.Children
@@ -102,7 +102,7 @@ namespace UnoDrive.Services
 
 			// If the response is null that means we couldn't retrieve data
 			// due to no internet connectivity
-			if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+			if (Connectivity.NetworkAccess == NetworkAccess.Internet)
 				return null;
 
 			var children = (await graphClient.Me.Drive.Items[id].Children
@@ -155,6 +155,7 @@ namespace UnoDrive.Services
 
 		async Task SaveCachedFilesAsync(IEnumerable<OneDriveItem> children)
 		{
+			// TODO - ensure stale data is removed
 			if (!children.Any())
 				return;
 
