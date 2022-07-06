@@ -120,21 +120,51 @@
     <PackageReference Include="Uno.Extensions.Logging.OSLog " Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Contents.json" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon20.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon29.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon40.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon58.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon60.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon76.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon80.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon87.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon120.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon152.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon167.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon180.png" />
-    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon1024.png" />
-    <ImageAsset Include="Media.xcassets\LaunchImages.launchimage\Contents.json" />
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon20.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon29.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon58.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon76.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon87.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon152.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon167.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Icon1024.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
