@@ -27,7 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\Setting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\UnoDriveDbContext.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NoDataException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\IInitialize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />

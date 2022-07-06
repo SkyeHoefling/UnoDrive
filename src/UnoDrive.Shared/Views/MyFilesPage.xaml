@@ -28,7 +28,11 @@
 			</Grid>
 			<GridView 
 				ItemsSource="{Binding FilesAndFolders}"
-				ItemClick="{x:Bind ViewModel.ItemClick}" />
+				ItemClick="{x:Bind ViewModel.ItemClick}"
+				Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolNegationToVisibilityConverter}}"/>
+			<TextBlock 
+				Text="No data found"
+				Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolToVisibilityConverter}}"/>
 		</StackPanel>
 	</ScrollViewer>
 
