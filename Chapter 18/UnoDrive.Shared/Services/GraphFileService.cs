@@ -202,13 +202,11 @@ namespace UnoDrive.Services
 						System.IO.File.Delete(localFilePath);
 
 
-
+					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync();
 
 #if HAS_UNO_SKIA_WPF
-					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync();
 					System.IO.File.WriteAllBytes(localFilePath, bytes);
 #else
-					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync();
 					await System.IO.File.WriteAllBytesAsync(localFilePath, bytes, cancellationToken);
 #endif
 
