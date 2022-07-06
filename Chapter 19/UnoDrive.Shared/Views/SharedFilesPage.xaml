@@ -10,7 +10,7 @@
 	xmlns:skia="http://uno.ui/skia"
     mc:Ignorable="d skia">
 
-	<Grid>
+	<Grid x:Name="rootGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
@@ -51,7 +51,7 @@
 				Visibility="{Binding IsStatusBarLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 		</Grid>
 
-		<ScrollViewer Grid.Row="1">
+		<ScrollViewer x:Name="scrollViewer" Grid.Row="1">
 			<StackPanel>
 				<GridView
 					ItemsSource="{Binding FilesAndFolders}"

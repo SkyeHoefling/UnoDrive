@@ -10,10 +10,10 @@
 	xmlns:skia="http://uno.ui/skia"
     mc:Ignorable="d skia">
 
-	<Grid>
+	<Grid x:Name="rootGrid">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
+			<RowDefinition x:Name="scollableRow" Height="*" />
 		</Grid.RowDefinitions>
 
 		<Grid Grid.Row="0" Margin="0, 0, 0, 20">
@@ -57,24 +57,28 @@
 				Visibility="{Binding IsStatusBarLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 		</Grid>
 
-		<ScrollViewer Grid.Row="1">
-			<StackPanel>
-				<GridView
+		<StackPanel Grid.Row="1">
+			<ScrollViewer x:Name="scrollViewer">
+				<StackPanel>
+					<GridView
 					ItemsSource="{Binding FilesAndFolders}"
 					ItemClick="{x:Bind ViewModel.OnItemClick}"
-					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolNegationToVisibilityConverter}}" />
+					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolNegationToVisibilityConverter}}"
+					ScrollViewer.VerticalScrollMode="Enabled"
+					ScrollViewer.VerticalScrollBarVisibility="Visible"
+					ScrollViewer.HorizontalScrollMode="Disabled"/>
 
-				<TextBlock
+					<TextBlock
 					Text="No data found"
 					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-				<not_skia:ProgressRing
+					<not_skia:ProgressRing
 					Width="300"
 					Height="300"
 					IsActive="{Binding IsMainContentLoading}"
 					Visibility="{Binding IsMainContentLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
-				
-				<skia:TextBlock
+
+					<skia:TextBlock
 					Text="Loading . . ."
 					FontSize="40"
 					Foreground="Black"
@@ -82,8 +86,10 @@
 					VerticalAlignment="Center"
 					Visibility="{Binding IsMainContentLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-			</StackPanel>
-		</ScrollViewer>
+				</StackPanel>
+			</ScrollViewer>
+		</StackPanel>
+		
 
 	</Grid>
 	
