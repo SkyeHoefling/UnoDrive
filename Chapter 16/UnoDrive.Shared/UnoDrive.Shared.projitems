@@ -34,6 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Folder.android.ios.macos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItem.android.ios.macos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItemCollection.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Selectors\OneDriveItemTemplateSelector.cs" />
     <Compile Include="..\UnoDrive.Shared\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItemType.cs" />
@@ -154,6 +155,11 @@
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-125.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-150.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-300.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-125.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-150.png" />
