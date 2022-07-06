@@ -41,7 +41,8 @@
 		<StackPanel Grid.Row="0" Grid.RowSpan="2">
 			<Button 
 				Content="Login to UnoDrive"
-				Style="{StaticResource LoginButton}" />
+				Style="{StaticResource LoginButton}"
+				Click="OnLoginClick"/>
 		</StackPanel>
 	</Grid>
 
