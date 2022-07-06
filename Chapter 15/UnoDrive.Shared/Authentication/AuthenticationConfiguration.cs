@@ -26,7 +26,7 @@ namespace UnoDrive.Authentication
 #endif
 
 #if __IOS__ || __MACOS__
-			builder.WithIosKeychainSecurityGroup("com.HoeflingSoftware.UnoWinUI");
+			builder.WithIosKeychainSecurityGroup("com.AndrewHoefling.UnoDrive");
 #endif
 
 			services.AddSingleton(builder.Build());
