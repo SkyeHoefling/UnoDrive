@@ -26,7 +26,8 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
 			<TextBlock 
-				Text="Welcom to UnoDrive!" 
+				x:Name="header"
+				Text="Welcome to UnoDrive!" 
 				Style="{StaticResource Header}" />
 			<TextBlock 
 				Text="Uno Platform ♥ OneDrive = UnoDrive" 
