@@ -16,11 +16,13 @@
 	<NavigationView 
 		x:Name="menu"
 		IsBackButtonVisible="Collapsed"
-		IsPaneOpen="False"
-		PaneDisplayMode="Left"
-		IsPaneToggleButtonVisible="False"
+		win:IsPaneOpen="False"
+		win:PaneDisplayMode="Left"
+		wasm:IsPaneOpen="False"
+		wasm:PaneDisplayMode="Left"
 		android:PaneDisplayMode="LeftMinimal"
 		ios:PaneDisplayMode="LeftMinimal"
+		IsPaneToggleButtonVisible="False"
 		IsSettingsVisible="False"
 		ItemInvoked="MenuItemSelected">
 
