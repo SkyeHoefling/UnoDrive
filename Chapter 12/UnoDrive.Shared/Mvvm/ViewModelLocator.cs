@@ -21,7 +21,7 @@ namespace UnoDrive.Mvvm
 
 		static void AutoWireViewModelChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
 		{
-			if ((bool)args.NewValue)
+			if (args.NewValue is bool autoWireEnabled && autoWireEnabled)
 			{
 				Bind(dependencyObject);
 			}
