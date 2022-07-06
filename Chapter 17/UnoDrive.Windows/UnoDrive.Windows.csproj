@@ -32,7 +32,7 @@
 		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 		<PackageReference Include="Microsoft.Identity.Client" Version="4.45.0" />
 		<PackageReference Include="Microsoft.Graph" Version="4.32.0" />
-		<PackageReference Include="Uno.WinUI.MSAL" Version="4.3.8" />
+		<PackageReference Include="Uno.WinUI.MSAL" Version="4.4.13" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 

@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>UnoDrive</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.UnoDrive</string>
+	<string>com.HoeflingSoftware.UnoDrive</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -37,11 +37,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Fonts/uno-fluentui-assets.ttf</string>
-		<string>Fonts/MaterialIcons-Regular.ttf</string>
-	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UILaunchImageMinimumOSVersion</key>
@@ -55,7 +50,7 @@
     <key>UIAppFonts</key>
     <array>
       <string>Fonts/uno-fluentui-assets.ttf</string>
-      <string>Fonts/SegMDL2.ttf</string>
+      <string>Fonts/MaterialIcons-Regular.ttf</string>
     </array>
 </dict>
 </plist>
