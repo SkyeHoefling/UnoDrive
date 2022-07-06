@@ -73,6 +73,13 @@ namespace UnoDrive.ViewModels
 			set => SetProperty(ref isBusy, value);
 		}
 
+		bool isLoading;
+		public bool IsLoading
+		{
+			get => isLoading;
+			set => SetProperty(ref isLoading, value);
+		}
+
 		public async void ItemClick(object sender, ItemClickEventArgs args)
 		{
 			if (args.ClickedItem is OneDriveItem driveItem)
@@ -120,10 +127,10 @@ namespace UnoDrive.ViewModels
 
 		async Task LoadDataAsync(string pathId = null)
 		{
-			// TODO - Test IsBusy logic by adding a task delay
+			// TODO - add task cancellation when the user quickly navigates between pages
 			try
 			{
-				IsBusy = true;
+				IsLoading = true;
 
 				IEnumerable<OneDriveItem> data;
 				if (string.IsNullOrEmpty(pathId))
@@ -140,6 +147,7 @@ namespace UnoDrive.ViewModels
 			finally
 			{
 				IsBusy = false;
+				IsLoading = false;
 			}
 
 			void UpdateFiles(IEnumerable<OneDriveItem> files, bool isCached = false)
@@ -152,12 +160,14 @@ namespace UnoDrive.ViewModels
 					return;
 				}
 				else if (!files.Any())
+				{
+					IsBusy = true;
 					NoDataMessage = "No files or folders";
+				}
 
+				// TODO - The screen flashes briefly when loading the
+				// data from the API
 				FilesAndFolders = files.ToList();
-
-				if (files.Any() && isCached)
-					IsBusy = false;
 			}
 		}
 

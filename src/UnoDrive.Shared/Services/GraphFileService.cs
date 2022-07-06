@@ -56,7 +56,7 @@ namespace UnoDrive.Services
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
-			//await Task.Delay(5000);
+			await Task.Delay(5000);
 			var rootChildren = (await graphClient.Me.Drive.Root.Children
 				.Request()
 				.GetAsync())
@@ -98,7 +98,7 @@ namespace UnoDrive.Services
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 				return null;
 
-			//await Task.Delay(5000);
+			await Task.Delay(5000);
 			var children = (await graphClient.Me.Drive.Items[id].Children
 				.Request()
 				.GetAsync())
