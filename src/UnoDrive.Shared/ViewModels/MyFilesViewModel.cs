@@ -28,6 +28,7 @@ namespace UnoDrive.ViewModels
 			Back = new AsyncRelayCommand(OnBackAsync);
 
 			FilesAndFolders = new List<OneDriveItem>();
+			Xamarin.Essentials.Connectivity.ConnectivityChanged += OnConnectivityChanged;
 		}
 
 		public ICommand Forward { get; }
@@ -51,6 +52,8 @@ namespace UnoDrive.ViewModels
 		public bool IsPageEmpty => !FilesAndFolders.Any();
 
 		public string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
+
+		public bool IsNetworkConnected => Xamarin.Essentials.Connectivity.NetworkAccess == Xamarin.Essentials.NetworkAccess.Internet;
 
 		string noDataMessage;
 		public string NoDataMessage
@@ -81,6 +84,9 @@ namespace UnoDrive.ViewModels
 				}
 			}
 		}
+
+		void OnConnectivityChanged(object sender, Xamarin.Essentials.ConnectivityChangedEventArgs e) =>
+			OnPropertyChanged(nameof(IsNetworkConnected));
 
 		async Task OnForwardAsync()
 		{
