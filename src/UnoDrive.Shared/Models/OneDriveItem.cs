@@ -10,6 +10,7 @@ namespace UnoDrive.Models
 
 	public class OneDriveItem
 	{
+		public string Id { get; set; }
 		public string Name { get; set; }
 		public DateTime Modified { get; set; }
 		public string ModifiedBy { get; set; }
