@@ -80,7 +80,9 @@
 			macos:Margin="0, 30, 0, 0"
 			Padding="15, 10" 
 			Spacing="10">
-			<c:HeaderControl android:Padding="30, 0, 0, 0" />
+			<c:HeaderControl
+				android:Padding="30, 0, 0, 0"
+				ios:Padding="30, 0, 0, 0" />
 			<Frame x:Name="contentFrame" />
 		</StackPanel>
 

@@ -52,7 +52,7 @@
 							wasm:FontSize="14"
 							android:FontSize="10"
 							macos:FontSize="14"
-							ios:FontSize="14"/>
+							ios:FontSize="8"/>
 
 						<TextBlock
 							Text="New"
@@ -60,7 +60,7 @@
 							wasm:FontSize="16"
 							android:FontSize="12"
 							macos:FontSize="16"
-							ios:FontSize="16" />
+							ios:FontSize="10" />
 						
 					</StackPanel>
 				</Button.Content>
@@ -80,7 +80,7 @@
 							wasm:FontSize="14"
 							android:FontSize="10"
 							macos:FontSize="14"
-							ios:FontSize="14" />
+							ios:FontSize="8" />
 						
 						<TextBlock
 							Text="Upload"
@@ -88,7 +88,7 @@
 							wasm:FontSize="16"
 							android:FontSize="12"
 							macos:FontSize="16"
-							ios:FontSize="16" />
+							ios:FontSize="10" />
 						
 					</StackPanel>
 				</Button.Content>
