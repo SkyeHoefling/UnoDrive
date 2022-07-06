@@ -33,9 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\RecentFilesPage.xaml.cs">
       <DependentUpon>RecentFilesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\RecycleBinPage.xaml.cs">
-      <DependentUpon>RecycleBinPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SharedFilesPage.xaml.cs">
       <DependentUpon>SharedFilesPage.xaml</DependentUpon>
     </Compile>
@@ -82,10 +79,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\RecentFilesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\RecycleBinPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

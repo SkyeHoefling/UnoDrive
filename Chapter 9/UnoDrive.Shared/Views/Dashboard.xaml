@@ -73,10 +73,6 @@
 				Icon="Refresh" 
 				Content="Shared"  />
 			<NavigationViewItem 
-				x:Name="recycleBin" 
-				Icon="Download" 
-				Content="Recycle Bin"  />
-			<NavigationViewItem 
 				x:Name="signOut" 
 				Icon="ClosePane" 
 				Content="Sign Out"  />

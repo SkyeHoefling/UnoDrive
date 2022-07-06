@@ -50,8 +50,6 @@ namespace UnoDrive.Views
 				pageType = typeof(RecentFilesPage);
 			else if (sharedFiles == args.InvokedItemContainer)
 				pageType = typeof(SharedFilesPage);
-			else if (recycleBin == args.InvokedItemContainer)
-				pageType = typeof(RecycleBinPage);
 
 			contentFrame.Navigate(pageType, null, new CommonNavigationTransitionInfo());
 		}
