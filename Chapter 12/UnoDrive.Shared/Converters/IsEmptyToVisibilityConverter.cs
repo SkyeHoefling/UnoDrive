@@ -15,6 +15,6 @@ namespace UnoDrive.Converters
 			return string.IsNullOrEmpty(message) ? IsEmpty : IsNotEmpty;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
+		public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotSupportedException();
 	}
 }
