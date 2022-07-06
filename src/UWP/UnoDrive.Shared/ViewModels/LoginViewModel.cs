@@ -52,7 +52,7 @@ namespace UnoDrive.ViewModels
 
             try
             {
-                var token = await authentication.AcquireInteractiveTokenAsync();
+                var token = await authentication.AcquireTokenAsync();
                 ProcessAuthToken(token);
             }
             catch (Exception ex)

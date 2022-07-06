@@ -16,8 +16,7 @@ namespace UnoDrive.Authentication
 {
     public interface IAuthenticationService
     {
-        Task<IAuthenticationResult> AcquireSilentTokenAsync();
-        Task<IAuthenticationResult> AcquireInteractiveTokenAsync();
+        Task<IAuthenticationResult> AcquireTokenAsync();
         Task SignOutAsync();
     }
 
@@ -35,7 +34,16 @@ namespace UnoDrive.Authentication
             _scopes = new[] { "user.read" };
         }
 
-        public async Task<IAuthenticationResult> AcquireInteractiveTokenAsync()
+        public async Task<IAuthenticationResult> AcquireTokenAsync()
+        {
+            var token = await AcquireSilentTokenAsync();
+            if (token == null || !token.IsSuccess)
+                token = await AcquireInteractiveTokenAsync();
+
+            return token;
+        }
+
+        async Task<IAuthenticationResult> AcquireInteractiveTokenAsync()
         {
             string message = string.Empty;
             MsalAuthenticationResult authResult = null;
@@ -81,8 +89,12 @@ namespace UnoDrive.Authentication
         // This won't work on all platforms and we will need to test it.
         // We may need to store the refresh token in a sqlite database and manually
         // request a new token
-        public async Task<IAuthenticationResult> AcquireSilentTokenAsync()
+        async Task<IAuthenticationResult> AcquireSilentTokenAsync()
         {
+            // In WPF/WASM the cache does not work correctly. If we want to leverage
+            // a refresh token we will need to manually store it and invoke the
+            // API via HttpClient.
+
             string message = string.Empty;
             MsalAuthenticationResult msalAuthResult = null;
 
