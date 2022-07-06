@@ -1,20 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.Extensions.Logging;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace UnoDrive
 {
@@ -23,12 +13,7 @@ namespace UnoDrive
     /// </summary>
     public sealed partial class App : Application
     {
-#if NET5_0 && WINDOWS
         private Window _window;
-
-#else
-        private Windows.UI.Xaml.Window _window;
-#endif
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -49,8 +34,8 @@ namespace UnoDrive
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        /// <param name="args">Details about the launch request and process.</param>
+        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -59,11 +44,11 @@ namespace UnoDrive
             }
 #endif
 
-#if NET5_0 && WINDOWS
+#if NET6_0_OR_GREATER && WINDOWS
             _window = new Window();
             _window.Activate();
 #else
-            _window = Windows.UI.Xaml.Window.Current;
+			_window = Microsoft.UI.Xaml.Window.Current;
 #endif
 
             var rootFrame = _window.Content as Frame;
@@ -77,17 +62,17 @@ namespace UnoDrive
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (args.UWPLaunchActivatedEventArgs.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
                 _window.Content = rootFrame;
             }
 
-#if !(NET5_0 && WINDOWS)
-            if (e.PrelaunchActivated == false)
+#if !(NET6_0_OR_GREATER && WINDOWS)
+            if (args.UWPLaunchActivatedEventArgs.PrelaunchActivated == false)
 #endif
             {
                 if (rootFrame.Content == null)
@@ -95,7 +80,7 @@ namespace UnoDrive
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), args.Arguments);
                 }
                 // Ensure the current window is active
                 _window.Activate();
@@ -109,7 +94,7 @@ namespace UnoDrive
         /// <param name="e">Details about the navigation failure</param>
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            throw new Exception($"Failed to load {e.SourcePageType.FullName}: {e.Exception}");
+            throw new InvalidOperationException($"Failed to load {e.SourcePageType.FullName}: {e.Exception}");
         }
 
         /// <summary>
@@ -152,22 +137,22 @@ namespace UnoDrive
                 builder.AddFilter("Microsoft", LogLevel.Warning);
 
                 // Generic Xaml events
-                // builder.AddFilter("Windows.UI.Xaml", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.VisualStateGroup", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.StateTriggerBase", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.UIElement", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.FrameworkElement", LogLevel.Trace );
+                // builder.AddFilter("Microsoft.UI.Xaml", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.VisualStateGroup", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.StateTriggerBase", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.UIElement", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.FrameworkElement", LogLevel.Trace );
 
                 // Layouter specific messages
-                // builder.AddFilter("Windows.UI.Xaml.Controls", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Controls.Layouter", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Controls.Panel", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls.Layouter", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls.Panel", LogLevel.Debug );
 
                 // builder.AddFilter("Windows.Storage", LogLevel.Debug );
 
                 // Binding related messages
-                // builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug );
 
                 // Binder memory references tracking
                 // builder.AddFilter("Uno.UI.DataBinding.BinderReferenceHolder", LogLevel.Debug );
