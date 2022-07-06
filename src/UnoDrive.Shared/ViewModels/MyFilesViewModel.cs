@@ -66,6 +66,13 @@ namespace UnoDrive.ViewModels
 			set => SetProperty(ref noDataMessage, value);
 		}
 
+		bool isBusy;
+		public bool IsBusy
+		{
+			get => isBusy;
+			set => SetProperty(ref isBusy, value);
+		}
+
 		public async void ItemClick(object sender, ItemClickEventArgs args)
 		{
 			if (args.ClickedItem is OneDriveItem driveItem)
@@ -113,8 +120,11 @@ namespace UnoDrive.ViewModels
 
 		async Task LoadDataAsync(string pathId = null)
 		{
+			// TODO - Test IsBusy logic by adding a task delay
 			try
 			{
+				IsBusy = true;
+
 				IEnumerable<OneDriveItem> data;
 				if (string.IsNullOrEmpty(pathId))
 					data = await graphFileService.GetRootFiles(UpdateFiles);
@@ -127,8 +137,12 @@ namespace UnoDrive.ViewModels
 			{
 				logger.LogError(ex, ex.Message);
 			}
+			finally
+			{
+				IsBusy = false;
+			}
 
-			void UpdateFiles(IEnumerable<OneDriveItem> files)
+			void UpdateFiles(IEnumerable<OneDriveItem> files, bool isCached = false)
 			{
 				if (files == null)
 				{
@@ -141,6 +155,9 @@ namespace UnoDrive.ViewModels
 					NoDataMessage = "No files or folders";
 
 				FilesAndFolders = files.ToList();
+
+				if (files.Any() && isCached)
+					IsBusy = false;
 			}
 		}
 
