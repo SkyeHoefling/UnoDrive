@@ -100,7 +100,7 @@ namespace UnoDrive.Services
 			GetFilesAsync(Models.GraphRequestType.Recent, "RECENT-FILES", cachedCallback, cancellationToken);
 
 		public Task<IEnumerable<OneDriveItem>> GetSharedFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
-			GetFilesAsync(Models.GraphRequestType.Recent, "SHARED-FILES", cachedCallback, cancellationToken);
+			GetFilesAsync(Models.GraphRequestType.SharedWithMe, "SHARED-FILES", cachedCallback, cancellationToken);
 
 		public Task<IEnumerable<OneDriveItem>> GetRecycleBinFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
 			GetFilesAsync(Models.GraphRequestType.Recent, "RECYCLE-FILES", cachedCallback, cancellationToken);
@@ -140,6 +140,21 @@ namespace UnoDrive.Services
 			{
 				var request = graphClient.Me.Drive
 					.Recent()
+					.Request();
+
+#if __ANDROID__ || __IOS__ || __MACOS__
+				var response = await request.GetResponseAsync(cancellationToken);
+				var data = await response.Content.ReadAsStringAsync();
+				var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+				oneDriveItems = collection.Value;
+#else
+				oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
+#endif
+			}
+			else if (requestType == Models.GraphRequestType.SharedWithMe)
+			{
+				var request = graphClient.Me.Drive
+					.SharedWithMe()
 					.Request();
 
 #if __ANDROID__ || __IOS__ || __MACOS__

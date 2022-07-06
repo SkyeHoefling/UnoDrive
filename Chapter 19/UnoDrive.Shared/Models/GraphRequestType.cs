@@ -3,6 +3,7 @@
 	public enum GraphRequestType
     {
 		MyFiles,
-		Recent
+		Recent,
+		SharedWithMe
     }
 }
