@@ -1,8 +1,11 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
+using UnoDrive.Mvvm;
 using UnoDrive.Services;
+using UnoDrive.ViewModels;
 
 namespace UnoDrive.Views
 {
@@ -15,13 +18,20 @@ namespace UnoDrive.Views
 			contentFrame.Navigate(typeof(MyFilesPage), null, new SuppressNavigationTransitionInfo());
 		}
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		public DashboardViewModel ViewModel => (DashboardViewModel)DataContext;
+
+		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			base.OnNavigatedTo(e);
 
 			if (e.Parameter is INavigationService navigation)
 			{
 				this.navigation = navigation;
+			}
+
+			if (ViewModel is IInitialize initializeViewModel)
+			{
+				await initializeViewModel.InitializeAsync();
 			}
 		}
 
