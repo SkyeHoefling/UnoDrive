@@ -78,15 +78,20 @@
 				Content="Sign Out"  />
 		</NavigationView.MenuItems>
 
-		<StackPanel 
+		<Grid 
 			macos:Margin="0, 30, 0, 0"
 			Padding="15, 10" 
-			Spacing="10">
+			RowSpacing="10">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
 			<c:HeaderControl
+				Grid.Row="0"
 				android:Padding="30, 0, 0, 0"
 				ios:Padding="30, 0, 0, 0" />
-			<Frame x:Name="contentFrame" />
-		</StackPanel>
+			<Frame Grid.Row="1" x:Name="contentFrame" />
+		</Grid>
 
 	</NavigationView>
 	
