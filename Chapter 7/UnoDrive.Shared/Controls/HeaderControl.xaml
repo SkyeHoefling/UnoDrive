@@ -89,6 +89,7 @@
 						<TextBlock
 							Text="Upload"
 							win:FontSize="16"
+							skia:FontSize="14"
 							wasm:FontSize="16"
 							android:FontSize="12"
 							macos:FontSize="16"

@@ -81,6 +81,7 @@
 							FontFamily="Segoe MDL2 Assets"
 							Glyph="&#xE11C;"
 							win:FontSize="14"
+							skia:FontSize="14"
 							wasm:FontSize="14"
 							android:FontSize="10"
 							macos:FontSize="14"
@@ -89,6 +90,7 @@
 						<TextBlock
 							Text="Upload"
 							win:FontSize="16"
+							skia:FontSize="16"
 							wasm:FontSize="16"
 							android:FontSize="12"
 							macos:FontSize="16"
