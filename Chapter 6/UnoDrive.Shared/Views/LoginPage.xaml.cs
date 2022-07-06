@@ -26,7 +26,7 @@ namespace UnoDrive.Views
 
 		void OnLoginClick(object sender, RoutedEventArgs args)
 		{
-			if (Window.Current.Content is Frame rootFrame)
+			if (Windows.UI.Xaml.Window.Current.Content is Frame rootFrame)
 			{
 				rootFrame.Navigate(typeof(Dashboard), null);
 			}
