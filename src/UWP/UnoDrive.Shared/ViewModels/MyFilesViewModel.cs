@@ -65,8 +65,6 @@ namespace UnoDrive.ViewModels
 
             var data = await graphClient.Drives
                 .Request()
-                .Skip(0) // todo
-                .Top(25)
                 .GetAsync();
         }
 
