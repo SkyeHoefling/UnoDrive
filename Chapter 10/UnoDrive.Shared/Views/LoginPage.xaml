@@ -42,7 +42,7 @@
 			<Button 
 				Content="{Binding ButtonText}"
 				Style="{StaticResource LoginButton}"
-				Click="OnLoginClick"/>
+				Command="{Binding Login}" />
 		</StackPanel>
 	</Grid>
 

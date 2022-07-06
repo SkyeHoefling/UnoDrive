@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using UnoDrive.Logging;
 using UnoDrive.Mvvm;
+using UnoDrive.Services;
 using UnoDrive.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -37,6 +38,7 @@ namespace UnoDrive
 		protected override void ConfigureServices(IServiceCollection services)
 		{
 			services.AddLoggingForUnoDrive();
+			services.AddTransient<INavigationService, NavigationService>();
 		}
 
 		/// <summary>

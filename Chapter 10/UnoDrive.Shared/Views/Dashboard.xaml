@@ -75,7 +75,7 @@
 			<NavigationViewItem 
 				x:Name="signOut" 
 				Icon="ClosePane" 
-				Content="Sign Out"  />
+				Content="Sign Out" />
 		</NavigationView.MenuItems>
 
 		<StackPanel 
