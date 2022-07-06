@@ -15,9 +15,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UnoDrive.Mvvm;
 using UnoDrive.Authentication;
+using UnoDrive.Data;
 using UnoDrive.Services;
 
 namespace UnoDrive

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Graph;
 using UnoDrive.Data;
-using UnoDrive.Models;
 
 namespace UnoDrive.Services
 {
 	public interface IGraphFileService
 	{
-		Task<IEnumerable<OneDriveItem>> GetRootFiles();
-		Task<IEnumerable<OneDriveItem>> GetFiles(string id);
+		Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>> cachedCallback = null);
+		Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>> cachedCallback = null);
 	}
 
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
@@ -31,13 +31,21 @@ namespace UnoDrive.Services
 			graphClient.AuthenticationProvider = this;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetRootFiles()
+		public async Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>> cachedCallback = null)
 		{
-			var rootChildren = await graphClient.Me.Drive.Root.Children
-				.Request()
-				.GetAsync();
+			if (cachedCallback != null)
+			{
+				var rootId = await GetRootId();
+				if (!string.IsNullOrEmpty(rootId))
+				{
+					var cachedRootChildren = await GetCachedFilesAsync(rootId);
+					cachedCallback(cachedRootChildren);
+				}
+			}
 
-			return rootChildren
+			var rootChildren = (await graphClient.Me.Drive.Root.Children
+				.Request()
+				.GetAsync())
 				.Select(driveItem => new OneDriveItem
 				{
 					Id = driveItem.Id,
@@ -51,15 +59,42 @@ namespace UnoDrive.Services
 					//ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
 					//Sharing = ""
 				});
+
+			if (!rootChildren.Any())
+				return new OneDriveItem[0];
+
+			await SaveCachedFilesAsync(rootChildren);
+			using (var dbContext = new UnoDriveDbContext())
+			{
+				var findRootIdSetting = await dbContext.Settings.FindAsync("RootId");
+				if (findRootIdSetting != null)
+				{
+					findRootIdSetting.Value = rootChildren.FirstOrDefault().PathId;
+					dbContext.Settings.Update(findRootIdSetting);
+				}
+				else
+				{
+					var setting = new Setting {Key = "RootId", Value = rootChildren.FirstOrDefault().PathId};
+					await dbContext.Settings.AddAsync(setting);
+				}
+
+				await dbContext.SaveChangesAsync();
+			}
+
+			return rootChildren;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id)
+		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>> cachedCallback = null)
 		{
-			var children = await graphClient.Me.Drive.Items[id].Children
+			if (cachedCallback != null)
+			{
+				var cachedChildren = await GetCachedFilesAsync(id);
+				cachedCallback(cachedChildren);
+			}
+			
+			var children = (await graphClient.Me.Drive.Items[id].Children
 				.Request()
-				.GetAsync();
-
-			return children
+				.GetAsync())
 				.Select(driveItem => new OneDriveItem
 				{
 					Id = driveItem.Id,
@@ -73,9 +108,56 @@ namespace UnoDrive.Services
 					//ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
 					//Sharing = ""
 				});
+
+			await SaveCachedFilesAsync(children);
+			return children;
 		}
 
-		public Task AuthenticateRequestAsync(HttpRequestMessage request)
+		async Task<string> GetRootId()
+		{
+			using (var dbContext = new UnoDriveDbContext())
+			{
+				var rootId = await dbContext.Settings.FindAsync("RootId");
+				return rootId != null ? rootId.Value : string.Empty;
+			}
+		}
+
+		async Task<IEnumerable<OneDriveItem>> GetCachedFilesAsync(string pathId)
+		{
+			if (string.IsNullOrEmpty(pathId))
+				return new OneDriveItem[0];
+
+			using (var dbContext = new UnoDriveDbContext())
+			{
+				return await dbContext.OneDriveItems
+					.AsNoTracking()
+					.Where(item => item.PathId == pathId)
+					.ToArrayAsync();
+			}
+		}
+
+		async Task SaveCachedFilesAsync(IEnumerable<OneDriveItem> children)
+		{
+			if (!children.Any())
+				return;
+
+			using (var dbContext = new UnoDriveDbContext())
+			{
+				foreach (var item in children)
+				{
+					var findItem = await dbContext.OneDriveItems.AsNoTracking()
+						.FirstOrDefaultAsync(i => i.Id == item.Id);
+					if (findItem != null)
+						dbContext.OneDriveItems.Update(item);
+					else
+						await dbContext.OneDriveItems.AddAsync(item);
+				}
+
+				await dbContext.SaveChangesAsync();
+			}
+		}
+
+		Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)
 		{
 			var token = ((App)App.Current).AuthenticationResult?.AccessToken;
 			if (string.IsNullOrEmpty(token))

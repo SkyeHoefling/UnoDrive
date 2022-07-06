@@ -25,6 +25,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Setting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\UnoDriveDbContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />

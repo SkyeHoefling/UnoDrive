@@ -6,14 +6,16 @@ namespace UnoDrive.Data
 {
 	public class UnoDriveDbContext : DbContext
 	{
+		public UnoDriveDbContext()
+		{
+			Database.EnsureCreated();
+		}
+		
 		public DbSet<OneDriveItem> OneDriveItems { get; set; }
+		public DbSet<Setting> Settings { get; set; }
 		
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			// When building in app, use Windows.Storage.ApplicationData.Current.LocalFolder.Path
-			// instead of /local to get browser persistence.
-
-
 			// TODO - Get correct path for each platform.
 			var local = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 			var dbPath = Path.Combine(local, "unodrive.db");

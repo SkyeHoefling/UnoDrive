@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace UnoDrive.Data
 {
@@ -10,6 +11,7 @@ namespace UnoDrive.Data
 
 	public class OneDriveItem
 	{
+		[Key]
 		public string Id { get; set; }
 		public string Name { get; set; }
 		public string Path { get; set; }
