@@ -73,9 +73,9 @@ namespace UnoDrive.ViewModels
 			}
 		}
 
-		public async void ItemClick(object sender, ItemClickEventArgs args)
+		public async void OnItemClick(object sender, ItemClickEventArgs args)
 		{
-			if (!(args.ClickedItem is OneDriveItem oneDriveItem))
+			if (args.ClickedItem is not OneDriveItem oneDriveItem)
 				return;
 
 			if (oneDriveItem.Type == OneDriveItemType.Folder)
@@ -95,10 +95,6 @@ namespace UnoDrive.ViewModels
 				{
 					logger.LogError(ex, ex.Message);
 				}
-			}
-			else
-			{
-				// TODO - open file
 			}
 		}
 

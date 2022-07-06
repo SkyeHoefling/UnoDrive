@@ -61,7 +61,7 @@
 			<StackPanel>
 				<GridView
 					ItemsSource="{Binding FilesAndFolders}"
-					ItemClick="{x:Bind ViewModel.ItemClick}"
+					ItemClick="{x:Bind ViewModel.OnItemClick}"
 					Visibility="{Binding IsPageEmtpy, Converter={StaticResource BoolNegationToVisibilityConverter}}" />
 
 				<TextBlock
