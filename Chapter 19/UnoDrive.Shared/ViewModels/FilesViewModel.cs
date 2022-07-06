@@ -21,7 +21,7 @@ namespace UnoDrive.ViewModels
 
 		public FilesViewModel(
 			IGraphFileService graphFileService,
-			ILogger<MyFilesViewModel> logger)
+			ILogger<FilesViewModel> logger)
 		{
 			GraphFileService = graphFileService;
 			Logger = logger;
