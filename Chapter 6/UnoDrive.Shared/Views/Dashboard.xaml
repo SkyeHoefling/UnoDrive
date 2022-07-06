@@ -9,42 +9,68 @@
     xmlns:android="http://uno.ui/android"
     xmlns:ios="http://uno.ui/ios"
     xmlns:wasm="http://uno.ui/wasm"
+	xmlns:skia="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:c="using:UnoDrive.Controls"
     mc:Ignorable="d android ios wasm">
 
-	<NavigationView x:Name="menu"
-                    IsBackButtonVisible="Collapsed"
-                    IsPaneOpen="False"
-                    win:IsPaneToggleButtonVisible="False"
-                    wasm:IsPaneToggleButtonVisible="False"
-                    win:PaneDisplayMode="Left"
-                    wasm:PaneDisplayMode="Left"
-                    android:PaneDisplayMode="LeftMinimal"
-                    ios:PaneDisplayMode="LeftMinimal"
-                    IsSettingsVisible="False"
-                    ItemInvoked="MenuItemSelected">
+	<NavigationView 
+		x:Name="menu"
+		IsBackButtonVisible="Collapsed"
+		IsPaneOpen="False"
+		PaneDisplayMode="Left"
+		IsPaneToggleButtonVisible="False"
+		android:PaneDisplayMode="LeftMinimal"
+		ios:PaneDisplayMode="LeftMinimal"
+		IsSettingsVisible="False"
+		ItemInvoked="MenuItemSelected">
 
 		<NavigationView.PaneCustomContent>
 			<StackPanel Margin="5, 0, 5, 0" Spacing="10">
-				<TextBlock Text="{Binding Name}" FontSize="20" HorizontalTextAlignment="Center" />
-				<TextBlock Text="{Binding Email}" FontSize="18" HorizontalTextAlignment="Center" />
+				<TextBlock 
+					Text="John Smith" 
+					FontSize="20" 
+					skia:HorizontalAlignment="Center"
+					HorizontalTextAlignment="Center" />
+				<TextBlock 
+					Text="john.smith@myemail.com" 
+					FontSize="18" 
+					skia:HorizontalAlignment="Center"
+					HorizontalTextAlignment="Center" />
 
-				<!-- Needs TLC in WASM -->
-				<Line X1="0" X2="1" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="10, 0" />
+				<Frame 
+					Height="1" 
+					Background="Black" 
+					Margin="10, 0" />
 			</StackPanel>
 		</NavigationView.PaneCustomContent>
 
 		<NavigationView.MenuItems>
-			<NavigationViewItem Icon="Play" Content="My Files" x:Name="myFiles" IsSelected="True" />
-			<NavigationViewItem Icon="Save" Content="Recent" x:Name="recentFiles" />
-			<NavigationViewItem Icon="Refresh" Content="Shared" x:Name="sharedFiles" />
-			<NavigationViewItem Icon="Download" Content="Recycle Bin" x:Name="recycleBin" />
-			<NavigationViewItem Icon="ClosePane" Content="Sign Out" x:Name="signOut" />
+			<NavigationViewItem 
+				x:Name="myFiles" 
+				Icon="Play" 
+				Content="My Files"
+				IsSelected="True" />
+			<NavigationViewItem
+				x:Name="recentFiles" 
+				Icon="Save" 
+				Content="Recent"  />
+			<NavigationViewItem 
+				x:Name="sharedFiles" 
+				Icon="Refresh" 
+				Content="Shared"  />
+			<NavigationViewItem 
+				x:Name="recycleBin" 
+				Icon="Download" 
+				Content="Recycle Bin"  />
+			<NavigationViewItem 
+				x:Name="signOut" 
+				Icon="ClosePane" 
+				Content="Sign Out"  />
 		</NavigationView.MenuItems>
 
 		<NavigationView.Header>
-			<Frame x:Name="headerFrame" win:Padding="25, 10" wasm:Padding="25, 10" android:Padding="0, 0, 10, 0">
-				<c:HeaderControl />
+			<Frame>
+				<TextBlock Text="My Files" />
 			</Frame>
 		</NavigationView.Header>
 
