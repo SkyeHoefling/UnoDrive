@@ -112,8 +112,8 @@ namespace UnoDrive.Data
 					items.DeleteMany(x => staleItems.Contains(x));
 					foreach (var item in staleItems.Where(i => !string.IsNullOrEmpty(i.ThumbnailPath)))
 					{
-						if (System.IO.File.Exists(item.ThumbnailPath))
-							System.IO.File.Delete(item.ThumbnailPath);
+						if (File.Exists(item.ThumbnailPath))
+							File.Delete(item.ThumbnailPath);
 					}
 				}
 
