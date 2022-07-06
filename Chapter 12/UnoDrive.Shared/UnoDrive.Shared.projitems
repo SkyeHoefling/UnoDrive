@@ -28,6 +28,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IsEmptyToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.gtk.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.windows.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.macos.cs" />
@@ -70,6 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

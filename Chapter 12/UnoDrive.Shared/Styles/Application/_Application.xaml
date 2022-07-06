@@ -5,6 +5,7 @@
 	<ResourceDictionary.MergedDictionaries>
 		<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
 		<ResourceDictionary Source="Fonts.xaml" />
+		<ResourceDictionary Source="Converters.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
