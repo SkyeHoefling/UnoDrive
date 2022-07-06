@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LiteDB;
+using Uno.Extensions;
 using UnoDrive.Data;
 using Windows.Storage;
 
@@ -83,7 +84,6 @@ namespace UnoDrive.Data
 
 		public IEnumerable<OneDriveItem> GetCachedFiles(string pathId)
 		{
-			// TODO - instantiate ImageSource for cached data
 			if (string.IsNullOrEmpty(pathId))
 				return new OneDriveItem[0];
 

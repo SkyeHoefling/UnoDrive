@@ -71,7 +71,6 @@ namespace UnoDrive.ViewModels
 					.Request()
 					.Select(user => new
 					{
-						Id = user.Id,
 						DisplayName = user.DisplayName,
 						UserPrincipalName = user.UserPrincipalName
 					});
@@ -93,7 +92,7 @@ namespace UnoDrive.ViewModels
 					{
 						Id = objectId,
 						Name = Name,
-						Email = email
+						Email = Email
 					};
 					dataStore.SaveUserInfo(userInfo);
 				}
