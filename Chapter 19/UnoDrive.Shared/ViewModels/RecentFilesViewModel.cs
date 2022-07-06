@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.UI.Xaml.Controls;
 using UnoDrive.Data;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
@@ -21,6 +22,8 @@ namespace UnoDrive.ViewModels
 
 		protected override Task<IEnumerable<OneDriveItem>> GetGraphDataAsync(string pathId, Action<IEnumerable<OneDriveItem>, bool> callback, CancellationToken cancellationToken) =>
 			GraphFileService.GetRecentFilesAsync(callback, cancellationToken);
+
+		public override void OnItemClick(object sender, ItemClickEventArgs args) => base.OnItemClick(sender, args);
 
 		public Task InitializeAsync() =>
 			LoadDataAsync("RECENT");

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
 using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
@@ -47,6 +48,8 @@ namespace UnoDrive.ViewModels
 
 		protected override Task<IEnumerable<OneDriveItem>> GetGraphDataAsync(string pathId, Action<IEnumerable<OneDriveItem>, bool> callback, CancellationToken cancellationToken) =>
 			GraphFileService.GetMyFilesAsync(pathId, callback, cancellationToken);
+
+		public override void OnItemClick(object sender, ItemClickEventArgs args) => base.OnItemClick(sender, args);
 
 		public Task InitializeAsync() =>
 			LoadDataAsync();

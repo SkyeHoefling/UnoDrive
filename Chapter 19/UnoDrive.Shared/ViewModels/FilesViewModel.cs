@@ -70,7 +70,7 @@ namespace UnoDrive.ViewModels
 			}
 		}
 
-		public async void OnItemClick(object sender, ItemClickEventArgs args)
+		public async virtual void OnItemClick(object sender, ItemClickEventArgs args)
 		{
 			if (args.ClickedItem is not OneDriveItem oneDriveItem)
 				return;
