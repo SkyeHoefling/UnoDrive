@@ -109,7 +109,11 @@ namespace UnoDrive.Services
 			return childrenTable.Select(x => x.Value);
 		}
 
+#if __ANDROID__ || __IOS__ || __MACOS__
+		async Task StoreThumbnailsAsync(UnoDrive.Models.DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable)
+#else
 		async Task StoreThumbnailsAsync(DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable)
+#endif
 		{
 			for (int index = 0; index < oneDriveItems.Length; index++)
 			{
