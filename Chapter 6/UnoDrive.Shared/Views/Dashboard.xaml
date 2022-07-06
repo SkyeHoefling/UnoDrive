@@ -77,7 +77,7 @@
 		</NavigationView.MenuItems>
 
 		<NavigationView.Header>
-			<Frame>
+			<Frame ios:Margin="0, 46, 0, 0">
 				<TextBlock Text="My Files" />
 			</Frame>
 		</NavigationView.Header>
