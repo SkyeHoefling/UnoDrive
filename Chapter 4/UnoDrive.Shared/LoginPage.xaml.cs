@@ -15,7 +15,7 @@ namespace UnoDrive
 			header.Text = "Hello from iOS";
 #elif __MACOS__
 			header.Text = "Hello from macOS";
-#elif HAS_UNO_WASM
+#elif __WASM__
 			header.Text = "Hello from WASM";
 #elif HAS_UNO_SKIA
 			header.Text = "Hello from Skia";

@@ -1,4 +1,4 @@
-﻿#if HAS_UNO_WASM
+﻿#if __WASM__
 namespace UnoDrive
 {
 	public partial class LoginPage
