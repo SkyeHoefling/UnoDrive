@@ -5,7 +5,7 @@ namespace UnoDrive
 	{
 		partial void SetHeaderText()
 		{
-			header.Text = "Hello from UWP";
+			header.Text = "Hello from Windows";
 		}
 	}
 }

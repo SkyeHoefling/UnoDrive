@@ -8,7 +8,7 @@ namespace UnoDrive
 		{
 			this.InitializeComponent();
 #if NET6_0_OR_GREATER && WINDOWS
-			header.Text = "Hello from UWP";
+			header.Text = "Hello from Windows";
 #elif __ANDROID__
 			header.Text = "Hello from Android";
 #elif __IOS__
