@@ -18,7 +18,7 @@ using Windows.Storage;
 namespace UnoDrive.Services
 {
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
-    {
+	{
 #if DEBUG
 		const int apiDelayInMilliseconds = 5000;
 #endif
@@ -313,6 +313,4 @@ namespace UnoDrive.Services
 			return Task.CompletedTask;
 		}
 	}
-
-		
-	}
+}
