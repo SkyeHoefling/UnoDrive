@@ -21,7 +21,7 @@ namespace UnoDrive.Services
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
 	{
 #if DEBUG
-		const int ApiDelayInMilliseconds = 500;
+		const int ApiDelayInMilliseconds = 5000;
 #endif
 
 		readonly GraphServiceClient graphClient;
