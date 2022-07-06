@@ -9,11 +9,13 @@
 
 	<DataTemplate x:Key="DriveItemTemplate">
 		<StackPanel Spacing="20" Width="175" Height="300">
-			<Image not_macos:Source="ms-appx:///Assets/Images/file.png"
-				   macos:Source="ms-appx:///Assets/Images/file.scale-300.png"
-				   Visibility="{Binding ThumbnailSource, Converter={StaticResource NullEqualsVisibileConverter}}"/>
-			<Image Source="{Binding ThumbnailSource}"
-				   Visibility="{Binding ThumbnailSource, Converter={StaticResource NullEqualsCollapsedConverter}}"/>
+			<Image 
+				not_macos:Source="ms-appx:///Assets/Images/file.png"
+				macos:Source="ms-appx:///Assets/Images/file.scale-300.png"
+				Visibility="{Binding ThumbnailSource, Converter={StaticResource NullEqualsVisibileConverter}}" />
+			<Image 
+				Source="{Binding ThumbnailSource}"
+				Visibility="{Binding ThumbnailSource, Converter={StaticResource NullEqualsCollapsedConverter}}" />
 			<TextBlock
 				Text="{Binding Name}"
 				HorizontalAlignment="Center"
@@ -26,7 +28,11 @@
 		<StackPanel Spacing="20" Width="175" Height="300">
 			<Image 
 				not_macos:Source="ms-appx:///Assets/Images/folder.png"
-				macos:Source="ms-appx:///Assets/Images/folder.scale-300.png"/>
+				macos:Source="ms-appx:///Assets/Images/folder.scale-300.png"
+				Visibility="{Binding ThumbnailSource, Converter={StaticResource NullEqualsVisibileConverter}}" />
+			<Image 
+				Source="{Binding ThumbnailSource}"
+				Visibility="{Binding ThumbnailSource, Converter={StaticResource NullEqualsCollapsedConverter}}" />
 			<TextBlock
 				Text="{Binding Name}"
 				HorizontalAlignment="Center"

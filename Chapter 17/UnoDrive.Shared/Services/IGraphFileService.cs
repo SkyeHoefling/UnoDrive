@@ -7,7 +7,7 @@ namespace UnoDrive.Services
 {
 	public interface IGraphFileService
 	{
-		Task<IEnumerable<OneDriveItem>> GetRootFilesAsync(CancellationToken cancellationToken = default);
-		Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id, CancellationToken cancellationToken = default);
+		Task<IEnumerable<OneDriveItem>> GetRootFilesAsync();
+		Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id);
 	}
 }

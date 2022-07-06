@@ -29,11 +29,12 @@
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\ThumbnailImage.android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Thumbnail.android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Folder.android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\DriveItem.android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\DriveItemCollection.android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ThumbnailImage.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Thumbnail.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Folder.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItem.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItemCollection.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Selectors\OneDriveItemTemplateSelector.cs" />
     <Compile Include="..\UnoDrive.Shared\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItemType.cs" />
@@ -50,7 +51,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\IInitialize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Selectors\OneDriveItemTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\GraphFileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IGraphFileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />

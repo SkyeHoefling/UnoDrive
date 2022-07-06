@@ -2,7 +2,7 @@
 {
 	public enum OneDriveItemType
 	{
-		File = 0,
-		Folder = 1
+		File,
+		Folder
 	}
 }

@@ -17,10 +17,6 @@ namespace UnoDrive.Services
 {
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
     {
-#if DEBUG
-		const int ApiDelayInMilliseconds = 5000;
-#endif
-
 		GraphServiceClient graphClient;
 		ILogger logger;
 
@@ -38,20 +34,21 @@ namespace UnoDrive.Services
 			graphClient.AuthenticationProvider = this;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync(CancellationToken cancellationToken = default)
+		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync()
 		{
+			await Task.Delay(10000);
 			var rootPathId = string.Empty;
 
 			try
 			{
 				var request = graphClient.Me.Drive.Root.Request();
 
-#if __ANDROID__
+#if __ANDROID__ || __IOS__ || __MACOS__
 				var response = await request.GetResponseAsync();
 				var data = await response.Content.ReadAsStringAsync();
 				var rootNode = JsonConvert.DeserializeObject<DriveItem>(data);
 #else
-				var rootNode = await request.GetAsync(cancellationToken);
+				var rootNode = await request.GetAsync();
 #endif
 
 				if (rootNode == null || string.IsNullOrEmpty(rootNode.Id))
@@ -61,10 +58,6 @@ namespace UnoDrive.Services
 
 				rootPathId = rootNode.Id;
 			}
-			catch (TaskCanceledException ex)
-			{
-				throw ex;
-			}
 			catch (KeyNotFoundException ex)
 			{
 				logger.LogWarning("Unable to retrieve data from Graph API, it may not exist or there could be a connection issue");
@@ -73,32 +66,26 @@ namespace UnoDrive.Services
 			}
 			catch (Exception ex)
 			{
-				logger.LogWarning("Unable to retrieve root OneDrive folder, attempting to use local data instead");
+				logger.LogWarning("Unable to retrieve root OneDrive folder");
 				logger.LogWarning(ex, ex.Message);
 			}
 
-			return await GetFilesAsync(rootPathId, cancellationToken);
+			return await GetFilesAsync(rootPathId);
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id, CancellationToken cancellationToken = default)
+		public async Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id)
 		{
-			cancellationToken.ThrowIfCancellationRequested();
-
-#if DEBUG
-			await Task.Delay(ApiDelayInMilliseconds, cancellationToken);
-#endif
-
 			var request = graphClient.Me.Drive.Items[id].Children
 				.Request()
 				.Expand("thumbnails");
 
-#if __ANDROID__
-			var response = await request.GetResponseAsync(cancellationToken);
-			var data = await response.Content.ReadAsStringAsync(cancellationToken);
+#if __ANDROID__ || __IOS__ || __MACOS__
+			var response = await request.GetResponseAsync();
+			var data = await response.Content.ReadAsStringAsync();
 			var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
 			var oneDriveItems = collection.Value;
 #else
-			var oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
+			var oneDriveItems = (await request.GetAsync()).ToArray();
 #endif
 
 			var childrenTable = oneDriveItems
@@ -115,11 +102,19 @@ namespace UnoDrive.Services
 				})
 				.OrderByDescending(item => item.Type)
 				.ThenBy(item => item.Name)
-				.ToDictionary(x => x.Id);
+				.ToDictionary(item => item.Id);
 
-			var children = childrenTable.Select(x => x.Value).ToArray();
-			cancellationToken.ThrowIfCancellationRequested();
 
+			await StoreThumbnailsAsync(oneDriveItems, childrenTable);
+			return childrenTable.Select(x => x.Value);
+		}
+
+#if __ANDROID__ || __IOS__ || __MACOS__
+		async Task StoreThumbnailsAsync(UnoDrive.Models.DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable)
+#else
+		async Task StoreThumbnailsAsync(DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable)
+#endif
+		{
 			for (int index = 0; index < oneDriveItems.Length; index++)
 			{
 				var currentItem = oneDriveItems[index];
@@ -162,12 +157,14 @@ namespace UnoDrive.Services
 #if HAS_UNO_SKIA_WPF
 					System.IO.File.WriteAllBytes(localFilePath, bytes);
 #else
-					await System.IO.File.WriteAllBytesAsync(localFilePath, bytes, cancellationToken);
+					await System.IO.File.WriteAllBytesAsync(localFilePath, bytes);
 #endif
 
 
 
-#if __UNO_DRIVE_WINDOWS__ || __ANDROID__
+					// If thumbnails aren't loading using thed Uri code path, try
+					// using the fallback strategy with the MemoryStream
+#if __UNO_DRIVE_WINDOWS__ || __ANDROID__ || __IOS__
 					var image = new BitmapImage(new Uri(localFilePath));
 #else
 					var image = new BitmapImage();
@@ -175,20 +172,12 @@ namespace UnoDrive.Services
 #endif
 
 					childrenTable[currentItem.Id].ThumbnailSource = image;
-					cancellationToken.ThrowIfCancellationRequested();
-				}
-				catch (TaskCanceledException ex)
-				{
-					logger.LogWarning(ex, ex.Message);
-					throw ex;
 				}
 				catch (Exception ex)
 				{
 					logger.LogError(ex, ex.Message);
 				}
 			}
-
-			return children;
 		}
 
 		Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)

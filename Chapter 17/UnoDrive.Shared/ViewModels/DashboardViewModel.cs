@@ -6,16 +6,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using UnoDrive.Mvvm;
 
 namespace UnoDrive.ViewModels
 {
-	public class DashboardViewModel : ObservableObject, IAuthenticationProvider
+	public class DashboardViewModel : ObservableObject, IAuthenticationProvider, IInitialize
     {
 		ILogger logger;
 		public DashboardViewModel(ILogger<DashboardViewModel> logger)
 		{
 			this.logger = logger;
-			OnAppear();
 		}
 
 		string name;
@@ -32,7 +32,7 @@ namespace UnoDrive.ViewModels
 			set => SetProperty(ref email, value);
 		}
 
-		public async void OnAppear()
+		public async Task LoadDataAsync()
 		{
 			try
 			{
@@ -54,7 +54,7 @@ namespace UnoDrive.ViewModels
 						UserPrincipalName = user.UserPrincipalName
 					});
 
-#if __ANDROID__
+#if __ANDROID__ || __IOS__ || __MACOS__
 				var response = await request.GetResponseAsync();
 				var data = await response.Content.ReadAsStringAsync();
 				var me = JsonConvert.DeserializeObject<User>(data);
@@ -82,6 +82,11 @@ namespace UnoDrive.ViewModels
 
 			request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 			return Task.CompletedTask;
+		}
+
+		public async Task InitializeAsync()
+		{
+			await LoadDataAsync();
 		}
 	}
 }
