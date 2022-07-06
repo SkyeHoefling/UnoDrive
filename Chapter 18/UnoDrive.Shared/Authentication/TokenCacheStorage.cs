@@ -41,7 +41,9 @@ namespace UnoDrive.Authentication
 
 		static void AfterAccessNotification(TokenCacheNotificationArgs args)
 		{
-			var serializedCache = Convert.ToBase64String(args.TokenCache.SerializeMsalV3());
+			var data = args.TokenCache.SerializeMsalV3();
+			var serializedCache = Convert.ToBase64String(data);
+
 			using (var db = new LiteDatabase(GetConnectionString()))
 			{
 				var tokens = db.GetCollection<TokenCache>();
