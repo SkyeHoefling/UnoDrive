@@ -13,7 +13,7 @@ using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
 {
-	public abstract class FilesViewModel : ObservableObject, IInitialize
+	public abstract class FilesViewModel : ObservableObject
 	{
 		protected Location Location { get; set; } = new Location();
 		protected IGraphFileService GraphFileService { get; set; }
@@ -95,22 +95,24 @@ namespace UnoDrive.ViewModels
 			}
 		}
 
-		protected CancellationTokenSource CancellationTokenSource { get; set; }
-		protected CancellationToken CancellationToken { get; set; }
-		protected TaskCompletionSource<bool> CurrentLoadDataTask { get; set; }
-		protected virtual async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
+		protected abstract Task<IEnumerable<OneDriveItem>> GetGraphDataAsync(string pathId, Action<IEnumerable<OneDriveItem>, bool> callback, CancellationToken cancellationToken);
+
+		CancellationTokenSource cancellationTokenSource;
+		CancellationToken cancellationToken;
+		TaskCompletionSource<bool> currentLoadDataTask;
+		protected async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
 		{
-			if (CancellationTokenSource != null && !CancellationTokenSource.IsCancellationRequested)
+			if (cancellationTokenSource != null && !cancellationTokenSource.IsCancellationRequested)
 			{
-				CancellationTokenSource.Cancel();
+				cancellationTokenSource.Cancel();
 
 				// prevents race condition
-				await CurrentLoadDataTask.Task;
+				await currentLoadDataTask.Task;
 			}
 
-			CurrentLoadDataTask = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-			CancellationTokenSource = new CancellationTokenSource();
-			CancellationToken = CancellationTokenSource.Token;
+			currentLoadDataTask = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+			cancellationTokenSource = new CancellationTokenSource();
+			cancellationToken = cancellationTokenSource.Token;
 
 			try
 			{
@@ -120,9 +122,9 @@ namespace UnoDrive.ViewModels
 				Action<IEnumerable<OneDriveItem>, bool> updateFilesCallback = (items, isCached) => UpdateFiles(items, null, isCached);
 
 				if (string.IsNullOrEmpty(pathId))
-					data = await GraphFileService.GetRootFilesAsync(updateFilesCallback, CancellationToken);
+					data = await GraphFileService.GetRootFilesAsync(updateFilesCallback, cancellationToken);
 				else
-					data = await GraphFileService.GetMyFilesAsync(pathId, updateFilesCallback, CancellationToken);
+					data = await GetGraphDataAsync(pathId, updateFilesCallback, cancellationToken);
 
 				UpdateFiles(data, presentationCallback);
 			}
@@ -132,12 +134,12 @@ namespace UnoDrive.ViewModels
 			}
 			finally
 			{
-				CancellationTokenSource = default;
-				CancellationToken = default;
+				cancellationTokenSource = default;
+				cancellationToken = default;
 
 				IsStatusBarLoading = false;
 
-				CurrentLoadDataTask.SetResult(true);
+				currentLoadDataTask.SetResult(true);
 			}
 		}
 
@@ -164,9 +166,6 @@ namespace UnoDrive.ViewModels
 			}
 		}
 
-		public async Task InitializeAsync()
-		{
-			await LoadDataAsync();
-		}
+		
 	}
 }

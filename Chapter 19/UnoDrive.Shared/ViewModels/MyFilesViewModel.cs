@@ -1,13 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.Input;
+using UnoDrive.Data;
 using UnoDrive.Models;
+using UnoDrive.Mvvm;
 using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
 {
-	public class MyFilesViewModel : FilesViewModel
+	public class MyFilesViewModel : FilesViewModel, IInitialize
 	{
 		public MyFilesViewModel(
 			IGraphFileService graphFileService,
@@ -39,5 +44,11 @@ namespace UnoDrive.ViewModels
 			Location = Location.Back;
 			return LoadDataAsync(backId);
 		}
+
+		protected override Task<IEnumerable<OneDriveItem>> GetGraphDataAsync(string pathId, Action<IEnumerable<OneDriveItem>, bool> callback, CancellationToken cancellationToken) =>
+			GraphFileService.GetMyFilesAsync(pathId, callback, cancellationToken);
+
+		public Task InitializeAsync() =>
+			LoadDataAsync();
 	}
 }
