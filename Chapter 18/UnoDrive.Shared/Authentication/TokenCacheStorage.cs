@@ -12,6 +12,11 @@ namespace UnoDrive.Authentication
 		{
 #if HAS_UNO_SKIA_WPF
 			var applicationFolder = Path.Combine(ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
+			if (!Directory.Exists(applicationFolder))
+			{
+				Directory.CreateDirectory(applicationFolder);
+			}
+
 			var databaseFile = Path.Combine(applicationFolder, "UnoDrive_MSAL_TokenCache.db");
 #else
 			var databaseFile = Path.Combine(ApplicationData.Current.LocalFolder.Path, "UnoDrive_MSAL_TokenCache.db");
