@@ -5,8 +5,6 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="Button.xaml" />
 		<ResourceDictionary Source="TextBlock.xaml" />
-		<ResourceDictionary Source="GridView.xaml" />
-		<ResourceDictionary Source="ProgressRing.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

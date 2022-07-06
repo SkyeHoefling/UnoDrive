@@ -6,7 +6,7 @@
 
 	<converters:IsEmptyToVisibilityConverter x:Key="IsEmptyEqualsVisibileConverter" IsEmpty="Visible" IsNotEmpty="Collapsed" />
 	<converters:IsEmptyToVisibilityConverter x:Key="IsEmptyEqualsCollapsedConverter" IsEmpty="Collapsed" IsNotEmpty="Visible" />
-	<converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+	<converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
 	<converters:BoolToVisibilityConverter x:Key="BoolNegationToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
 
 </ResourceDictionary>
