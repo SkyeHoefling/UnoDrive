@@ -65,6 +65,7 @@ namespace UnoDrive.Authentication
             {
                 Logger.LogError("Unable to retrieve Access Token from Azure Active Directory; 'authResult' is null");
 
+                // This throws an exception on WPF
                 if (Connectivity.NetworkAccess != NetworkAccess.Internet)
                     Logger.LogCritical("NO INTERNET CONNECTION: Internet required to retrieve an Access Token for the first time");
             }

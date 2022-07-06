@@ -19,7 +19,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationResultExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Authentication\MsalHttpClientFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\ServiceCollectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>

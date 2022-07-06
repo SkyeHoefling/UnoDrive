@@ -14,7 +14,6 @@ namespace UnoDrive.Authentication
             var builder = PublicClientApplicationBuilder
                 .Create("a7410051-6505-4852-9b08-45a54d07c0bc")
                 .WithRedirectUri(GetRedirectUri())
-                //.WithHttpClientFactory(new MsalHttpClientFactory())
                 .WithUnoHelpers();
 
             services.AddSingleton(builder.Build());
@@ -24,6 +23,8 @@ namespace UnoDrive.Authentication
             {
 #if __WASM__
                 return "https://localhost:5001/authentication/login-callback.htm";
+#elif HAS_UNO_SKIA
+                return "http://localhost:9471";
 #else
                 return "unodrive://auth";
 #endif
