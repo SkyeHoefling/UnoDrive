@@ -101,12 +101,10 @@ namespace UnoDrive.Data
 		{
 			using (var db = new LiteDatabase(databaseFile))
 			{
-				var childrenIds = children.Select(c => c.Id).ToArray();
 				var items = db.GetCollection<OneDriveItem>();
-				
 				var staleItems = items
 					.Query()
-					.Where(i => i.PathId == pathId && !childrenIds.Any(c => c == i.Id))
+					.Where(i => i.PathId == pathId)
 					.ToArray();
 
 				if (staleItems != null && staleItems.Any())
