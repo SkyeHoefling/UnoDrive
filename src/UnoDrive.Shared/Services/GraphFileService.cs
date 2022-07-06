@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Graph;
 using UnoDrive.Data;
+using Xamarin.Essentials;
 
 namespace UnoDrive.Services
 {
@@ -43,6 +44,11 @@ namespace UnoDrive.Services
 				}
 			}
 
+			// If the response is null that means we couldn't retrieve data
+			// due to no internet connectivity
+			if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+				return null;
+
 			var rootChildren = (await graphClient.Me.Drive.Root.Children
 				.Request()
 				.GetAsync())
@@ -58,7 +64,9 @@ namespace UnoDrive.Services
 					Type = driveItem.Folder != null ? OneDriveItemType.Folder : OneDriveItemType.File
 					//ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
 					//Sharing = ""
-				});
+				})
+				.OrderByDescending(item => item.Type)
+				.ThenBy(item => item.Name);
 
 			if (!rootChildren.Any())
 				return new OneDriveItem[0];
@@ -91,7 +99,12 @@ namespace UnoDrive.Services
 				var cachedChildren = await GetCachedFilesAsync(id);
 				cachedCallback(cachedChildren);
 			}
-			
+
+			// If the response is null that means we couldn't retrieve data
+			// due to no internet connectivity
+			if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+				return null;
+
 			var children = (await graphClient.Me.Drive.Items[id].Children
 				.Request()
 				.GetAsync())
@@ -107,7 +120,9 @@ namespace UnoDrive.Services
 					Type = driveItem.Folder != null ? OneDriveItemType.Folder : OneDriveItemType.File
 					//ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
 					//Sharing = ""
-				});
+				})
+				.OrderByDescending(item => item.Type)
+				.ThenBy(item => item.Name);
 
 			await SaveCachedFilesAsync(children);
 			return children;
@@ -132,6 +147,8 @@ namespace UnoDrive.Services
 				return await dbContext.OneDriveItems
 					.AsNoTracking()
 					.Where(item => item.PathId == pathId)
+					.OrderByDescending(item => item.Type)
+					.ThenBy(item => item.Name)
 					.ToArrayAsync();
 			}
 		}
