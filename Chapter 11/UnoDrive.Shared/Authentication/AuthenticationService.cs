@@ -53,13 +53,14 @@ namespace UnoDrive.Authentication
 		{
 			var accounts = await publicClientApp.GetAccountsAsync();
 			var firstAccount = accounts.FirstOrDefault();
-			if (firstAccount != null)
+			if (firstAccount == null)
 			{
-				await publicClientApp.RemoveAsync(firstAccount);
-				logger.LogInformation($"Removed account: {firstAccount.Username}, user succesfully logged out.");
+				logger.LogInformation("Unable to find any accounts to log out of.");
+				return;
 			}
 
-			logger.LogInformation("Unable to find any accounts to log out of.");
+			await publicClientApp.RemoveAsync(firstAccount);
+			logger.LogInformation($"Removed account: {firstAccount.Username}, user succesfully logged out.");
 		}
 
 		async Task<AuthenticationResult> AcquireInteractiveTokenAsync()
