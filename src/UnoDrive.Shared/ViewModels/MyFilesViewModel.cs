@@ -1,20 +1,21 @@
-﻿using System.Linq;
-using UnoDrive.Models;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.UI.Xaml.Controls;
+using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using UnoDrive.Data;
-using UnoDrive.Services;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using System;
 using UnoDrive.Exceptions;
+using UnoDrive.Models;
+using UnoDrive.Mvvm;
+using UnoDrive.Services;
+using Windows.UI.Xaml.Controls;
 
 namespace UnoDrive.ViewModels
 {
-	public class MyFilesViewModel : ObservableObject
+	public class MyFilesViewModel : ObservableObject, IInitialize
 	{
 		Location location = new Location();
 		readonly IGraphFileService graphFileService;
@@ -28,7 +29,6 @@ namespace UnoDrive.ViewModels
 			Back = new AsyncRelayCommand(OnBackAsync);
 
 			FilesAndFolders = new List<OneDriveItem>();
-			LoadDataAsync(null, true);
 		}
 
 		public ICommand Forward { get; }
@@ -103,14 +103,6 @@ namespace UnoDrive.ViewModels
 					data = await graphFileService.GetFiles(pathId, UpdateFiles);
 
 				UpdateFiles(data);
-				
-				if (isFirstLoad)
-				{
-					// Configure the root pathId on first load
-					var firstItem = FilesAndFolders.FirstOrDefault();
-					if (firstItem != null)
-						location.Id = firstItem.PathId;
-				}
 			}
 			catch (NoDataException ex)
 			{
@@ -129,6 +121,15 @@ namespace UnoDrive.ViewModels
 
 				FilesAndFolders = files.ToList();
 			}
+		}
+
+		async Task IInitialize.InitializeAsync()
+		{
+			await LoadDataAsync(null, true);
+
+			var firstItem = FilesAndFolders.FirstOrDefault();
+			if (firstItem != null)
+				location.Id = firstItem.PathId;
 		}
 	}
 }
