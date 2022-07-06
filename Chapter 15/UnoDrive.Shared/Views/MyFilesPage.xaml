@@ -7,20 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:mvvm="using:UnoDrive.Mvvm"
 	mvvm:ViewModelLocator.AutoWireViewModel="True"
-	xmlns:not_macos="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:macos="http://uno.ui/macos"
-    mc:Ignorable="d macos">
+    mc:Ignorable="d">
 
-	<!-- Workaround needed for macOS: https://github.com/unoplatform/uno/issues/8385 --!>
-	<StackPanel>
+	<Grid>
 		<TextBlock Text="My Files page" />
-		<Image 
-			Height="300" 
-			not_macos:Source="ms-appx:///Assets/Images/file.png"
-			macos:Source="ms-appx:///Assets/Images/file.scale-300.png" />
-		<Image 
-			Height="300"
-			not_macos:Source="ms-appx:///Assets/Images/folder.png"
-			macos:Source="ms-appx:///Assets/Images/folder.scale-300.png"/>
-	</StackPanel>
+	</Grid>
 </Page>
