@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnoDrive.Models
+namespace UnoDrive.Data
 {
 	public enum OneDriveItemType
 	{

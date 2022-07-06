@@ -24,6 +24,8 @@
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\UnoDriveDbContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
@@ -36,7 +38,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\OneDriveItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MyFilesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
