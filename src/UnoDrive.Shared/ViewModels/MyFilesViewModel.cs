@@ -104,11 +104,6 @@ namespace UnoDrive.ViewModels
 
 				UpdateFiles(data);
 			}
-			catch (NoDataException ex)
-			{
-				// TODO - Display warning to user that the data isn't available in offline mode.
-				logger.LogError(ex, ex.Message);
-			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex, ex.Message);
@@ -117,7 +112,10 @@ namespace UnoDrive.ViewModels
 			void UpdateFiles(IEnumerable<OneDriveItem> files)
 			{
 				if (files == null)
+				{
+					logger.LogInformation("No data retrieved from API, ensure you have a stable internet connection");
 					return;
+				}
 
 				FilesAndFolders = files.ToList();
 			}
