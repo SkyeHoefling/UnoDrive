@@ -14,12 +14,12 @@ namespace UnoDrive.Services
 		}
 
 		public void NavigateToDashboard() =>
-			GetRootFrame().Navigate(typeof(Dashboard), this);
+			GetRootFrame()?.Navigate(typeof(Dashboard), this);
 
 		public async Task SignOutAsync()
 		{
 			await authentication.SignOutAsync();
-			GetRootFrame().Navigate(typeof(LoginPage), null);
+			GetRootFrame()?.Navigate(typeof(LoginPage), null);
 		}
 
 		Frame GetRootFrame()

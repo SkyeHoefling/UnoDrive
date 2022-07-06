@@ -6,10 +6,10 @@ namespace UnoDrive.Services
 	public class NavigationService : INavigationService
 	{
 		public void NavigateToDashboard() =>
-			GetRootFrame().Navigate(typeof(Dashboard), this);
+			GetRootFrame()?.Navigate(typeof(Dashboard), this);
 
 		public void SignOut() =>
-			GetRootFrame().Navigate(typeof(LoginPage), null);
+			GetRootFrame()?.GoBack();
 
 		Frame GetRootFrame()
 		{
