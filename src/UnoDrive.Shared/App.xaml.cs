@@ -58,6 +58,7 @@ namespace UnoDrive
 			ConfigureLogging(services);
 			services.UseAuthentication();
 
+			services.AddSingleton<INetworkConnectivityService, NetworkConnectivityService>();
 			services.AddTransient<INavigationService, NavigationService>();
 			services.AddTransient<IGraphFileService, GraphFileService>();
 		}

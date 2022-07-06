@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Selectors\DriveItemTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\GraphFileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkConnectivityService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DashboardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dashboard.xaml.cs">
