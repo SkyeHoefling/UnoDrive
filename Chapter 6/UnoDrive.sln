@@ -4,7 +4,7 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UnoDrive.Shared", "UnoDrive.Shared\UnoDrive.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoDrive.Mobile", "UnoDrive.Mobile\UnoDrive.Mobile.csproj", "{0C82C77D-658A-446B-AC92-963611AC41BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Mobile", "UnoDrive.Mobile\UnoDrive.Mobile.csproj", "{0C82C77D-658A-446B-AC92-963611AC41BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{59CD02F9-5B32-4314-8EB5-037683574A7F}"
 EndProject
@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Solution Items", ".Solutio
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "UnoDrive.Wasm", "UnoDrive.Wasm\UnoDrive.Wasm.csproj", "{EF04C9C8-BEEC-4F14-B627-21F65670C3B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Wasm", "UnoDrive.Wasm\UnoDrive.Wasm.csproj", "{EF04C9C8-BEEC-4F14-B627-21F65670C3B2}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "UnoDrive.Skia.Gtk", "UnoDrive.Skia.Gtk\UnoDrive.Skia.Gtk.csproj", "{78355EC9-471C-4930-9913-742E9F15BF82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Skia.Gtk", "UnoDrive.Skia.Gtk\UnoDrive.Skia.Gtk.csproj", "{78355EC9-471C-4930-9913-742E9F15BF82}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "UnoDrive.Windows", "UnoDrive.Windows\UnoDrive.Windows.csproj", "{96D3155A-71C8-4072-B199-B5AAF95654B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Windows", "UnoDrive.Windows\UnoDrive.Windows.csproj", "{96D3155A-71C8-4072-B199-B5AAF95654B8}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "UnoDrive.Skia.Wpf", "UnoDrive.Skia.Wpf\UnoDrive.Skia.Wpf.csproj", "{CCF7C831-1294-482C-B21A-27C281D7FA50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Skia.Wpf", "UnoDrive.Skia.Wpf\UnoDrive.Skia.Wpf.csproj", "{CCF7C831-1294-482C-B21A-27C281D7FA50}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "UnoDrive.Skia.Wpf.Host", "UnoDrive.Skia.Wpf.Host\UnoDrive.Skia.Wpf.Host.csproj", "{30689D9C-AFA3-4121-ADCB-CC404D4FD157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Skia.Wpf.Host", "UnoDrive.Skia.Wpf.Host\UnoDrive.Skia.Wpf.Host.csproj", "{30689D9C-AFA3-4121-ADCB-CC404D4FD157}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoDrive.iOS", "UnoDrive.iOS\UnoDrive.iOS.csproj", "{477317B4-CEE4-4F67-9F8B-75EB822C4B44}"
 EndProject
@@ -32,11 +32,13 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnoDrive.Shared\UnoDrive.Shared.projitems*{0c82c77d-658a-446b-ac92-963611ac41bd}*SharedItemsImports = 5
-		UnoDrive.Shared\UnoDrive.Shared.projitems*{40ea03f7-8a22-4143-b251-79bac3eb13d2}*SharedItemsImports = 5
+		UnoDrive.Shared\UnoDrive.Shared.projitems*{477317b4-cee4-4f67-9f8b-75eb822c4b44}*SharedItemsImports = 4
 		UnoDrive.Shared\UnoDrive.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
-		UnoDrive.Shared\UnoDrive.Shared.projitems*{a5b8155a-118f-4794-b551-c6f3cf7e5411}*SharedItemsImports = 5
-		UnoDrive.Shared\UnoDrive.Shared.projitems*{ed66da23-3606-4845-9cc9-829e32675bcc}*SharedItemsImports = 5
-		UnoDrive.Shared\UnoDrive.Shared.projitems*{f1787b55-8ea9-4dbf-afbd-0f5ffba0c089}*SharedItemsImports = 5
+		UnoDrive.Shared\UnoDrive.Shared.projitems*{78355ec9-471c-4930-9913-742e9f15bf82}*SharedItemsImports = 5
+		UnoDrive.Shared\UnoDrive.Shared.projitems*{919a3af0-6ab3-4343-b85f-ac7eeeee409f}*SharedItemsImports = 4
+		UnoDrive.Shared\UnoDrive.Shared.projitems*{96d3155a-71c8-4072-b199-b5aaf95654b8}*SharedItemsImports = 5
+		UnoDrive.Shared\UnoDrive.Shared.projitems*{ccf7c831-1294-482c-b21a-27c281d7fa50}*SharedItemsImports = 5
+		UnoDrive.Shared\UnoDrive.Shared.projitems*{ef04c9c8-beec-4f14-b627-21f65670c3b2}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
