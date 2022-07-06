@@ -16,6 +16,7 @@
 
 	<NavigationView 
 		x:Name="menu"
+		ios:Margin="0, 45, 0, 0"
 		IsBackButtonVisible="Collapsed"
 		IsPaneOpen="False"
 		win:PaneDisplayMode="Left"
