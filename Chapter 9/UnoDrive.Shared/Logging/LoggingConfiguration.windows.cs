@@ -20,7 +20,8 @@ namespace UnoDrive.Logging
 					.AddFilter("Uno", LogLevel.Debug)
 					.AddFilter("Windows", LogLevel.Debug)
 					.AddFilter("Microsoft", LogLevel.Debug)
-					.AddDebug();
+					.AddDebug()
+					.AddConsole();
 			});
 		}
     }
