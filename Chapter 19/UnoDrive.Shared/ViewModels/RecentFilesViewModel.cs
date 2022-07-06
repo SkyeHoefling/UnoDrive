@@ -14,7 +14,7 @@ namespace UnoDrive.ViewModels
     {
 		public RecentFilesViewModel(
 			IGraphFileService graphFileService,
-			ILogger<MyFilesViewModel> logger) : base(graphFileService, logger)
+			ILogger<RecentFilesViewModel> logger) : base(graphFileService, logger)
 		{
 		}
 

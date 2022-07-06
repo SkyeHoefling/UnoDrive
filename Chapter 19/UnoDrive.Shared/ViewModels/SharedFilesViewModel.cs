@@ -14,7 +14,7 @@ namespace UnoDrive.ViewModels
 	{
 		public SharedFilesViewModel(
 			IGraphFileService graphFileService,
-			ILogger<MyFilesViewModel> logger) : base(graphFileService, logger)
+			ILogger<SharedFilesViewModel> logger) : base(graphFileService, logger)
 		{
 		}
 
