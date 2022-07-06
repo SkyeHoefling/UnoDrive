@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
@@ -86,14 +87,16 @@ namespace UnoDrive.ViewModels
 			{
 				if (driveItem.Type == OneDriveItemType.Folder)
 				{
-					await LoadDataAsync(driveItem.Id);
-					location.Forward = new Location
+					await LoadDataAsync(driveItem.Id, () =>
 					{
-						Id = driveItem.Id,
-						Back = location
-					};
+						location.Forward = new Location
+						{
+							Id = driveItem.Id,
+							Back = location
+						};
 
-					location = location.Forward;
+						location = location.Forward;
+					});
 
 				}
 				else
@@ -111,9 +114,9 @@ namespace UnoDrive.ViewModels
 			if (!location.CanMoveForward)
 				return;
 
-			// This doesn't appear to be working
-			await LoadDataAsync(location.Forward.Id);
+			var forwardId = location.Forward.Id;
 			location = location.Forward;
+			await LoadDataAsync(forwardId);
 		}
 
 		async Task OnBackAsync()
@@ -121,24 +124,44 @@ namespace UnoDrive.ViewModels
 			if (!location.CanMoveBack)
 				return;
 
-			await LoadDataAsync(location.Back.Id);
+			var backId = location.Back.Id;
 			location = location.Back;
+			await LoadDataAsync(backId);
 		}
 
-		async Task LoadDataAsync(string pathId = null)
+		CancellationTokenSource cancellationTokenSource;
+		CancellationToken cancellationToken;
+		TaskCompletionSource<bool> currentLoadDataTask;
+		async Task LoadDataAsync(string pathId = null, Action callback = null)
 		{
-			// TODO - add task cancellation when the user quickly navigates between pages
+			if (cancellationTokenSource != null && !cancellationTokenSource.IsCancellationRequested)
+			{
+				cancellationTokenSource.Cancel();
+
+				// This should prevent a race condition
+				await currentLoadDataTask.Task;
+			}
+
+			currentLoadDataTask = new TaskCompletionSource<bool>();
+			cancellationTokenSource = new CancellationTokenSource();
+			cancellationToken = cancellationTokenSource.Token;
+
 			try
 			{
 				IsLoading = true;
 
 				IEnumerable<OneDriveItem> data;
 				if (string.IsNullOrEmpty(pathId))
-					data = await graphFileService.GetRootFiles(UpdateFiles);
+					data = await graphFileService.GetRootFiles(UpdateFiles, cancellationToken);
 				else
-					data = await graphFileService.GetFiles(pathId, UpdateFiles);
+					data = await graphFileService.GetFiles(pathId, UpdateFiles, cancellationToken);
 
 				UpdateFiles(data);
+			}
+			catch (OperationCanceledException ex)
+			{
+				logger.LogInformation("API cancelled, user selected new file or folder");
+				logger.LogInformation(ex, ex.Message);
 			}
 			catch (Exception ex)
 			{
@@ -146,8 +169,14 @@ namespace UnoDrive.ViewModels
 			}
 			finally
 			{
+				cancellationTokenSource.Dispose();
+				cancellationTokenSource = default;
+				cancellationToken = default;
+
 				IsBusy = false;
 				IsLoading = false;
+
+				currentLoadDataTask.SetResult(true);
 			}
 
 			void UpdateFiles(IEnumerable<OneDriveItem> files, bool isCached = false)
@@ -165,9 +194,11 @@ namespace UnoDrive.ViewModels
 					NoDataMessage = "No files or folders";
 				}
 
-				// TODO - The screen flashes briefly when loading the
-				// data from the API
+				// TODO - The screen flashes briefly when loading the data from the API
 				FilesAndFolders = files.ToList();
+
+				if (isCached)
+					callback?.Invoke();
 			}
 		}
 
