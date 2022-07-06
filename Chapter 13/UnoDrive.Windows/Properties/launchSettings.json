@@ -1,0 +1,10 @@
+{
+	"profiles": {
+		"UnoDrive (Package)": {
+			"commandName": "MsixPackage"
+		},
+		"UnoDrive (Unpackaged)": {
+			"commandName": "Project"
+		}
+	}
+}
