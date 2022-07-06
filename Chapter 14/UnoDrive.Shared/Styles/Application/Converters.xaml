@@ -2,12 +2,11 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:toolkit="using:UnoDrive.Converters"
 	xmlns:converters="using:UnoDrive.Converters">
 
 	<converters:NullToVisibilityConverter x:Key="NullEqualsVisibileConverter" IsNull="Visible" HasValue="Collapsed" />
 	<converters:NullToVisibilityConverter x:Key="NullEqualsCollapsedConverter" IsNull="Collapsed" HasValue="Visible" />
-	<toolkit:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
-	<toolkit:BoolToVisibilityConverter x:Key="BoolNegationToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
+	<converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
+	<converters:BoolToVisibilityConverter x:Key="BoolNegationToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
 
 </ResourceDictionary>
