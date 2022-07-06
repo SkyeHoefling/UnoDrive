@@ -1,105 +1,17 @@
-﻿<Page
-    x:Class="UnoDrive.Views.MyFilesPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:wasm="http://uno.ui/wasm"
-    xmlns:skia="http://uno.ui/skia"
-    xmlns:android="http://uno.ui/android"
-    xmlns:toolkit="microsoft.toolkit.uwp.ui"
-    xmlns:viewmodel="using:UnoDrive.ViewModels"
-    xmlns:mvvm="using:UnoDrive.Mvvm"
-    mvvm:ViewModelLocator.AutoWireViewModel="True"
-    xmlns:model="using:UnoDrive.Models"
-    xmlns:selectors="using:UnoDrive.Selectors"
-    mc:Ignorable="d wasm skia android">
-
-    <Page.Resources>
-        <ResourceDictionary>
-            <!--<DataTemplate x:Key="FolderTemplate" x:DataType="model:OneDriveItem">
-                <TreeViewItem>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="20" Source="ms-appx:///Assets/Images/folder.png" />
-                        <TextBlock Text="{x:Bind Name}" />
-                    </StackPanel>
-                </TreeViewItem>
-            </DataTemplate>
-            
-            <DataTemplate x:Key="ItemTemplate">
-                
-            </DataTemplate>
-
-            -->
-        
-
-            <DataTemplate x:Key="DriveItemTemplate" x:DataType="model:OneDriveItem">
-                <StackPanel Spacing="20" android:Width="175" android:Height="250">
-                    <win:Image
-                        Stretch="UniformToFill"
-                        Source="ms-appx:///Assets/Images/file.png"
-                        Width="150" />
-                    <skia:Image
-                        Stretch="UniformToFill"
-                        Source="ms-appx:///Assets/Images/file.png"
-                        Width="150" />
-                    <wasm:Image
-                        Stretch="UniformToFill"
-                        Source="ms-appx:///Assets/Images/file.png"
-                        Width="150" />
-                    <android:Image Source="ms-appx:///Assets/Images/file.png" />
-                    <TextBlock
-                        Text="{x:Bind Name}"
-                        HorizontalAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                </StackPanel>    
-            </DataTemplate>
-
-            <DataTemplate x:Key="DriveFolderTemplate" x:DataType="model:OneDriveItem">
-                <StackPanel Spacing="20" android:Width="175" android:Height="250">
-                    <win:Image
-                        Stretch="UniformToFill"
-                        Source="ms-appx:///Assets/Images/folder.png"
-                        Width="150" />
-                    <skia:Image
-                        Stretch="UniformToFill"
-                        Source="ms-appx:///Assets/Images/folder.png"
-                        Width="150" />
-                    <wasm:Image
-                        Stretch="UniformToFill"
-                        Source="ms-appx:///Assets/Images/folder.png"
-                        Width="150" />
-                    <Image Source="ms-appx:///Assets/Images/folder.png" />
-                    <TextBlock
-                        Text="{x:Bind Name}"
-                        HorizontalAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        TextWrapping="WrapWholeWords" />
-                </StackPanel>
-            </DataTemplate>
-
-            <selectors:DriveItemTemplateSelector
-                x:Key="DriveItemTemplateSelector"
-                FolderTemplate="{StaticResource DriveFolderTemplate}"
-                ItemTemplate="{StaticResource DriveItemTemplate}" />
-            
-        </ResourceDictionary>
-    </Page.Resources>
-
+﻿	<Page
+	    x:Class="UnoDrive.Views.MyFilesPage"
+	    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	    xmlns:mvvm="using:UnoDrive.Mvvm"
+	    mvvm:ViewModelLocator.AutoWireViewModel="True"
+	    mc:Ignorable="d">
+		
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <GridView
-            ItemsSource="{Binding FilesAndFolders}"
-            ItemTemplateSelector="{StaticResource DriveItemTemplateSelector}"
-            IsItemClickEnabled="False"
-            CanDragItems="False"
-            AllowDrop="False"
-            CanReorderItems="False"
-            SelectionMode="Single"
-            FlowDirection="LeftToRight"
-            HorizontalContentAlignment="Center"
-            />
+        <GridView 
+	        ItemsSource="{Binding FilesAndFolders}"
+            ItemClick="{x:Bind ViewModel.ItemClick}" />
     </ScrollViewer>
     
 </Page>

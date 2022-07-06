@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Graph;
 using UnoDrive.Models;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Controls;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace UnoDrive.ViewModels
@@ -27,6 +28,10 @@ namespace UnoDrive.ViewModels
         {
             get => filesAndFolders;
             set => SetProperty(ref filesAndFolders, value);
+        }
+        
+        public void ItemClick(object sender, ItemClickEventArgs args)
+        {
         }
 
         async void LoadData()
