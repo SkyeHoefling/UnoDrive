@@ -165,7 +165,6 @@ namespace UnoDrive.ViewModels
 					data = await graphFileService.GetFilesAsync(pathId, UpdateFiles, cancellationToken);
 
 				UpdateFiles(data);
-				//await LoadThumbnailsAsync();
 			}
 			catch (OperationCanceledException ex)
 			{
