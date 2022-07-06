@@ -11,8 +11,14 @@ namespace UnoDrive.Converters
 
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			var message = (string)value;
-			return string.IsNullOrEmpty(message) ? IsEmpty : IsNotEmpty;
+			if (value is string message)
+			{
+				return string.IsNullOrEmpty(message) ? IsEmpty : IsNotEmpty;
+			}
+			else
+			{
+				return Visibility.Collapsed;
+			}
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
