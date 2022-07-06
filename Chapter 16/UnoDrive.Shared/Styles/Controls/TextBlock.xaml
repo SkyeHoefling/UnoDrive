@@ -2,13 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<Style x:Name="Header" TargetType="TextBlock">
+	<Style x:Key="Header" TargetType="TextBlock">
 		<Setter Property="FontSize" Value="40" />
 		<Setter Property="HorizontalTextAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Center" />
 	</Style>
 
-	<Style x:Name="SubHeader" TargetType="TextBlock">
+	<Style x:Key="SubHeader" TargetType="TextBlock">
 		<Setter Property="FontSize" Value="24" />
 		<Setter Property="HorizontalTextAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Center" />

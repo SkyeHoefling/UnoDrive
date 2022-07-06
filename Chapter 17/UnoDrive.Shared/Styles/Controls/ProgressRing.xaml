@@ -5,7 +5,7 @@
 	xmlns:android="http://uno.ui/android"
 	mc:Ignorable="android">
 
-	<Style x:Name="AddressBarProgressRing" TargetType="ProgressRing">
+	<Style x:Key="AddressBarProgressRing" TargetType="ProgressRing">
 		<Setter Property="Width" Value="20" />
 		<Setter Property="Height" Value="20" />
 		<android:Setter Property="Width" Value="15" />
