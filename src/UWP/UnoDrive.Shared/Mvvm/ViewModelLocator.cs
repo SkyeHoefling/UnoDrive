@@ -36,7 +36,7 @@ namespace UnoDrive.Mvvm
         {
             string viewName = string.Empty;
 
-            if (viewType.FullName.EndsWith("Page"))
+            if (viewType.FullName.EndsWith("Page") || viewType.FullName.StartsWith("UnoDrive.Views"))
             {
                 viewName = viewType.FullName
                 .Replace("Page", string.Empty)

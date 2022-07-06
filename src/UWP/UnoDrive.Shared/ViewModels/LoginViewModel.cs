@@ -78,6 +78,7 @@ namespace UnoDrive.ViewModels
             if (!string.IsNullOrWhiteSpace(token.Message))
                 Message = token.Message;
 
+            ((App)App.Current).AuthenticationResult = token;
             navigation.NavigateToDashboard();
         }
     }

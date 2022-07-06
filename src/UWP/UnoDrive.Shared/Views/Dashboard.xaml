@@ -10,6 +10,8 @@
     xmlns:wasm="http://uno.ui/wasm"
     xmlns:v="using:UnoDrive.Views"
     xmlns:c="using:UnoDrive.Controls"
+    xmlns:mvvm="using:UnoDrive.Mvvm"
+    mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d android ios wasm">
 
     <NavigationView x:Name="menu"
@@ -26,8 +28,8 @@
 
         <NavigationView.PaneCustomContent>
             <StackPanel Margin="5, 0, 5, 0" Spacing="10">
-                <TextBlock Text="Andrew Hoefling" FontSize="20" HorizontalTextAlignment="Center" />
-                <TextBlock Text="myemail@email.com" FontSize="18" HorizontalTextAlignment="Center" />
+                <TextBlock Text="{Binding Name}" FontSize="20" HorizontalTextAlignment="Center" />
+                <TextBlock Text="{Binding Email}" FontSize="18" HorizontalTextAlignment="Center" />
 
                 <!-- Needs TLC in WASM -->
                 <Line X1="0" X2="1" Stretch="Fill" Stroke="Black" StrokeThickness="1" Margin="10, 0" />
@@ -52,7 +54,7 @@
                 <c:HeaderControl />
             </Frame>
         </NavigationView.Header>
-        
+
         <Frame x:Name="contentFrame" Padding="15, 10">
             <v:MyFilesPage />
         </Frame>

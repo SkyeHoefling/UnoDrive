@@ -8,9 +8,9 @@ namespace UnoDrive.ViewModels
     {
         public MyFilesViewModel()
         {
-            FilesAndFolders = new ObservableCollection<ExplorerItem>(new[]
+            FilesAndFolders = new ObservableCollection<OneDriveItem>(new[]
             {
-                new ExplorerItem
+                new OneDriveItem
                 {
                     Name = "Test",
                     FileSize = "100MB",
@@ -18,7 +18,7 @@ namespace UnoDrive.ViewModels
                     ModifiedBy = "Andrew",
                     Sharing = ""
                 },
-                new ExplorerItem
+                new OneDriveItem
                 {
                     Name = "Test 1",
                     FileSize = "100MB",
@@ -26,7 +26,7 @@ namespace UnoDrive.ViewModels
                     ModifiedBy = "Andrew",
                     Sharing = ""
                 },
-                new ExplorerItem
+                new OneDriveItem
                 {
                     Name = "Test 2",
                     FileSize = "100MB",
@@ -34,7 +34,7 @@ namespace UnoDrive.ViewModels
                     ModifiedBy = "Andrew",
                     Sharing = ""
                 },
-                new ExplorerItem
+                new OneDriveItem
                 {
                     Name = "Test 3",
                     FileSize = "100MB",
@@ -45,6 +45,6 @@ namespace UnoDrive.ViewModels
             });
         }
 
-        public ObservableCollection<ExplorerItem> FilesAndFolders { get; set; }
+        public ObservableCollection<OneDriveItem> FilesAndFolders { get; set; }
     }
 }
