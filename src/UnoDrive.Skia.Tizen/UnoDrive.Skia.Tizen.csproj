@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Tizen.NET.Sdk/1.1.6">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -21,8 +21,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     <PackageReference Include="SkiaSharp.Views" Version="2.80.2" />
-    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.6" />
-    <PackageReference Include="Uno.UI.Skia.Tizen" Version="3.8.6" />
+    <PackageReference Include="Uno.WinUI.Skia.Tizen" Version="3.8.6" />
+    <PackageReference Include="Uno.WinUI.RemoteControl" Version="3.8.6" Condition="'$(Configuration)'=='Debug'" />
   </ItemGroup>
   <Import Project="..\UnoDrive.Shared\UnoDrive.Shared.projitems" Label="Shared" />
 </Project>
