@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6279c845-92f8-4333-ab99-3d213163593c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>UnoDrive</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.gtk.wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.android.ios.macos.windows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\IAuthenticationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml.cs">
+      <DependentUpon>HeaderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.gtk.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.windows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.ios.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\INetworkConnectivityService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkConnectivityService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DashboardViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MyFilesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RecentFilesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RecycleBinViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SharedFilesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MyFilesPage.xaml.cs">
+      <DependentUpon>MyFilesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RecentFilesPage.xaml.cs">
+      <DependentUpon>RecentFilesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RecycleBinPage.xaml.cs">
+      <DependentUpon>RecycleBinPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SharedFilesPage.xaml.cs">
+      <DependentUpon>SharedFilesPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Application\_Application.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\_Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\_Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\MyFilesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\RecentFilesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\RecycleBinPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SharedFilesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Assets\SharedAssets.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
+  </ItemGroup>
+</Project>
