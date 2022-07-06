@@ -13,6 +13,7 @@ namespace UnoDrive
         public Dashboard()
         {
             this.InitializeComponent();
+            contentFrame.NavigateToType(typeof(MyFilesPage), null, new FrameNavigationOptions());
         }
 
         void MenuItemSelected(NavigationView sender, NavigationViewItemInvokedEventArgs args)
