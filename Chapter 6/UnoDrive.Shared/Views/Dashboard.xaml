@@ -76,11 +76,13 @@
 				Content="Sign Out"  />
 		</NavigationView.MenuItems>
 
-		<NavigationView.Header>
-			<c:HeaderControl ios:Margin="0, 46, 0, 0" />
-		</NavigationView.Header>
-
-		<Frame x:Name="contentFrame" Padding="15, 10" />
+		<StackPanel 
+			macos:Margin="0, 30, 0, 0"
+			Padding="15, 10" 
+			Spacing="10">
+			<c:HeaderControl android:Padding="30, 0, 0, 0" />
+			<Frame x:Name="contentFrame" />
+		</StackPanel>
 
 	</NavigationView>
 	
