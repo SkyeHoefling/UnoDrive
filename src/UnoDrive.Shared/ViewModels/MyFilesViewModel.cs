@@ -67,18 +67,18 @@ namespace UnoDrive.ViewModels
 			set => SetProperty(ref noDataMessage, value);
 		}
 
-		bool isBusy;
-		public bool IsBusy
+		bool isMainFrameLoading;
+		public bool IsMainFrameLoading
 		{
-			get => isBusy;
-			set => SetProperty(ref isBusy, value);
+			get => isMainFrameLoading;
+			set => SetProperty(ref isMainFrameLoading, value);
 		}
 
-		bool isLoading;
-		public bool IsLoading
+		bool isStatusBarLoading;
+		public bool IsStatusBarLoading
 		{
-			get => isLoading;
-			set => SetProperty(ref isLoading, value);
+			get => isStatusBarLoading;
+			set => SetProperty(ref isStatusBarLoading, value);
 		}
 
 		public async void ItemClick(object sender, ItemClickEventArgs args)
@@ -148,7 +148,7 @@ namespace UnoDrive.ViewModels
 
 			try
 			{
-				IsLoading = true;
+				IsStatusBarLoading = true;
 
 				IEnumerable<OneDriveItem> data;
 				if (string.IsNullOrEmpty(pathId))
@@ -173,8 +173,8 @@ namespace UnoDrive.ViewModels
 				cancellationTokenSource = default;
 				cancellationToken = default;
 
-				IsBusy = false;
-				IsLoading = false;
+				IsMainFrameLoading = false;
+				IsStatusBarLoading = false;
 
 				currentLoadDataTask.SetResult(true);
 			}
@@ -190,7 +190,7 @@ namespace UnoDrive.ViewModels
 				}
 				else if (!files.Any())
 				{
-					IsBusy = true;
+					IsMainFrameLoading = true;
 					NoDataMessage = "No files or folders";
 				}
 
