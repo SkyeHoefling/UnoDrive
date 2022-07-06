@@ -68,7 +68,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MyFilesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RecentFilesViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RecycleBinViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SharedFilesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
@@ -81,9 +80,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\RecentFilesPage.xaml.cs">
       <DependentUpon>RecentFilesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\RecycleBinPage.xaml.cs">
-      <DependentUpon>RecycleBinPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SharedFilesPage.xaml.cs">
       <DependentUpon>SharedFilesPage.xaml</DependentUpon>
@@ -143,10 +139,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\RecentFilesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\RecycleBinPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

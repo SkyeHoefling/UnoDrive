@@ -12,6 +12,5 @@ namespace UnoDrive.Services
 		Task<IEnumerable<OneDriveItem>> GetMyFilesAsync(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
 		Task<IEnumerable<OneDriveItem>> GetRecentFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
 		Task<IEnumerable<OneDriveItem>> GetSharedFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
-		Task<IEnumerable<OneDriveItem>> GetRecycleBinFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
 	}
 }

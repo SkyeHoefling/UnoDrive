@@ -102,9 +102,6 @@ namespace UnoDrive.Services
 		public Task<IEnumerable<OneDriveItem>> GetSharedFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
 			GetFilesAsync(Models.GraphRequestType.SharedWithMe, "SHARED-FILES", cachedCallback, cancellationToken);
 
-		public Task<IEnumerable<OneDriveItem>> GetRecycleBinFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
-			GetFilesAsync(Models.GraphRequestType.Recent, "RECYCLE-FILES", cachedCallback, cancellationToken);
-
 #if __ANDROID__ || __IOS__ || __MACOS__
 		async Task<UnoDrive.Models.DriveItem[]>
 #else
