@@ -17,6 +17,30 @@ namespace UnoDrive.ViewModels
                     Modified = DateTime.Now,
                     ModifiedBy = "Andrew",
                     Sharing = ""
+                },
+                new ExplorerItem
+                {
+                    Name = "Test 1",
+                    FileSize = "100MB",
+                    Modified = DateTime.Now,
+                    ModifiedBy = "Andrew",
+                    Sharing = ""
+                },
+                new ExplorerItem
+                {
+                    Name = "Test 2",
+                    FileSize = "100MB",
+                    Modified = DateTime.Now,
+                    ModifiedBy = "Andrew",
+                    Sharing = ""
+                },
+                new ExplorerItem
+                {
+                    Name = "Test 3",
+                    FileSize = "100MB",
+                    Modified = DateTime.Now,
+                    ModifiedBy = "Andrew",
+                    Sharing = ""
                 }
             });
         }
