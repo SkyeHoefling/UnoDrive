@@ -20,6 +20,12 @@ namespace UnoDrive.Authentication
 			// WORKAROUND - This can be removed after we get a resolution to https://github.com/unoplatform/uno/discussions/7707
 #if __ANDROID__
 			builder.WithParentActivityOrWindow(() => Uno.UI.ContextHelper.Current as Android.App.Activity);
+#elif __IOS__
+			builder.WithParentActivityOrWindow(() => Microsoft.UI.Xaml.Window.Current.Content.Window.RootViewController);
+#endif
+
+#if __IOS__ || __MACOS__
+			builder.WithIosKeychainSecurityGroup("com.HoeflingSoftware.UnoWinUI");
 #endif
 
 			services.AddSingleton(builder.Build());

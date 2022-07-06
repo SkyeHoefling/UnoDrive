@@ -5,11 +5,16 @@
 	<key>CFBundleName</key>
 	<string>UnoWinUI.macOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.UnoWinUI-macOS</string>
+	<string>com.HoeflingSoftware.UnoWinUI</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>msauthv2</string>
+		<string>msauthv3</string>
+	</array>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.11</string>
 	<key>CFBundleDevelopmentRegion</key>
