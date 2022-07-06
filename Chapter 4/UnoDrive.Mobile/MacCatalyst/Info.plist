@@ -10,8 +10,6 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>10.15.1</string>
 	<key>UIDeviceFamily</key>
 	<array>
 	  <integer>2</integer>
@@ -29,6 +27,7 @@
 	<key>UIAppFonts</key>
 	<array>
 	  <string>Fonts/uno-fluentui-assets.ttf</string>
+      <string>Fonts/SegMDL2.ttf</string>
 	</array>
   </dict>
 </plist>
