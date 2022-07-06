@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Uwp.Helpers;
 using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
@@ -33,8 +34,7 @@ namespace UnoDrive.ViewModels
 
 			FilesAndFolders = new List<OneDriveItem>();
 
-			// TODO - Add weak event handler from WCT
-			this.networkConnectivity.NetworkStatusChanged += OnNetworkStatusChanged;
+			
 		}
 
 		public ICommand Forward { get; }
@@ -212,11 +212,29 @@ namespace UnoDrive.ViewModels
 
 		async Task IInitialize.InitializeAsync()
 		{
+			RegisterEvents();
 			await LoadDataAsync();
 
 			var firstItem = FilesAndFolders.FirstOrDefault();
 			if (firstItem != null)
 				location.Id = firstItem.PathId;
+		}
+
+		void RegisterEvents()
+		{
+			// When using the Windows Community Toolkit WeakEventListener you can't
+			// directly reference any object in `this.` context. Otherwise the GC
+			// won't collect the resource correctly as it will create a tight coupling.
+			// To work around this, creating a new locally scopped property creates
+			// a new layer of indirection so the GC can properly clean up unused memory.
+			// https://github.com/windows-toolkit/WindowsCommunityToolkit/issues/3029
+			INetworkConnectivityService network = this.networkConnectivity;
+			var weakEventListener = new WeakEventListener<MyFilesViewModel, object, object>(this)
+			{
+				OnEventAction = (instance, source, args) => instance.OnNetworkStatusChanged(source),
+				OnDetachAction = (listener) => network.NetworkStatusChanged -= listener.OnEvent
+			};
+			network.NetworkStatusChanged += weakEventListener.OnEvent;
 		}
 	}
 }

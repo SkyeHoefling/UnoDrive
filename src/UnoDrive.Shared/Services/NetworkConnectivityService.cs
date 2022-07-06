@@ -11,7 +11,7 @@ namespace UnoDrive.Services
 {
 	public interface INetworkConnectivityService
 	{
-		event NetworkStatusChangedEventHandler NetworkStatusChanged;
+		event EventHandler NetworkStatusChanged;
 		NetworkConnectivityLevel Connectivity { get; }
 	}
 
@@ -46,7 +46,7 @@ namespace UnoDrive.Services
 			}
 		}
 
-		public event NetworkStatusChangedEventHandler NetworkStatusChanged;
+		public event EventHandler NetworkStatusChanged;
 
 		// This api is invoked from a background thread.
 		// We must ensure that it is marshaled to the
@@ -61,7 +61,7 @@ namespace UnoDrive.Services
 			if (dispatcher == null)
 				throw new InvalidOperationException("Unable to find main thread");
 
-			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => NetworkStatusChanged?.Invoke(sender));
+			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => NetworkStatusChanged?.Invoke(sender, new EventArgs()));
 		}
 	}
 }
