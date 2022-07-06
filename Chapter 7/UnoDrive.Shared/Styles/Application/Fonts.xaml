@@ -7,12 +7,14 @@
 	xmlns:skia="http://uno.ui/skia"
 	xmlns:wasm="http://uno.ui/wasm"
 	xmlns:ios="https://uno.ui/ios"
-	mc:Ignorable="android skia wasm ios">
+	xmlns:macos="http://uno.ui/macos"
+	mc:Ignorable="android skia wasm ios macos">
 
 	<win:FontFamily x:Key="SegoeMDL2Assets">Segoe MDL2 Assets</win:FontFamily>
 	<android:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</android:FontFamily>
 	<skia:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</skia:FontFamily>
 	<wasm:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</wasm:FontFamily>
 	<ios:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</ios:FontFamily>
+	<macos:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</macos:FontFamily>
 	
 </ResourceDictionary>
