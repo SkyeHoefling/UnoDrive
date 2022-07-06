@@ -67,7 +67,7 @@ namespace UnoDrive.ViewModels
 
 					if (networkService.Connectivity != NetworkConnectivityLevel.InternetAccess)
 					{
-						logger.LogCritical("NO INTERNET CONNECTION: Internet required to retrieve an Access Token for the first time");
+						logger.LogInformation("NO INTERNET CONNECTION: Internet required to retrieve an Access Token for the first time");
 						Message = "No Internet, try again after connecting.";
 					}
 				}
