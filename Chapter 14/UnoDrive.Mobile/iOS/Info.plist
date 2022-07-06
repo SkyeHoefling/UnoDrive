@@ -54,7 +54,7 @@
     <key>UIAppFonts</key>
     <array>
       <string>Fonts/uno-fluentui-assets.ttf</string>
-      <string>Fonts/SegMDL2.ttf</string>
+      <string>Fonts/MaterialIcons-Regular.ttf</string>
     </array>
 </dict>
 </plist>

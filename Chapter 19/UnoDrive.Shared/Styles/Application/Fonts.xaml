@@ -10,11 +10,11 @@
 	xmlns:macos="http://uno.ui/macos"
 	mc:Ignorable="android skia wasm ios macos">
 
-	<win:FontFamily x:Key="SegoeMDL2Assets">Segoe MDL2 Assets</win:FontFamily>
-	<android:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</android:FontFamily>
-	<skia:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</skia:FontFamily>
-	<wasm:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</wasm:FontFamily>
-	<ios:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</ios:FontFamily>
-	<macos:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</macos:FontFamily>
+	<win:FontFamily x:Key="MaterialIcons">ms-appx:///Fonts/MaterialIcons-Regular.ttf#Material Icons</win:FontFamily>
+	<android:FontFamily x:Key="MaterialIcons">ms-appx:///Assets/Fonts/MaterialIcons-Regular.ttf#Material Icons</android:FontFamily>
+	<skia:FontFamily x:Key="MaterialIcons">ms-appx:///Assets/Fonts/MaterialIcons-Regular.ttf#Material Icons</skia:FontFamily>
+	<wasm:FontFamily x:Key="MaterialIcons">ms-appx:///Assets/Fonts/MaterialIcons-Regular.ttf#Material Icons</wasm:FontFamily>
+	<ios:FontFamily x:Key="MaterialIcons">ms-appx:///Assets/Fonts/MaterialIcons-Regular.ttf#Material Icons</ios:FontFamily>
+	<macos:FontFamily x:Key="MaterialIcons">ms-appx:///Assets/Fonts/MaterialIcons-Regular.ttf#Material Icons</macos:FontFamily>
 	
-</ResourceDictionary>
+</ResourceDictionary> 

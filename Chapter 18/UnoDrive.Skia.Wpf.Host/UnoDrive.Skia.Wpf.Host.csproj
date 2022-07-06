@@ -7,15 +7,12 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Assets\Fonts\SegMDL2.ttf" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.4.13" />
 		<PackageReference Include="Uno.WinUI.Lottie" Version="4.4.13" />
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.4.13" Condition="'$(Configuration)'=='Debug'" />
 	</ItemGroup>
 	<ItemGroup>
-		<Content Include="Assets\Fonts\SegMDL2.ttf" />
+		<Content Include="Assets\Fonts\MaterialIcons-Regular.ttf" />
 		<Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
 	</ItemGroup>
 	<ItemGroup>

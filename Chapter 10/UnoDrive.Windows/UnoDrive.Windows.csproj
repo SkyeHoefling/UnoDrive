@@ -13,8 +13,12 @@
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 		<DefineConstants>$(DefineConstants);__UNO_DRIVE_WINDOWS__</DefineConstants>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Fonts\MaterialIcons-Regular.ttf" />
+	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="Fonts\MaterialIcons-Regular.ttf" />
 		<Content Include="Images\SplashScreen.scale-200.png" />
 		<Content Include="Images\LockScreenLogo.scale-200.png" />
 		<Content Include="Images\Square150x150Logo.scale-200.png" />

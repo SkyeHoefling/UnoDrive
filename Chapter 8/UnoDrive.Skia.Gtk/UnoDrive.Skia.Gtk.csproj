@@ -13,11 +13,11 @@
 		<UpToDateCheckInput Include="..\UnoDrive.Shared\**\*.xaml" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Assets\Fonts\SegMDL2.ttf" />
+	  <None Remove="Assets\Fonts\MaterialIcons-Regular.ttf" />
 	  <None Remove="Assets\Fonts\uno-fluentui-assets.ttf" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Content Include="Assets\Fonts\SegMDL2.ttf" />
+	  <Content Include="Assets\Fonts\MaterialIcons-Regular.ttf" />
 	  <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
 	</ItemGroup>
 	<ItemGroup>

@@ -6,11 +6,6 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Assets\Fonts\FluentSystemIcons-Regular.ttf" />
-	  <None Remove="Assets\Fonts\MaterialIcons-Regular.ttf" />
-	  <None Remove="Assets\Fonts\SegMDL2.ttf" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.4.13" />
 		<PackageReference Include="Uno.WinUI.Lottie" Version="4.4.13" />
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.4.13" Condition="'$(Configuration)'=='Debug'" />
