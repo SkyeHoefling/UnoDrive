@@ -17,7 +17,7 @@
 			<Style TargetType="Grid">
 				<Setter Property="HorizontalAlignment" Value="Center" />
 			</Style>
-			
+
 			<Style TargetType="StackPanel">
 				<Setter Property="VerticalAlignment" Value="Center" />
 			</Style>
@@ -31,18 +31,19 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
 			<TextBlock 
-				Text="Welcom to UnoDrive!"
-				FontSize="40" />
+                Text="Welcom to UnoDrive!" 
+                FontSize="40" />
 			<TextBlock 
-				Text="Uno Platform ♥ OneDrive = UnoDrive" 
-				FontSize="24" />
+                Text="Uno Platform ♥ OneDrive = UnoDrive" 
+                FontSize="24" />
 		</StackPanel>
 		<StackPanel Grid.Row="0" Grid.RowSpan="2">
 			<Button 
-				Content="Login to UnoDrive"
-				FontSize="40"
-				Padding="40, 10"
-				HorizontalAlignment="Center"/>
+                Content="Login to UnoDrive"
+                Background="LightGray"
+                FontSize="40"
+                Padding="40, 10"
+                HorizontalAlignment="Center"/>
 		</StackPanel>
 	</Grid>
 
