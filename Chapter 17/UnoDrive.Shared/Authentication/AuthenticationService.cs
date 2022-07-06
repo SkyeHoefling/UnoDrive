@@ -41,7 +41,7 @@ namespace UnoDrive.Authentication
 		public async Task<AuthenticationResult> AcquireTokenAsync()
 		{
 			AuthenticationResult authentication = await AcquireSilentTokenAsync();
-			if (authentication == null || string.IsNullOrEmpty(authentication.AccessToken))
+			if (string.IsNullOrEmpty(authentication?.AccessToken))
 			{
 				authentication = await AcquireInteractiveTokenAsync();
 			}
