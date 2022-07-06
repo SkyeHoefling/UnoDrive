@@ -9,7 +9,7 @@
     <NavigationView x:Name="menu"
                     IsBackButtonVisible="Collapsed"
                     IsPaneOpen="False"
-                    PaneDisplayMode="LeftMinimal"
+                    PaneDisplayMode="Left"
                     IsSettingsVisible="False"
                     PaneTitle="UnoDrive"
                     ItemInvoked="MenuItemSelected">
@@ -33,10 +33,6 @@
             <NavigationViewItem Icon="Download" Content="Logout" x:Name="logout" />
             <NavigationViewItem Icon="Clear" Content="Exit" x:Name="exit" />
         </NavigationView.FooterMenuItems>
-
-        <NavigationView.Header>
-            <TextBlock Text="Header" />
-        </NavigationView.Header>
 
         <Frame x:Name="contentFrame" />
 

@@ -7,9 +7,7 @@ namespace UnoDrive.Views
     /// </summary>
     public sealed partial class MyFilesPage : Page
     {
-        public MyFilesPage()
-        {
+        public MyFilesPage() =>
             this.InitializeComponent();
-        }
     }
 }
