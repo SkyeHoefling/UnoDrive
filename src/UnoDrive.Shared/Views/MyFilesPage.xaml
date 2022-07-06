@@ -41,8 +41,31 @@
         </Grid>
 
         <toolkit:DataGrid x:Name="dataGrid"
-                          AutoGenerateColumns="True"
-                          ItemsSource="{Binding FilesAndFolders}" />
+                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding FilesAndFolders}">
+            <toolkit:DataGrid.Columns>
+                <toolkit:DataGridTextColumn Header="Name"
+                                            IsReadOnly="True"
+                                            CanUserReorder="False"
+                                            Binding="{Binding Name}" />
+                <toolkit:DataGridTextColumn Header="File Size"
+                                            IsReadOnly="True"
+                                            CanUserReorder="False"
+                                            Binding="{Binding FileSize}" />
+                <toolkit:DataGridTextColumn Header="Modified"
+                                            IsReadOnly="True"
+                                            CanUserReorder="False"
+                                            Binding="{Binding Modified}" />
+                <toolkit:DataGridTextColumn Header="Modified By"
+                                            IsReadOnly="True"
+                                            CanUserReorder="False"
+                                            Binding="{Binding ModifiedBy}" />
+                <toolkit:DataGridTextColumn Header="Sharing"
+                                            IsReadOnly="True"
+                                            CanUserReorder="False"
+                                            Binding="{Binding Sharing}" />
+            </toolkit:DataGrid.Columns>
+        </toolkit:DataGrid>
 
     </StackPanel>
 </Page>
