@@ -48,14 +48,14 @@
 						Margin="5, 2">
 
 						<FontIcon
-							FontFamily="{StaticResource SegoeMDL2Assets}" 
-							Glyph="&#xE109;"
+							FontFamily="{StaticResource MaterialIcons}" 
+							Glyph="&#xE145;"
 							win:FontSize="14"
 							skia:FontSize="14"
 							wasm:FontSize="14"
-							android:FontSize="10"
+							android:FontSize="18"
 							macos:FontSize="14"
-							ios:FontSize="14"/>
+							ios:FontSize="18"/>
 
 						<TextBlock
 							Text="New"
@@ -78,13 +78,13 @@
 						Margin="5, 2">
 						
 						<FontIcon
-							FontFamily="{StaticResource SegoeMDL2Assets}" 
-							Glyph="&#xE11C;"
+							FontFamily="{StaticResource MaterialIcons}" 
+							Glyph="&#xF09B;"
 							win:FontSize="14"
 							wasm:FontSize="14"
-							android:FontSize="10"
+							android:FontSize="18"
 							macos:FontSize="14"
-							ios:FontSize="14" />
+							ios:FontSize="18" />
 						
 						<TextBlock
 							Text="Upload"

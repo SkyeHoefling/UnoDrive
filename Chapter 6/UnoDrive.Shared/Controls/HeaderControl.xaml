@@ -31,7 +31,7 @@
 			ios:FontSize="20"
 			android:Padding="0, 4" />
 
-		<!--<StackPanel
+		<StackPanel
 			Grid.Column="1"
 			Orientation="Horizontal"
 			HorizontalAlignment="Right"
@@ -53,9 +53,9 @@
 							win:FontSize="14"
 							skia:FontSize="14"
 							wasm:FontSize="14"
-							android:FontSize="10"
+							android:FontSize="18"
 							macos:FontSize="14"
-							ios:FontSize="14"/>
+							ios:FontSize="18"/>
 
 						<TextBlock
 							Text="New"
@@ -83,9 +83,9 @@
 							win:FontSize="14"
 							skia:FontSize="14"
 							wasm:FontSize="14"
-							android:FontSize="10"
+							android:FontSize="18"
 							macos:FontSize="14"
-							ios:FontSize="14" />
+							ios:FontSize="18" />
 						
 						<TextBlock
 							Text="Upload"
@@ -100,7 +100,7 @@
 				</Button.Content>
 			</Button>
 
-		</StackPanel>-->
+		</StackPanel>
 	</Grid>
 
 </UserControl>
