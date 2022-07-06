@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -42,11 +42,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Uno.Core" Version="4.0.1" />
     <PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.0.1" />
-    <PackageReference Include="Uno.WinUI.WebAssembly" Version="3.11.6" />
-    <PackageReference Include="Uno.WinUI.RemoteControl" Version="3.11.6" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.Wasm.Bootstrap" Version="3.0.0" />
-    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.0.0" />
+    <PackageReference Include="Uno.WinUI.WebAssembly" Version="4.0.7" />
+    <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.0.7" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.Wasm.Bootstrap" Version="3.1.2" />
+    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.1.2" />
   </ItemGroup>
   <Import Project="..\UnoDrive.Shared\UnoDrive.Shared.projitems" Label="Shared" Condition="Exists('..\UnoDrive.Shared\UnoDrive.Shared.projitems')" />
 </Project>
