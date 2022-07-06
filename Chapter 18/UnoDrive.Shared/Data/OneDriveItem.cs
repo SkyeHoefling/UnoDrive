@@ -1,4 +1,5 @@
 ﻿using System;
+using LiteDB;
 using Microsoft.UI.Xaml.Media;
 
 namespace UnoDrive.Data
@@ -12,6 +13,9 @@ namespace UnoDrive.Data
 		public DateTime Modified { get; set; }
 		public string FileSize { get; set; }
 		public OneDriveItemType Type { get; set; }
+		public string ThumbnailPath { get; set; }
+
+		[BsonIgnore]
 		public ImageSource ThumbnailSource { get; set; }
 	}
 }

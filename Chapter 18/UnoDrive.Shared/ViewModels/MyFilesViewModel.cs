@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
+using Windows.Networking.Connectivity;
 
 namespace UnoDrive.ViewModels
 {
@@ -18,13 +20,16 @@ namespace UnoDrive.ViewModels
 	{
 		Location location = new Location();
 		IGraphFileService graphFileService;
+		INetworkConnectivityService networkConnectivity;
 		ILogger logger;
 
 		public MyFilesViewModel(
 			IGraphFileService graphFileService,
+			INetworkConnectivityService networkConnectivity,
 			ILogger<MyFilesViewModel> logger)
 		{
 			this.graphFileService = graphFileService;
+			this.networkConnectivity = networkConnectivity;
 			this.logger = logger;
 
 			Forward = new AsyncRelayCommand(OnForwardAsync);
@@ -48,12 +53,18 @@ namespace UnoDrive.ViewModels
 				SetProperty(ref filesAndFolders, value);
 				OnPropertyChanged(nameof(CurrentFolderPath));
 				OnPropertyChanged(nameof(IsPageEmpty));
+				OnPropertyChanged(nameof(IsMainContentLoading));
 			}
 		}
+
+		public bool IsMainContentLoading => IsStatusBarLoading && !FilesAndFolders.Any();
 
 		public bool IsPageEmpty => !IsStatusBarLoading && !FilesAndFolders.Any();
 
 		public string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
+
+		public bool IsNetworkConnected =>
+			networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess;
 
 		string noDataMessage;
 		public string NoDataMessage
@@ -70,6 +81,7 @@ namespace UnoDrive.ViewModels
 			{
 				SetProperty(ref isStatusBarLoading, value);
 				OnPropertyChanged(nameof(IsPageEmpty));
+				OnPropertyChanged(nameof(IsMainContentLoading));
 			}
 		}
 
@@ -118,19 +130,36 @@ namespace UnoDrive.ViewModels
 			return LoadDataAsync(backId);
 		}
 
-		async Task LoadDataAsync(string pathId = null)
+		CancellationTokenSource cancellationTokenSource;
+		CancellationToken cancellationToken;
+		TaskCompletionSource<bool> currentLoadDataTask;
+		async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
 		{
+			if (cancellationTokenSource != null && !cancellationTokenSource.IsCancellationRequested)
+			{
+				cancellationTokenSource.Cancel();
+
+				// prevents race condition
+				await currentLoadDataTask.Task;
+			}
+
+			currentLoadDataTask = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+			cancellationTokenSource = new CancellationTokenSource();
+			cancellationToken = cancellationTokenSource.Token;
+
 			try
 			{
 				IsStatusBarLoading = true;
 
 				IEnumerable<OneDriveItem> data;
-				if (string.IsNullOrEmpty(pathId))
-					data = await graphFileService.GetRootFilesAsync();
-				else
-					data = await graphFileService.GetFilesAsync(pathId);
+				Action<IEnumerable<OneDriveItem>, bool> updateFilesCallback = (items, isCached) => UpdateFiles(items, null, isCached);
 
-				UpdateFiles(data);
+				if (string.IsNullOrEmpty(pathId))
+					data = await graphFileService.GetRootFilesAsync(updateFilesCallback, cancellationToken);
+				else
+					data = await graphFileService.GetFilesAsync(pathId, updateFilesCallback, cancellationToken);
+
+				UpdateFiles(data, presentationCallback);
 			}
 			catch (Exception ex)
 			{
@@ -138,11 +167,16 @@ namespace UnoDrive.ViewModels
 			}
 			finally
 			{
+				cancellationTokenSource = default;
+				cancellationToken = default;
+
 				IsStatusBarLoading = false;
+
+				currentLoadDataTask.SetResult(true);
 			}
 		}
 
-		void UpdateFiles(IEnumerable<OneDriveItem> files)
+		void UpdateFiles(IEnumerable<OneDriveItem> files, Action presentationCallback, bool isCached = false)
 		{
 			if (files == null)
 			{
@@ -158,11 +192,20 @@ namespace UnoDrive.ViewModels
 
 			// TODO - The screen flashes briefly when loading the data from the API
 			FilesAndFolders = files.ToList();
+
+			if (isCached)
+			{
+				presentationCallback?.Invoke();
+			}
 		}
 
 		public async Task InitializeAsync()
 		{
+			networkConnectivity.NetworkStatusChanged += OnNetworkStatusChanged;
 			await LoadDataAsync();
 		}
+
+		void OnNetworkStatusChanged(object sender, EventArgs args) =>
+			OnPropertyChanged(nameof(IsNetworkConnected));
 	}
 }

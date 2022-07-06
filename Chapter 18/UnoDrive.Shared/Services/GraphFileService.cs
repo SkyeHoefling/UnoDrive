@@ -12,16 +12,28 @@ using Microsoft.Graph;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Newtonsoft.Json;
 using UnoDrive.Data;
+using Windows.Networking.Connectivity;
 
 namespace UnoDrive.Services
 {
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
     {
+#if DEBUG
+		const int apiDelayInMilliseconds = 5000;
+#endif
+
 		GraphServiceClient graphClient;
+		ICachedGraphFileService cachedService;
+		INetworkConnectivityService networkConnectivity;
 		ILogger logger;
 
-		public GraphFileService(ILogger<GraphFileService> logger)
+		public GraphFileService(
+			ICachedGraphFileService cachedService,
+			INetworkConnectivityService networkConnectivity,
+			ILogger<GraphFileService> logger)
 		{
+			this.cachedService = cachedService;
+			this.networkConnectivity = networkConnectivity;
 			this.logger = logger;
 
 #if __WASM__
@@ -34,58 +46,86 @@ namespace UnoDrive.Services
 			graphClient.AuthenticationProvider = this;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync()
+		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
-			await Task.Delay(10000);
-			var rootPathId = string.Empty;
-
-			try
+			var rootPathId = cachedService.GetRootId();
+			if (networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess)
 			{
-				var request = graphClient.Me.Drive.Root.Request();
+				try
+				{
+					var request = graphClient.Me.Drive.Root.Request();
 
 #if __ANDROID__ || __IOS__ || __MACOS__
-				var response = await request.GetResponseAsync();
-				var data = await response.Content.ReadAsStringAsync();
-				var rootNode = JsonConvert.DeserializeObject<DriveItem>(data);
+					var response = await request.GetResponseAsync(cancellationToken);
+					var data = await response.Content.ReadAsStringAsync(cancellationToken);
+					var rootNode = JsonConvert.DeserializeObject<DriveItem>(data);
 #else
-				var rootNode = await request.GetAsync();
+					var rootNode = await request.GetAsync(cancellationToken);
 #endif
 
-				if (rootNode == null || string.IsNullOrEmpty(rootNode.Id))
-				{
-					throw new KeyNotFoundException("Unable to find OneDrive Root Folder");
+					if (rootNode == null || string.IsNullOrEmpty(rootNode.Id))
+					{
+						throw new KeyNotFoundException("Unable to find OneDrive Root Folder");
+					}
+
+					rootPathId = rootNode.Id;
+					cachedService.SaveRootId(rootPathId);
 				}
+				catch (TaskCanceledException ex)
+				{
+					logger.LogWarning(ex, ex.Message);
+					throw ex;
+				}
+				catch (KeyNotFoundException ex)
+				{
+					logger.LogWarning("Unable to retrieve data from Graph API, it may not exist or there could be a connection issue");
+					logger.LogWarning(ex, ex.Message);
+					throw ex;
+				}
+				catch (Exception ex)
+				{
+					logger.LogWarning("Unable to retrieve root OneDrive folder");
+					logger.LogWarning(ex, ex.Message);
+				}
+			}
 
-				rootPathId = rootNode.Id;
-			}
-			catch (KeyNotFoundException ex)
-			{
-				logger.LogWarning("Unable to retrieve data from Graph API, it may not exist or there could be a connection issue");
-				logger.LogWarning(ex, ex.Message);
-				throw ex;
-			}
-			catch (Exception ex)
-			{
-				logger.LogWarning("Unable to retrieve root OneDrive folder");
-				logger.LogWarning(ex, ex.Message);
-			}
-
-			return await GetFilesAsync(rootPathId);
+			return await GetFilesAsync(rootPathId, cachedCallback, cancellationToken);
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id)
+		public async Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
+			if (cachedCallback != null)
+			{
+				var cachedChildren = cachedService
+					.GetCachedFiles(id)
+					.OrderByDescending(item => item.Type)
+					.ThenBy(item => item.Name);
+
+				cachedCallback(cachedChildren, true);
+			}
+
+			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
+			{
+				return null;
+			}
+
+			cancellationToken.ThrowIfCancellationRequested();
+
+#if DEBUG
+			await Task.Delay(apiDelayInMilliseconds, cancellationToken);
+#endif
+
 			var request = graphClient.Me.Drive.Items[id].Children
 				.Request()
 				.Expand("thumbnails");
 
 #if __ANDROID__ || __IOS__ || __MACOS__
-			var response = await request.GetResponseAsync();
-			var data = await response.Content.ReadAsStringAsync();
+			var response = await request.GetResponseAsync(cancellationToken);
+			var data = await response.Content.ReadAsStringAsync(cancellationToken);
 			var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
 			var oneDriveItems = collection.Value;
 #else
-			var oneDriveItems = (await request.GetAsync()).ToArray();
+			var oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
 #endif
 
 			var childrenTable = oneDriveItems
@@ -104,15 +144,23 @@ namespace UnoDrive.Services
 				.ThenBy(item => item.Name)
 				.ToDictionary(item => item.Id);
 
+			cancellationToken.ThrowIfCancellationRequested();
 
-			await StoreThumbnailsAsync(oneDriveItems, childrenTable);
+			var children = childrenTable.Select(item => item.Value).ToArray();
+			if (cachedCallback != null)
+			{
+				cachedCallback(children, false);
+			}
+
+			cachedService.SaveCachedFiles(children, id);
+			await StoreThumbnailsAsync(oneDriveItems, childrenTable, cachedCallback, cancellationToken);
 			return childrenTable.Select(x => x.Value);
 		}
 
 #if __ANDROID__ || __IOS__ || __MACOS__
-		async Task StoreThumbnailsAsync(UnoDrive.Models.DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable)
+		async Task StoreThumbnailsAsync(UnoDrive.Models.DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 #else
-		async Task StoreThumbnailsAsync(DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable)
+		async Task StoreThumbnailsAsync(DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 #endif
 		{
 			for (int index = 0; index < oneDriveItems.Length; index++)
@@ -129,7 +177,7 @@ namespace UnoDrive.Services
 #else
 				var httpClient = new HttpClient();
 #endif
-				var thumbnailResponse = await httpClient.GetAsync(url);
+				var thumbnailResponse = await httpClient.GetAsync(url, cancellationToken);
 				if (!thumbnailResponse.IsSuccessStatusCode)
 					continue;
 
@@ -152,15 +200,15 @@ namespace UnoDrive.Services
 						System.IO.File.Delete(localFilePath);
 
 
-					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync();
+
 
 #if HAS_UNO_SKIA_WPF
+					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync();
 					System.IO.File.WriteAllBytes(localFilePath, bytes);
 #else
-					await System.IO.File.WriteAllBytesAsync(localFilePath, bytes);
+					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync(cancellationToken);
+					await System.IO.File.WriteAllBytesAsync(localFilePath, bytes, cancellationToken);
 #endif
-
-
 
 					// If thumbnails aren't loading using thed Uri code path, try
 					// using the fallback strategy with the MemoryStream
@@ -172,6 +220,19 @@ namespace UnoDrive.Services
 #endif
 
 					childrenTable[currentItem.Id].ThumbnailSource = image;
+
+					if (cachedCallback != null)
+					{
+						cachedCallback(childrenTable.Select(item => item.Value), false);
+					}
+
+					cachedService.UpdateCachedFileById(currentItem.Id, localFilePath);
+					cancellationToken.ThrowIfCancellationRequested();
+				}
+				catch (TaskCanceledException ex)
+				{
+					logger.LogWarning(ex, ex.Message);
+					throw ex;
 				}
 				catch (Exception ex)
 				{
