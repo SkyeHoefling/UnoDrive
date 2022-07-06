@@ -12,6 +12,11 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>msauthv2</string>
+		<string>msauthv3</string>
+	</array>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -56,11 +61,5 @@
       <string>Fonts/uno-fluentui-assets.ttf</string>
       <string>Fonts/SegMDL2.ttf</string>
     </array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>msauthv2</string>
-		<string>msauthv3</string>
-	</array>
-
 </dict>
 </plist>
