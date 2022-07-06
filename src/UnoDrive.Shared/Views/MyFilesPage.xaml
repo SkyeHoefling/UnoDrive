@@ -15,8 +15,8 @@
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 			<StackPanel Orientation="Horizontal" Spacing="10">
-				<Button Content="Back" />
-				<Button Content="Forward" />
+				<Button Content="Back" Command="{Binding Back}" />
+				<Button Content="Forward" Command="{Binding Forward}" />
 			</StackPanel>
 			<TextBox 
 				Grid.Column="1"

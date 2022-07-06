@@ -13,6 +13,7 @@ namespace UnoDrive.Models
 		public string Id { get; set; }
 		public string Name { get; set; }
 		public string Path { get; set; }
+		public string PathId { get; set; }
 		public DateTime Modified { get; set; }
 		public string ModifiedBy { get; set; }
 		public string FileSize { get; set; }

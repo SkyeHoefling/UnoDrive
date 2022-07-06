@@ -24,6 +24,7 @@
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationService.cs" />
