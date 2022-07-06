@@ -7,14 +7,16 @@ namespace UnoDrive.Authentication
 {
 	static class TokenCacheStorage
 	{
-		static string GetDatabaseName()
+		static string GetConnectionString()
 		{
 #if HAS_UNO_SKIA_WPF
 			var applicationFolder = Path.Combine(Windows.Storage.ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
-			return Path.Combine(applicationFolder, "UnoDrive_MSAL_TokenCache.db");
+			var databaseFile = Path.Combine(applicationFolder, "UnoDrive_MSAL_TokenCache.db");
 #else
-			return Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "UnoDrive_MSAL_TokenCache.db");
+			var databaseFile = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "UnoDrive_MSAL_TokenCache.db");
 #endif
+
+			return $"Filename={databaseFile};Password=UnoPlatformIsGreat!";
 		}
 
 		public static void EnableSerialization(ITokenCache tokenCache)
@@ -25,7 +27,7 @@ namespace UnoDrive.Authentication
 
 		static void BeforeAccessNotification(TokenCacheNotificationArgs args)
 		{
-			using (var db = new LiteDatabase(GetDatabaseName()))
+			using (var db = new LiteDatabase(GetConnectionString()))
 			{
 				var tokens = db.GetCollection<TokenCache>();
 				var tokenCache = tokens.Query().FirstOrDefault();
@@ -39,7 +41,7 @@ namespace UnoDrive.Authentication
 		static void AfterAccessNotification(TokenCacheNotificationArgs args)
 		{
 			var serializedCache = Convert.ToBase64String(args.TokenCache.SerializeMsalV3());
-			using (var db = new LiteDatabase(GetDatabaseName()))
+			using (var db = new LiteDatabase(GetConnectionString()))
 			{
 				var tokens = db.GetCollection<TokenCache>();
 				tokens.DeleteAll();
