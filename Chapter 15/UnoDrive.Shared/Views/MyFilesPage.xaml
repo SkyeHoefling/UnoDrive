@@ -56,7 +56,7 @@
 				<GridView
 					ItemsSource="{Binding FilesAndFolders}"
 					Visibility="{Binding IsPageEmtpy, Converter={StaticResource BoolNegationToVisibilityConverter}}" />
-				
+
 				<TextBlock
 					Text="No data found"
 					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolToVisibilityConverter}}" />
