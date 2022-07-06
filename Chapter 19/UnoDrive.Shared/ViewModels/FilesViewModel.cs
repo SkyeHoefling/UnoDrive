@@ -49,7 +49,7 @@ namespace UnoDrive.ViewModels
 
 		public bool IsPageEmpty => !IsStatusBarLoading && !FilesAndFolders.Any();
 
-		public string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
+		public virtual string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
 
 		string noDataMessage;
 		public string NoDataMessage

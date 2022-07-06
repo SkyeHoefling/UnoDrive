@@ -17,6 +17,8 @@ namespace UnoDrive.ViewModels
 		{
 		}
 
+		public override string CurrentFolderPath => "Recent Files";
+
 		protected override Task<IEnumerable<OneDriveItem>> GetGraphDataAsync(string pathId, Action<IEnumerable<OneDriveItem>, bool> callback, CancellationToken cancellationToken) =>
 			GraphFileService.GetRecentFilesAsync(callback, cancellationToken);
 
