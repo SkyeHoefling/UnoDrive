@@ -16,8 +16,6 @@ namespace UnoDrive.Droid
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
-
-			Xamarin.Essentials.Platform.Init(this, bundle);
 		}
 
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
