@@ -34,6 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Selectors\DriveItemTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\CachedGraphService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\GraphFileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkConnectivityService.cs" />
