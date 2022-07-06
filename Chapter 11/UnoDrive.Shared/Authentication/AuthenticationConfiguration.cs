@@ -17,6 +17,7 @@ namespace UnoDrive.Authentication
 				.WithRedirectUri(GetRedirectUri())
 				.WithUnoHelpers();
 
+
 			// WORKAROUND - This can be removed after we get a resolution to https://github.com/unoplatform/uno/discussions/7707
 #if __ANDROID__
 			builder.WithParentActivityOrWindow(() => Uno.UI.ContextHelper.Current as Android.App.Activity);
@@ -33,5 +34,5 @@ namespace UnoDrive.Authentication
 		}
 
 		private partial string GetRedirectUri();
-    }
+	}
 }
