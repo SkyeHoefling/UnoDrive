@@ -14,16 +14,27 @@
 			</Style>
 		</ResourceDictionary>
 	</Page.Resources>
-	
-	<StackPanel 
-		Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-		VerticalAlignment="Center">
-		<TextBlock 
-			Text="Welcom to UnoDrive, world!" 
-			FontSize="40" />
-		<TextBlock 
-			Text="Uno Platform ♥ OneDrive = UnoDrive" 
-			FontSize="24" />
-	</StackPanel>
+
+	<Grid HorizontalAlignment="Center">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" VerticalAlignment="Center">
+			<TextBlock 
+				Text="Welcom to UnoDrive!" 
+				FontSize="40" />
+			<TextBlock 
+				Text="Uno Platform ♥ OneDrive = UnoDrive" 
+				FontSize="24" />
+		</StackPanel>
+		<StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
+			<Button 
+				Content="Login to UnoDrive"
+				FontSize="40"
+				Padding="40, 10"
+				HorizontalAlignment="Center"/>
+		</StackPanel>
+	</Grid>
 
 </Page>
