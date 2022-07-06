@@ -54,8 +54,12 @@ namespace UnoDrive.ViewModels
 					var firstItem = FilesAndFolders.FirstOrDefault();
 					if (firstItem != null)
 					{
-						location.Forward = new Location { Id = firstItem.PathId, Path = firstItem.Path };
-						location.Forward.Back = location;
+						location.Forward = new Location 
+						{
+							Id = firstItem.PathId,
+							Back = location
+						};
+
 						location = location.Forward;
 					}
 				}
@@ -90,10 +94,7 @@ namespace UnoDrive.ViewModels
 
 			var firstItem = FilesAndFolders.FirstOrDefault();
 			if (firstItem != null)
-			{
-				location.Path = firstItem.Path;
 				location.Id = firstItem.PathId;
-			}
 		}
 	}
 }
