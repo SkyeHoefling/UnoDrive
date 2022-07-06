@@ -30,9 +30,7 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
 			<TextBlock
-				win:Text="Hello from UWP"
-				ios:Text="Hello from iOS"
-				macos:Text="Hello from macOS"
+				Text="Welcome to UnoDrive!"
 				Style="{StaticResource Header}" />
 			<TextBlock 
 				Text="Uno Platform ♥ OneDrive = UnoDrive" 

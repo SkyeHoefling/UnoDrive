@@ -7,7 +7,10 @@
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:wasm="http://uno.ui/wasm"
     xmlns:android="http://uno.ui/android"
-    mc:Ignorable="d android wasm">
+	xmlns:macos="http://uno.ui/macos"
+	xmlns:ios="http://uno.ui/ios"
+	xmlns:skia="http://uno.ui/skia"
+    mc:Ignorable="d android wasm macos ios">
 
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -15,37 +18,86 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 
-		<TextBlock 
+		<TextBlock
 			Grid.Column="0"
-            HorizontalAlignment="Left"
-            Text="My Files"
-            FontWeight="Bold" 
+			HorizontalAlignment="Left"
+			Text="My Files"
+			FontWeight="Bold"
 			win:FontSize="22"
-            wasm:FontSize="22"
-            android:FontSize="16"
-            android:Padding="0, 4" />
+			skia:FontSize="22"
+			wasm:FontSize="22"
+			android:FontSize="16"
+			macos:FontSize="22"
+			ios:FontSize="20"
+			android:Padding="0, 4" />
 
-		<StackPanel 
+		<StackPanel
 			Grid.Column="1"
-			Orientation="Horizontal" 
-			HorizontalAlignment="Right" 
+			Orientation="Horizontal"
+			HorizontalAlignment="Right"
 			Spacing="10">
-			<Button Background="#0078D4" Foreground="#fff">
+
+			<Button
+				Background="#0078D4"
+				Foreground="#FFFFFF">
+
 				<Button.Content>
-					<StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
-						<FontIcon FontFamily="{StaticResource SegoeMDL2Assets}" Glyph="&#xE109;" win:FontSize="14" wasm:FontSize="14"  android:FontSize="10" />
-						<TextBlock Text="New" win:FontSize="16" wasm:FontSize="16"  android:FontSize="12" />
+					<StackPanel 
+						Orientation="Horizontal"
+						Spacing="10"
+						Margin="5, 2">
+
+						<FontIcon
+							FontFamily="Segoe MDL2 Assets"
+							Glyph="&#xE109;"
+							win:FontSize="14"
+							skia:FontSize="14"
+							wasm:FontSize="14"
+							android:FontSize="10"
+							macos:FontSize="14"
+							ios:FontSize="8"/>
+
+						<TextBlock
+							Text="New"
+							win:FontSize="16"
+							skia:FontSize="16"
+							wasm:FontSize="16"
+							android:FontSize="12"
+							macos:FontSize="16"
+							ios:FontSize="10" />
+						
 					</StackPanel>
 				</Button.Content>
 			</Button>
+
 			<Button>
 				<Button.Content>
-					<StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
-						<FontIcon FontFamily="{StaticResource SegoeMDL2Assets}" Glyph="&#xE11C;" win:FontSize="14" wasm:FontSize="14"  android:FontSize="10" />
-						<TextBlock Text="Upload" win:FontSize="16" wasm:FontSize="16"  android:FontSize="12" />
+					<StackPanel
+						Orientation="Horizontal"
+						Spacing="10"
+						Margin="5, 2">
+						
+						<FontIcon
+							FontFamily="Segoe MDL2 Assets"
+							Glyph="&#xE11C;"
+							win:FontSize="14"
+							wasm:FontSize="14"
+							android:FontSize="10"
+							macos:FontSize="14"
+							ios:FontSize="8" />
+						
+						<TextBlock
+							Text="Upload"
+							win:FontSize="16"
+							wasm:FontSize="16"
+							android:FontSize="12"
+							macos:FontSize="16"
+							ios:FontSize="10" />
+						
 					</StackPanel>
 				</Button.Content>
 			</Button>
+
 		</StackPanel>
 	</Grid>
 
