@@ -5,7 +5,11 @@
     xmlns:local="using:UnoDrive"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+	xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:android="http://uno.ui/android"
+	xmlns:ios="http://uno.ui/ios"
+	xmlns:macos="http://uno.ui/macos"
+    mc:Ignorable="d android ios macos">
 
 	<Page.Resources>
 		<ResourceDictionary>
@@ -25,8 +29,10 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
-			<TextBlock 
-				Text="Welcom to UnoDrive!" 
+			<TextBlock
+				win:Text="Hello from UWP"
+				ios:Text="Hello from iOS"
+				macos:Text="Hello from macOS"
 				Style="{StaticResource Header}" />
 			<TextBlock 
 				Text="Uno Platform ♥ OneDrive = UnoDrive" 
