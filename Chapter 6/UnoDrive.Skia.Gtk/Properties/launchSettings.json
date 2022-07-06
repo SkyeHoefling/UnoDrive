@@ -3,7 +3,7 @@
     "UnoDrive.Skia.Gtk": {
       "commandName": "Project"
     },
-    "WSL 2": {
+    "WSL": {
       "commandName": "WSL2",
 			"environmentVariables": {
 				"DISPLAY": "192.168.1.192:0.0"
