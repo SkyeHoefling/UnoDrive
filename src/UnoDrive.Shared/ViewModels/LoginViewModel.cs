@@ -9,77 +9,77 @@ using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
 {
-    public class LoginViewModel : ObservableObject
-    {
-        readonly IAuthenticationService authentication;
-        readonly INavigationService navigation;
-        readonly ILogger logger;
+	public class LoginViewModel : ObservableObject
+	{
+		readonly IAuthenticationService authentication;
+		readonly INavigationService navigation;
+		readonly ILogger logger;
 
-        public LoginViewModel(
-            IAuthenticationService authentication,
-            INavigationService navigation,
-            ILogger<LoginViewModel> logger)
-        {
-            this.authentication = authentication;
-            this.navigation = navigation;
-            this.logger = logger;
+		public LoginViewModel(
+			IAuthenticationService authentication,
+			INavigationService navigation,
+			ILogger<LoginViewModel> logger)
+		{
+			this.authentication = authentication;
+			this.navigation = navigation;
+			this.logger = logger;
 
-            Login = new AsyncRelayCommand(OnLogin);
-        }
+			Login = new AsyncRelayCommand(OnLogin);
+		}
 
-        public ICommand Login { get; }
+		public ICommand Login { get; }
 
-        bool isBusy;
-        public bool IsBusy
-        {
-            get => isBusy;
-            set => SetProperty(ref isBusy, value);
-        }
+		bool isBusy;
+		public bool IsBusy
+		{
+			get => isBusy;
+			set => SetProperty(ref isBusy, value);
+		}
 
-        string message;
+		string message;
 
-        public string Message
-        {
-            get => message;
-            set => SetProperty(ref message, value);
-        }
+		public string Message
+		{
+			get => message;
+			set => SetProperty(ref message, value);
+		}
 
-        async Task OnLogin()
-        {
-            IsBusy = true;
+		async Task OnLogin()
+		{
+			IsBusy = true;
 
-            logger.LogInformation("Login tapped/clicked");
+			logger.LogInformation("Login tapped/clicked");
 
-            try
-            {
-                var token = await authentication.AcquireTokenAsync();
-                ProcessAuthToken(token);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
+			try
+			{
+				var token = await authentication.AcquireTokenAsync();
+				ProcessAuthToken(token);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex, ex.Message);
 
-                // TODO - display error message to user.
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+				// TODO - display error message to user.
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
 
-        void ProcessAuthToken(IAuthenticationResult token)
-        {
-            if (token == null || !token.IsSuccess)
-            {
-                logger.LogError("Unable to log in null or unsuccessful retrieval");
-                return;
-            }
+		void ProcessAuthToken(IAuthenticationResult token)
+		{
+			if (token == null || !token.IsSuccess)
+			{
+				logger.LogError("Unable to log in null or unsuccessful retrieval");
+				return;
+			}
 
-            if (!string.IsNullOrWhiteSpace(token.Message))
-                Message = token.Message;
+			if (!string.IsNullOrWhiteSpace(token.Message))
+				Message = token.Message;
 
-            ((App)App.Current).AuthenticationResult = token;
-            navigation.NavigateToDashboard();
-        }
-    }
+			((App)App.Current).AuthenticationResult = token;
+			navigation.NavigateToDashboard();
+		}
+	}
 }
