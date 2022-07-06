@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace UnoDrive
+namespace UnoDrive.Views
 {
     public sealed partial class LoginPage : Page
     {
