@@ -5,15 +5,11 @@ namespace UnoDrive.Services
 {
 	public class NavigationService : INavigationService
 	{
-		public void NavigateToDashboard()
-		{
+		public void NavigateToDashboard() =>
 			GetRootFrame().Navigate(typeof(Dashboard), this);
-		}
 
-		public void SignOut()
-		{
+		public void SignOut() =>
 			GetRootFrame().Navigate(typeof(LoginPage), null);
-		}
 
 		Frame GetRootFrame()
 		{
@@ -23,7 +19,6 @@ namespace UnoDrive.Services
 				return rootFrame;
 			}
 
-			// Maybe we should throw an exception to prevent hidden errors
 			return null;
 		}
 	}
