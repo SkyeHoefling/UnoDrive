@@ -17,7 +17,6 @@ namespace UnoDrive.Services
 	{
 		Task<IEnumerable<OneDriveItem>> GetRootFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
 		Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
-		Task<Stream> GetThumbnailAsync(string id, CancellationToken cancellationToken);
 	}
 
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
@@ -194,11 +193,6 @@ namespace UnoDrive.Services
 			}
 
 			return children;
-		}
-
-		public Task<Stream> GetThumbnailAsync(string id, CancellationToken cancellationToken)
-		{
-			throw new NotImplementedException();
 		}
 
 		Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)
