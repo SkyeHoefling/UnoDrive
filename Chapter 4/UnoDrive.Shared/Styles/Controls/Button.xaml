@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<Style x:Name="LoginButton" TargetType="Button">
-		<Setter Propery="Background" Value="LightGray" />
+		<Setter Property="Background" Value="LightGray" />
 		<Setter Property="FontSize" Value="40" />
 		<Setter Property="Padding" Value="40, 10" />
 		<Setter Property="HorizontalAlignment" Value="Center" />
