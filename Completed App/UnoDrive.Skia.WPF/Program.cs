@@ -1,3 +1,0 @@
-namespace UnoDrive.Skia.Gtk
-{
-}
