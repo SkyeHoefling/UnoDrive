@@ -143,7 +143,7 @@ namespace UnoDrive.ViewModels
 			}
 		}
 
-		protected virtual void UpdateFiles(IEnumerable<OneDriveItem> files, Action presentationCallback, bool isCached = false)
+		protected void UpdateFiles(IEnumerable<OneDriveItem> files, Action presentationCallback, bool isCached = false)
 		{
 			if (files == null)
 			{

@@ -110,61 +110,61 @@ namespace UnoDrive.Services
 			ProcessGraphRequestAsync(UnoDrive.Models.GraphRequestType requestType, string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback, CancellationToken cancellationToken)
 		{
 #if __ANDROID__ || __IOS__ || __MACOS__
-			UnoDrive.Models.DriveItem[] oneDriveItems = null;
+	UnoDrive.Models.DriveItem[] oneDriveItems = null;
 #else
-			DriveItem[] oneDriveItems = null;
+	DriveItem[] oneDriveItems = null;
 #endif
 
-			if (requestType == Models.GraphRequestType.MyFiles)
-			{
-				var request = graphClient.Me.Drive
-					.Items[id]
-					.Children
-					.Request()
-					.Expand("thumbnails");
+	if (requestType == Models.GraphRequestType.MyFiles)
+	{
+		var request = graphClient.Me.Drive
+			.Items[id]
+			.Children
+			.Request()
+			.Expand("thumbnails");
 
 #if __ANDROID__ || __IOS__ || __MACOS__
-				var response = await request.GetResponseAsync(cancellationToken);
-				var data = await response.Content.ReadAsStringAsync();
-				var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
-				oneDriveItems = collection.Value;
+		var response = await request.GetResponseAsync(cancellationToken);
+		var data = await response.Content.ReadAsStringAsync();
+		var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+		oneDriveItems = collection.Value;
 #else
-				oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
+		oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
 #endif
-				return oneDriveItems;
-			}
-			else if (requestType == Models.GraphRequestType.Recent)
-			{
-				var request = graphClient.Me.Drive
-					.Recent()
-					.Request();
+		return oneDriveItems;
+	}
+	else if (requestType == Models.GraphRequestType.Recent)
+	{
+		var request = graphClient.Me.Drive
+			.Recent()
+			.Request();
 
 #if __ANDROID__ || __IOS__ || __MACOS__
-				var response = await request.GetResponseAsync(cancellationToken);
-				var data = await response.Content.ReadAsStringAsync();
-				var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
-				oneDriveItems = collection.Value;
+		var response = await request.GetResponseAsync(cancellationToken);
+		var data = await response.Content.ReadAsStringAsync();
+		var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+		oneDriveItems = collection.Value;
 #else
-				oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
+		oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
 #endif
-			}
-			else if (requestType == Models.GraphRequestType.SharedWithMe)
-			{
-				var request = graphClient.Me.Drive
-					.SharedWithMe()
-					.Request();
+	}
+	else if (requestType == Models.GraphRequestType.SharedWithMe)
+	{
+		var request = graphClient.Me.Drive
+			.SharedWithMe()
+			.Request();
 
 #if __ANDROID__ || __IOS__ || __MACOS__
-				var response = await request.GetResponseAsync(cancellationToken);
-				var data = await response.Content.ReadAsStringAsync();
-				var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
-				oneDriveItems = collection.Value;
+		var response = await request.GetResponseAsync(cancellationToken);
+		var data = await response.Content.ReadAsStringAsync();
+		var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+		oneDriveItems = collection.Value;
 #else
-				oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
+		oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
 #endif
-			}
+	}
 
-			return oneDriveItems;
+	return oneDriveItems;
 		}
 
 		async Task<IEnumerable<OneDriveItem>> GetFilesAsync(Models.GraphRequestType requestType, string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
