@@ -44,7 +44,7 @@ namespace UnoDrive
 			services.AddTransient<INavigationService, NavigationService>();
 			services.AddTransient<INetworkConnectivityService, NetworkConnectivityService>();
 			services.AddTransient<IGraphFileService, GraphFileService>();
-			services.AddTransient<ICachedGraphFileService, CachedGraphFileService>();
+			services.AddTransient<ICachedGraphService, CachedGraphService>();
 		}
 
 		/// <summary>

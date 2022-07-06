@@ -7,10 +7,10 @@ using UnoDrive.Data;
 
 namespace UnoDrive.Services
 {
-	public class CachedGraphFileService : ICachedGraphFileService
+	public class CachedGraphService : ICachedGraphService
 	{
-		string databaseName;
-		public CachedGraphFileService()
+		readonly string databaseName;
+		public CachedGraphService()
 		{
 #if HAS_UNO_SKIA_WPF
 			var applicationFolder = Path.Combine(Windows.Storage.ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
@@ -18,6 +18,36 @@ namespace UnoDrive.Services
 #else
 			databaseName = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "UnoDriveData.db");
 #endif
+		}
+
+		public void SaveUserInfo(UserInfo userInfo)
+		{
+			using (var db = new LiteDatabase(databaseName))
+			{
+				var users = db.GetCollection<UserInfo>();
+				var findUserInfo = users.FindById(userInfo.Id);
+
+				if (findUserInfo != null)
+				{
+					findUserInfo.Name = userInfo.Name;
+					findUserInfo.Email = userInfo.Email;
+
+					users.Update(findUserInfo);
+				}
+				else
+				{
+					users.Insert(userInfo);
+				}
+			}
+		}
+
+		public UserInfo GetUserInfoById(string userId)
+		{
+			using (var db = new LiteDatabase(databaseName))
+			{
+				var users = db.GetCollection<UserInfo>();
+				return users.FindById(userId);
+			}
 		}
 
 		public void SaveRootId(string rootId)
@@ -34,7 +64,7 @@ namespace UnoDrive.Services
 				}
 				else
 				{
-					var newSetting = new Setting { Key = "RootId", Value = rootId };
+					var newSetting = new Setting { Id = "RootId", Value = rootId };
 					settings.Insert(newSetting);
 				}
 			}

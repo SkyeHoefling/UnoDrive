@@ -6,15 +6,25 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using UnoDrive.Data;
 using UnoDrive.Mvvm;
+using UnoDrive.Services;
+using Windows.Networking.Connectivity;
 
 namespace UnoDrive.ViewModels
 {
 	public class DashboardViewModel : ObservableObject, IAuthenticationProvider, IInitialize
     {
+		ICachedGraphService cachedGraphService;
+		INetworkConnectivityService networkService;
 		ILogger logger;
-		public DashboardViewModel(ILogger<DashboardViewModel> logger)
+		public DashboardViewModel(
+			ICachedGraphService cachedGraphService,
+			INetworkConnectivityService networkService,
+			ILogger<DashboardViewModel> logger)
 		{
+			this.cachedGraphService = cachedGraphService;
+			this.networkService = networkService;
 			this.logger = logger;
 		}
 
@@ -36,6 +46,18 @@ namespace UnoDrive.ViewModels
 		{
 			try
 			{
+				var objectId = ((App)App.Current).AuthenticationResult.Account.HomeAccountId.ObjectId;
+				var userInfo = cachedGraphService.GetUserInfoById(objectId);
+				if (userInfo != null)
+				{
+					Name = userInfo.Name;
+					Email = userInfo.Email;
+				}
+
+				if (networkService.Connectivity != NetworkConnectivityLevel.InternetAccess)
+				{
+					return;
+				}
 #if __WASM__
 				var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
 #else
@@ -66,6 +88,14 @@ namespace UnoDrive.ViewModels
 				{
 					Name = me.DisplayName;
 					Email = me.UserPrincipalName;
+
+					userInfo = new UserInfo
+					{
+						Id = objectId,
+						Name = Name,
+						Email = email
+					};
+					cachedGraphService.SaveUserInfo(userInfo);
 				}
 			}
 			catch (Exception ex)

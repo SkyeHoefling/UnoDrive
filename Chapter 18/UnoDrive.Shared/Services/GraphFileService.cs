@@ -23,12 +23,12 @@ namespace UnoDrive.Services
 #endif
 
 		GraphServiceClient graphClient;
-		ICachedGraphFileService cachedService;
+		ICachedGraphService cachedService;
 		INetworkConnectivityService networkConnectivity;
 		ILogger logger;
 
 		public GraphFileService(
-			ICachedGraphFileService cachedService,
+			ICachedGraphService cachedService,
 			INetworkConnectivityService networkConnectivity,
 			ILogger<GraphFileService> logger)
 		{
@@ -104,6 +104,7 @@ namespace UnoDrive.Services
 				cachedCallback(cachedChildren, true);
 			}
 
+			logger.LogInformation($"Network Connectivity: {networkConnectivity.Connectivity}");
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 			{
 				return null;

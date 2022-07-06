@@ -3,8 +3,10 @@ using UnoDrive.Data;
 
 namespace UnoDrive.Services
 {
-	public interface ICachedGraphFileService
+	public interface ICachedGraphService
 	{
+		void SaveUserInfo(UserInfo userInfo);
+		UserInfo GetUserInfoById(string userId);
 		void SaveRootId(string rootId);
 		string GetRootId();
 		IEnumerable<OneDriveItem> GetCachedFiles(string pathId);

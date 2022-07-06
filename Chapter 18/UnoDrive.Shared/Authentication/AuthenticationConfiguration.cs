@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.IO;
+using LiteDB;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client;
 using Uno.UI.MSAL;
 
@@ -29,7 +32,16 @@ namespace UnoDrive.Authentication
 			builder.WithIosKeychainSecurityGroup("com.HoeflingSoftware.UnoWinUI");
 #endif
 
-			services.AddSingleton(builder.Build());
+			var app = builder.Build();
+
+			// this causes app to crash at startup
+			// it appears msal.net doesn't compile against net6-android/ios/macos etc.
+			// maybe we document these problems
+#if !__ANDROID__ && !__IOS__
+			TokenCacheStorage.EnableSerialization(app.UserTokenCache);
+#endif
+
+			services.AddSingleton(app);
 			services.AddTransient<IAuthenticationService, AuthenticationService>();
 		}
 

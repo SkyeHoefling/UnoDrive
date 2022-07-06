@@ -34,19 +34,19 @@ namespace UnoDrive.Authentication
 				"Files.ReadWrite.All",
 				"offline_access",
 				"profile",
-				"User.Read"
+				"user.read"
 			};
 		}
 
 		public async Task<AuthenticationResult> AcquireTokenAsync()
 		{
-			AuthenticationResult authentication = await AcquireSilentTokenAsync();
-			if (authentication == null || string.IsNullOrEmpty(authentication.AccessToken))
+			AuthenticationResult authenticationResult = await AcquireSilentTokenAsync();
+			if (authenticationResult == null || string.IsNullOrEmpty(authenticationResult.AccessToken))
 			{
-				authentication = await AcquireInteractiveTokenAsync();
+				authenticationResult = await AcquireInteractiveTokenAsync();
 			}
 
-			return authentication;
+			return authenticationResult;
 		}
 
 		public async Task SignOutAsync()
@@ -117,13 +117,6 @@ namespace UnoDrive.Authentication
 			{
 				logger.LogWarning(ex, ex.Message);
 				logger.LogWarning("Unable to retrieve silent sign in Access Token");
-			}
-			catch (HttpRequestException httpException)
-			{
-				if (networkService.Connectivity == NetworkConnectivityLevel.InternetAccess)
-				{
-					logger.LogError(httpException, httpException.Message);
-				}
 			}
 			catch (Exception exception)
 			{

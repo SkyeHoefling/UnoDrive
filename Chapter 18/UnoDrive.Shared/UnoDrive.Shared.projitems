@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Authentication\IAuthenticationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\TokenCacheStorage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
@@ -35,9 +36,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Folder.android.ios.macos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItem.android.ios.macos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItemCollection.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\UserInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Selectors\OneDriveItemTemplateSelector.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\CachedGraphFileService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ICachedGraphFileService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\CachedGraphService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ICachedGraphService.cs" />
     <Compile Include="..\UnoDrive.Shared\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItemType.cs" />
