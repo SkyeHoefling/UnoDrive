@@ -36,17 +36,17 @@
 		ItemInvoked="MenuItemSelected">
 
 		<NavigationView.PaneCustomContent>
-			<StackPanel 
+			<StackPanel
 				not_macos:Margin="5, 0, 5, 0" 
-				macos:Margin="5, 30, 5, 0"
+				macos:Margin="5, 30, 5, 0" 
 				Spacing="10">
 				<TextBlock 
-					Text="John Smith" 
+					Text="{Binding Name}" 
 					FontSize="20" 
 					skia:HorizontalAlignment="Center"
 					HorizontalTextAlignment="Center" />
 				<TextBlock 
-					Text="john.smith@myemail.com" 
+					Text="{Binding Email}" 
 					FontSize="18" 
 					skia:HorizontalAlignment="Center"
 					HorizontalTextAlignment="Center" />

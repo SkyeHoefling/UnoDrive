@@ -29,7 +29,14 @@
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\IsEmptyToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ThumbnailImage.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Thumbnail.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Folder.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItem.android.ios.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItemCollection.android.ios.macos.cs" />
+    <Compile Include="..\UnoDrive.Shared\Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItemType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.gtk.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.windows.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.macos.cs" />
@@ -39,8 +46,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.wasm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mvvm\IInitialize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\GraphFileService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IGraphFileService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INetworkConnectivityService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
@@ -80,6 +91,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Styles\Application\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\GridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\Controls\ProgressRing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -135,11 +154,6 @@
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-100.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-125.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-150.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\file.scale-300.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-125.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\folder.scale-150.png" />
