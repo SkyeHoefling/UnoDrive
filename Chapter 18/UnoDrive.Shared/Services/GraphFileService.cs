@@ -57,7 +57,7 @@ namespace UnoDrive.Services
 
 #if __ANDROID__ || __IOS__ || __MACOS__
 					var response = await request.GetResponseAsync(cancellationToken);
-					var data = await response.Content.ReadAsStringAsync(cancellationToken);
+					var data = await response.Content.ReadAsStringAsync();
 					var rootNode = JsonConvert.DeserializeObject<DriveItem>(data);
 #else
 					var rootNode = await request.GetAsync(cancellationToken);
@@ -122,7 +122,7 @@ namespace UnoDrive.Services
 
 #if __ANDROID__ || __IOS__ || __MACOS__
 			var response = await request.GetResponseAsync(cancellationToken);
-			var data = await response.Content.ReadAsStringAsync(cancellationToken);
+			var data = await response.Content.ReadAsStringAsync();
 			var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
 			var oneDriveItems = collection.Value;
 #else
@@ -207,7 +207,7 @@ namespace UnoDrive.Services
 					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync();
 					System.IO.File.WriteAllBytes(localFilePath, bytes);
 #else
-					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync(cancellationToken);
+					var bytes = await thumbnailResponse.Content.ReadAsByteArrayAsync();
 					await System.IO.File.WriteAllBytesAsync(localFilePath, bytes, cancellationToken);
 #endif
 
