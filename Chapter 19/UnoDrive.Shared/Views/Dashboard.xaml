@@ -51,7 +51,7 @@
 					skia:HorizontalAlignment="Center"
 					HorizontalTextAlignment="Center" />
 
-				<Frame 
+				<Border
 					Height="1" 
 					Background="Black" 
 					Margin="10, 0" />
