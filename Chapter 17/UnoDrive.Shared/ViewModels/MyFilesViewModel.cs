@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Controls;
 using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
@@ -13,6 +16,7 @@ namespace UnoDrive.ViewModels
 {
 	public class MyFilesViewModel : ObservableObject, IInitialize
 	{
+		Location location = new Location();
 		IGraphFileService graphFileService;
 		ILogger logger;
 
@@ -23,8 +27,14 @@ namespace UnoDrive.ViewModels
 			this.graphFileService = graphFileService;
 			this.logger = logger;
 
+			Forward = new AsyncRelayCommand(OnForwardAsync);
+			Back = new AsyncRelayCommand(OnBackAsync);
+
 			FilesAndFolders = new List<OneDriveItem>();
 		}
+
+		public ICommand Forward { get; }
+		public ICommand Back { get; }
 
 		// We are not using an ObservableCollection
 		// by design. It can create significant performance
@@ -61,6 +71,55 @@ namespace UnoDrive.ViewModels
 				SetProperty(ref isStatusBarLoading, value);
 				OnPropertyChanged(nameof(IsPageEmpty));
 			}
+		}
+
+		public async void ItemClick(object sender, ItemClickEventArgs args)
+		{
+			if (!(args.ClickedItem is OneDriveItem oneDriveItem))
+				return;
+
+			if (oneDriveItem.Type == OneDriveItemType.Folder)
+			{
+				try
+				{
+					await LoadDataAsync(oneDriveItem.Id);
+
+					location.Forward = new Location
+					{
+						Id = oneDriveItem.Id,
+						Back = location
+					};
+					location = location.Forward;
+				}
+				catch (Exception ex)
+				{
+					logger.LogError(ex, ex.Message);
+				}
+			}
+			else
+			{
+				// TODO - open file
+			}
+		}
+
+		Task OnForwardAsync()
+		{
+			if (!location.CanMoveForward)
+				return Task.CompletedTask;
+
+			var forwardId = location.Forward.Id;
+			location = location.Forward;
+			return LoadDataAsync(forwardId);
+		}
+
+		Task OnBackAsync()
+		{
+			if (!location.CanMoveBack)
+				return Task.CompletedTask;
+
+			var backId = location.Back.Id;
+			location = location.Back;
+			return LoadDataAsync(backId);
 		}
 
 		async Task LoadDataAsync(string pathId = null)

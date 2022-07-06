@@ -18,11 +18,17 @@
 
 		<Grid Grid.Row="0" Margin="0, 0, 0, 20">
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition />
-			</Grid.ColumnDefinitions>	
-		
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10">
+				<Button Content="Back" Command="{Binding Back}" />
+				<Button Content="Forward" Command="{Binding Forward}" />
+			</StackPanel>
+
 			<TextBox
-				Grid.Column="0"
+				Grid.Column="1"
 				Margin="10, 0, 0, 0"
 				Padding="10, 6, 36, 5"
 				IsReadOnly="True"
@@ -33,7 +39,7 @@
 				Text="{Binding CurrentFolderPath}" />
 
 			<not_skia:ProgressRing
-				Grid.Column="0"
+				Grid.Column="1"
 				Style="{StaticResource AddressBarProgressRing}"
 				HorizontalAlignment="Right"
 				Margin="0, 0, 10, 0"
@@ -41,7 +47,7 @@
 				Visibility="{Binding IsStatusBarLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 
 			<skia:TextBlock
-				Grid.Column="0"
+				Grid.Column="1"
 				Text="Loading . . ."	
 				FontSize="12"
 				Margin="0, 0, 10, 0"
@@ -55,6 +61,7 @@
 			<StackPanel>
 				<GridView
 					ItemsSource="{Binding FilesAndFolders}"
+					ItemClick="{x:Bind ViewModel.ItemClick}"
 					Visibility="{Binding IsPageEmtpy, Converter={StaticResource BoolNegationToVisibilityConverter}}" />
 
 				<TextBlock
