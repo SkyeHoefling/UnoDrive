@@ -13,6 +13,8 @@
     <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UnoDrive.Skia.WPF\UnoDrive.Skia.Wpf.csproj" />
+    <ProjectReference Include="..\UnoDrive.Skia.WPF\UnoDrive.Skia.Wpf.csproj">
+      <ReferenceSourceTarget></ReferenceSourceTarget>
+    </ProjectReference>
   </ItemGroup>
 </Project>
