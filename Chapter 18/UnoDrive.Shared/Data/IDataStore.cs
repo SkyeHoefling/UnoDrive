@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnoDrive.Data;
 
-namespace UnoDrive.Services
+namespace UnoDrive.Data
 {
-	public interface ICachedGraphService
+	public interface IDataStore
 	{
 		void SaveUserInfo(UserInfo userInfo);
 		UserInfo GetUserInfoById(string userId);

@@ -4,25 +4,26 @@ using System.IO;
 using System.Linq;
 using LiteDB;
 using UnoDrive.Data;
+using Windows.Storage;
 
-namespace UnoDrive.Services
+namespace UnoDrive.Data
 {
-	public class CachedGraphService : ICachedGraphService
+	public class DataStore : IDataStore
 	{
-		readonly string databaseName;
-		public CachedGraphService()
+		readonly string databaseFile;
+		public DataStore()
 		{
 #if HAS_UNO_SKIA_WPF
-			var applicationFolder = Path.Combine(Windows.Storage.ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
-			databaseName = Path.Combine(applicationFolder, "UnoDriveData.db");
+			var applicationFolder = Path.Combine(ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
+			databaseFile = Path.Combine(applicationFolder, "UnoDriveData.db");
 #else
-			databaseName = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "UnoDriveData.db");
+			databaseFile = Path.Combine(ApplicationData.Current.LocalFolder.Path, "UnoDriveData.db");
 #endif
 		}
 
 		public void SaveUserInfo(UserInfo userInfo)
 		{
-			using (var db = new LiteDatabase(databaseName))
+			using (var db = new LiteDatabase(databaseFile))
 			{
 				var users = db.GetCollection<UserInfo>();
 				var findUserInfo = users.FindById(userInfo.Id);
@@ -43,7 +44,7 @@ namespace UnoDrive.Services
 
 		public UserInfo GetUserInfoById(string userId)
 		{
-			using (var db = new LiteDatabase(databaseName))
+			using (var db = new LiteDatabase(databaseFile))
 			{
 				var users = db.GetCollection<UserInfo>();
 				return users.FindById(userId);
@@ -52,7 +53,7 @@ namespace UnoDrive.Services
 
 		public void SaveRootId(string rootId)
 		{
-			using (var db = new LiteDatabase(databaseName))
+			using (var db = new LiteDatabase(databaseFile))
 			{
 				var settings = db.GetCollection<Setting>();
 				var findRootIdSetting = settings.FindById("RootId");
@@ -72,7 +73,7 @@ namespace UnoDrive.Services
 
 		public string GetRootId()
 		{
-			using (var db = new LiteDatabase(databaseName))
+			using (var db = new LiteDatabase(databaseFile))
 			{
 				var settings = db.GetCollection<Setting>();
 				var rootId = settings.FindById("RootId");
@@ -86,7 +87,7 @@ namespace UnoDrive.Services
 			if (string.IsNullOrEmpty(pathId))
 				return new OneDriveItem[0];
 
-			using (var db = new LiteDatabase(databaseName))
+			using (var db = new LiteDatabase(databaseFile))
 			{
 				var items = db.GetCollection<OneDriveItem>();
 				return items
@@ -98,7 +99,7 @@ namespace UnoDrive.Services
 
 		public void SaveCachedFiles(IEnumerable<OneDriveItem> children, string pathId)
 		{
-			using (var db = new LiteDatabase(databaseName))
+			using (var db = new LiteDatabase(databaseFile))
 			{
 				var childrenIds = children.Select(c => c.Id).ToArray();
 				var items = db.GetCollection<OneDriveItem>();
@@ -135,7 +136,7 @@ namespace UnoDrive.Services
 
 		public void UpdateCachedFileById(string itemId, string localFilePath)
 		{
-			using (var db = new LiteDatabase(databaseName))
+			using (var db = new LiteDatabase(databaseFile))
 			{
 				var items = db.GetCollection<OneDriveItem>();
 				var findItem = items.FindById(itemId);

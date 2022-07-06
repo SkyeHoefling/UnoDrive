@@ -15,15 +15,15 @@ namespace UnoDrive.ViewModels
 {
 	public class DashboardViewModel : ObservableObject, IAuthenticationProvider, IInitialize
     {
-		ICachedGraphService cachedGraphService;
+		IDataStore dataStore;
 		INetworkConnectivityService networkService;
 		ILogger logger;
 		public DashboardViewModel(
-			ICachedGraphService cachedGraphService,
+			IDataStore dataStore,
 			INetworkConnectivityService networkService,
 			ILogger<DashboardViewModel> logger)
 		{
-			this.cachedGraphService = cachedGraphService;
+			this.dataStore = dataStore;
 			this.networkService = networkService;
 			this.logger = logger;
 		}
@@ -47,7 +47,7 @@ namespace UnoDrive.ViewModels
 			try
 			{
 				var objectId = ((App)App.Current).AuthenticationResult.Account.HomeAccountId.ObjectId;
-				var userInfo = cachedGraphService.GetUserInfoById(objectId);
+				var userInfo = dataStore.GetUserInfoById(objectId);
 				if (userInfo != null)
 				{
 					Name = userInfo.Name;
@@ -95,7 +95,7 @@ namespace UnoDrive.ViewModels
 						Name = Name,
 						Email = email
 					};
-					cachedGraphService.SaveUserInfo(userInfo);
+					dataStore.SaveUserInfo(userInfo);
 				}
 			}
 			catch (Exception ex)

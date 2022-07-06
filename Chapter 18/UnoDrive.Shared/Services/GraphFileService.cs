@@ -23,16 +23,16 @@ namespace UnoDrive.Services
 #endif
 
 		GraphServiceClient graphClient;
-		ICachedGraphService cachedService;
+		IDataStore dataStore;
 		INetworkConnectivityService networkConnectivity;
 		ILogger logger;
 
 		public GraphFileService(
-			ICachedGraphService cachedService,
+			IDataStore dataStore,
 			INetworkConnectivityService networkConnectivity,
 			ILogger<GraphFileService> logger)
 		{
-			this.cachedService = cachedService;
+			this.dataStore = dataStore;
 			this.networkConnectivity = networkConnectivity;
 			this.logger = logger;
 
@@ -48,7 +48,7 @@ namespace UnoDrive.Services
 
 		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
-			var rootPathId = cachedService.GetRootId();
+			var rootPathId = dataStore.GetRootId();
 			if (networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess)
 			{
 				try
@@ -69,7 +69,7 @@ namespace UnoDrive.Services
 					}
 
 					rootPathId = rootNode.Id;
-					cachedService.SaveRootId(rootPathId);
+					dataStore.SaveRootId(rootPathId);
 				}
 				catch (TaskCanceledException ex)
 				{
@@ -96,7 +96,7 @@ namespace UnoDrive.Services
 		{
 			if (cachedCallback != null)
 			{
-				var cachedChildren = cachedService
+				var cachedChildren = dataStore
 					.GetCachedFiles(id)
 					.OrderByDescending(item => item.Type)
 					.ThenBy(item => item.Name);
@@ -153,7 +153,7 @@ namespace UnoDrive.Services
 				cachedCallback(children, false);
 			}
 
-			cachedService.SaveCachedFiles(children, id);
+			dataStore.SaveCachedFiles(children, id);
 			await StoreThumbnailsAsync(oneDriveItems, childrenTable, cachedCallback, cancellationToken);
 			return childrenTable.Select(x => x.Value);
 		}
@@ -227,7 +227,7 @@ namespace UnoDrive.Services
 						cachedCallback(childrenTable.Select(item => item.Value), false);
 					}
 
-					cachedService.UpdateCachedFileById(currentItem.Id, localFilePath);
+					dataStore.UpdateCachedFileById(currentItem.Id, localFilePath);
 					cancellationToken.ThrowIfCancellationRequested();
 				}
 				catch (TaskCanceledException ex)

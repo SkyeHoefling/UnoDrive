@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using UnoDrive.Authentication;
+using UnoDrive.Data;
 using UnoDrive.Logging;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
@@ -44,7 +45,7 @@ namespace UnoDrive
 			services.AddTransient<INavigationService, NavigationService>();
 			services.AddTransient<INetworkConnectivityService, NetworkConnectivityService>();
 			services.AddTransient<IGraphFileService, GraphFileService>();
-			services.AddTransient<ICachedGraphService, CachedGraphService>();
+			services.AddTransient<IDataStore, DataStore>();
 		}
 
 		/// <summary>
