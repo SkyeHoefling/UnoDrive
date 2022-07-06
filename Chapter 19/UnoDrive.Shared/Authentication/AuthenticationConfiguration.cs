@@ -37,7 +37,10 @@ namespace UnoDrive.Authentication
 			// this causes app to crash at startup
 			// it appears msal.net doesn't compile against net6-android/ios/macos etc.
 			// maybe we document these problems
-#if !__ANDROID__ && !__IOS__
+			//
+			// WASM Encryption library are missing in .NET 5 we need to try
+			// again in .NET 6.
+#if !__ANDROID__ && !__IOS__ && !__WASM__
 			TokenCacheStorage.EnableSerialization(app.UserTokenCache);
 #endif
 
