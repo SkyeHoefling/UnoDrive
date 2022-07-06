@@ -9,7 +9,7 @@
 	xmlns:android="http://uno.ui/android"
 	xmlns:ios="http://uno.ui/ios"
 	xmlns:macos="http://uno.ui/macos"
-	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+	Background="White"
     mc:Ignorable="d android ios macos">
 
 	<Page.Resources>
