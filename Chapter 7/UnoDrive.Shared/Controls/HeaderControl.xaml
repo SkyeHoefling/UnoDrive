@@ -33,7 +33,7 @@
 			<Button Background="#0078D4" Foreground="#fff">
 				<Button.Content>
 					<StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
-						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" win:FontSize="14" wasm:FontSize="14"  android:FontSize="10" />
+						<FontIcon FontFamily="{StaticResource SegoeMDL2Assets}" Glyph="&#xE109;" win:FontSize="14" wasm:FontSize="14"  android:FontSize="10" />
 						<TextBlock Text="New" win:FontSize="16" wasm:FontSize="16"  android:FontSize="12" />
 					</StackPanel>
 				</Button.Content>
@@ -41,7 +41,7 @@
 			<Button>
 				<Button.Content>
 					<StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
-						<FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE11C;" win:FontSize="14" wasm:FontSize="14"  android:FontSize="10" />
+						<FontIcon FontFamily="{StaticResource SegoeMDL2Assets}" Glyph="&#xE11C;" win:FontSize="14" wasm:FontSize="14"  android:FontSize="10" />
 						<TextBlock Text="Upload" win:FontSize="16" wasm:FontSize="16"  android:FontSize="12" />
 					</StackPanel>
 				</Button.Content>
