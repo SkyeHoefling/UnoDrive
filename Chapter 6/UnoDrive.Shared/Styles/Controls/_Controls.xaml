@@ -4,7 +4,6 @@
 
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="Button.xaml" />
-		<ResourceDictionary Source="Page.xaml" />
 		<ResourceDictionary Source="TextBlock.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
