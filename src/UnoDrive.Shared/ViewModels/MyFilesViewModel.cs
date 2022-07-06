@@ -111,7 +111,7 @@ namespace UnoDrive.ViewModels
 			location = location.Back;
 		}
 
-		async Task LoadDataAsync(string pathId = null, bool isFirstLoad = false)
+		async Task LoadDataAsync(string pathId = null)
 		{
 			try
 			{
@@ -145,7 +145,7 @@ namespace UnoDrive.ViewModels
 
 		async Task IInitialize.InitializeAsync()
 		{
-			await LoadDataAsync(null, true);
+			await LoadDataAsync();
 
 			var firstItem = FilesAndFolders.FirstOrDefault();
 			if (firstItem != null)
