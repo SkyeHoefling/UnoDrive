@@ -7,7 +7,7 @@
 	xmlns:android="http://uno.ui/android"
 	xmlns:mvvm="using:UnoDrive.Mvvm"
 	mvvm:ViewModelLocator.AutoWireViewModel="True"
-	mc:Ignorable="d">
+	mc:Ignorable="d android">
 
 	<Grid>
 		<Grid.RowDefinitions>
