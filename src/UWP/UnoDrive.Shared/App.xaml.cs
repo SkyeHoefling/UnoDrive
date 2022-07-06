@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using UnoDrive.Mvvm;
 using UnoDrive.Authentication;
+using UnoDrive.Services;
 
 namespace UnoDrive
 {
@@ -52,6 +53,8 @@ namespace UnoDrive
         {
             ConfigureLogging(services);
             services.UseAuthentication();
+
+            services.AddTransient<INavigationService, NavigationService>();
         }
 
         void ConfigureLogging(IServiceCollection services)
