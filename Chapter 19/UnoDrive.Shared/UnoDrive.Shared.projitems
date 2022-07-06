@@ -37,9 +37,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItem.android.ios.macos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\DriveItemCollection.android.ios.macos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\UserInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\GraphRequestType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Selectors\OneDriveItemTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\DataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\IDataStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilesViewModel.cs" />
     <Compile Include="..\UnoDrive.Shared\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItemType.cs" />

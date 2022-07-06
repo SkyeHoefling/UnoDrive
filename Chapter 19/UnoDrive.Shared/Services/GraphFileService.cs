@@ -90,10 +90,73 @@ namespace UnoDrive.Services
 				}
 			}
 
-			return await GetFilesAsync(rootPathId, cachedCallback, cancellationToken);
+			return await GetMyFilesAsync(rootPathId, cachedCallback, cancellationToken);
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
+		public Task<IEnumerable<OneDriveItem>> GetMyFilesAsync(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
+			GetFilesAsync(Models.GraphRequestType.MyFiles, id, cachedCallback, cancellationToken);
+
+		public Task<IEnumerable<OneDriveItem>> GetRecentFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
+			GetFilesAsync(Models.GraphRequestType.Recent, "RECENT-FILES", cachedCallback, cancellationToken);
+
+		public Task<IEnumerable<OneDriveItem>> GetSharedFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
+			GetFilesAsync(Models.GraphRequestType.Recent, "SHARED-FILES", cachedCallback, cancellationToken);
+
+		public Task<IEnumerable<OneDriveItem>> GetRecycleBinFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default) =>
+			GetFilesAsync(Models.GraphRequestType.Recent, "RECYCLE-FILES", cachedCallback, cancellationToken);
+
+#if __ANDROID__ || __IOS__ || __MACOS__
+		async Task<UnoDrive.Models.DriveItem[]>
+#else
+		async Task<DriveItem[]>
+#endif
+			ProcessGraphRequestAsync(UnoDrive.Models.GraphRequestType requestType, string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback, CancellationToken cancellationToken)
+		{
+#if __ANDROID__ || __IOS__ || __MACOS__
+			UnoDrive.Models.DriveItem[] oneDriveItems = null;
+#else
+			DriveItem[] oneDriveItems = null;
+#endif
+
+			if (requestType == Models.GraphRequestType.MyFiles)
+			{
+				var request = graphClient.Me.Drive
+					.Items[id]
+					.Children
+					.Request()
+					.Expand("thumbnails");
+
+#if __ANDROID__ || __IOS__ || __MACOS__
+				var response = await request.GetResponseAsync(cancellationToken);
+				var data = await response.Content.ReadAsStringAsync();
+				var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+				oneDriveItems = collection.Value;
+#else
+				oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
+#endif
+				return oneDriveItems;
+			}
+			else if (requestType == Models.GraphRequestType.Recent)
+			{
+				var request = graphClient.Me.Drive
+					.Recent()
+					.Request()
+					.Expand("thumbnails");
+
+#if __ANDROID__ || __IOS__ || __MACOS__
+				var response = await request.GetResponseAsync(cancellationToken);
+				var data = await response.Content.ReadAsStringAsync();
+				var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+				oneDriveItems = collection.Value;
+#else
+				oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
+#endif
+			}
+
+			return oneDriveItems;
+		}
+
+		async Task<IEnumerable<OneDriveItem>> GetFilesAsync(Models.GraphRequestType requestType, string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
 			if (cachedCallback != null)
 			{
@@ -116,19 +179,7 @@ namespace UnoDrive.Services
 #if DEBUG
 			await Task.Delay(apiDelayInMilliseconds, cancellationToken);
 #endif
-
-			var request = graphClient.Me.Drive.Items[id].Children
-				.Request()
-				.Expand("thumbnails");
-
-#if __ANDROID__ || __IOS__ || __MACOS__
-			var response = await request.GetResponseAsync(cancellationToken);
-			var data = await response.Content.ReadAsStringAsync();
-			var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
-			var oneDriveItems = collection.Value;
-#else
-			var oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
-#endif
+			var oneDriveItems = await ProcessGraphRequestAsync(requestType, id, cachedCallback, cancellationToken);
 
 			var childrenTable = oneDriveItems
 				.Select(driveItem => new OneDriveItem
@@ -251,4 +302,6 @@ namespace UnoDrive.Services
 			return Task.CompletedTask;
 		}
 	}
-}
+
+		
+	}
