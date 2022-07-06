@@ -56,7 +56,7 @@
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.4.13" Condition="'$(Configuration)'=='Debug'" />
 		<PackageReference Include="Uno.Wasm.Bootstrap" Version="3.3.1" />
 		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.3.1" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="System.Text.Json" Version="6.0.5" />
 	</ItemGroup>
 	<Import Project="..\UnoDrive.Shared\UnoDrive.Shared.projitems" Label="Shared" Condition="Exists('..\UnoDrive.Shared\UnoDrive.Shared.projitems')" />
 </Project>

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
-using Newtonsoft.Json;
 using Uno.UI.MSAL;
 using UnoDrive.Services;
 using Windows.Networking.Connectivity;
@@ -100,7 +100,7 @@ namespace UnoDrive.Authentication
 			try
 			{
 				logger.LogInformation("Attempting to perform silent sign in . . .");
-				logger.LogInformation($"Authentication Scopes: {JsonConvert.SerializeObject(scopes)}");
+				logger.LogInformation($"Authentication Scopes: {JsonSerializer.Serialize(scopes)}");
 				logger.LogInformation($"Account Name: {firstAccount.Username}");
 
 				result = await publicClientApp

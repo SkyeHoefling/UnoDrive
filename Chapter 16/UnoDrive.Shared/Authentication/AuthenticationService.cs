@@ -100,7 +100,7 @@ namespace UnoDrive.Authentication
 			try
 			{
 				logger.LogInformation("Attempting to perform silent sign in . . .");
-				logger.LogInformation($"Authentication Scopes: {JsonConvert.SerializeObject(scopes)}");
+				logger.LogInformation($"Authentication Scopes: {JsonSerializer.Serialize(scopes)}");
 				logger.LogInformation($"Account Name: {firstAccount.Username}");
 
 				result = await publicClientApp
