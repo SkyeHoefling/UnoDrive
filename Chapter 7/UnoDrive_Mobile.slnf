@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "UnoDrive.sln",
+    "projects": [
+      "UnoDrive.Mobile\\UnoDrive.Mobile.csproj",
+      "UnoDrive.Shared\\UnoDrive.Shared.shproj"
+    ]
+  }
+}
