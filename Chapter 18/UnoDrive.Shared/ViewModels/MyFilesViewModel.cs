@@ -12,7 +12,6 @@ using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
-using Windows.Networking.Connectivity;
 
 namespace UnoDrive.ViewModels
 {
@@ -20,16 +19,13 @@ namespace UnoDrive.ViewModels
 	{
 		Location location = new Location();
 		IGraphFileService graphFileService;
-		INetworkConnectivityService networkConnectivity;
 		ILogger logger;
 
 		public MyFilesViewModel(
 			IGraphFileService graphFileService,
-			INetworkConnectivityService networkConnectivity,
 			ILogger<MyFilesViewModel> logger)
 		{
 			this.graphFileService = graphFileService;
-			this.networkConnectivity = networkConnectivity;
 			this.logger = logger;
 
 			Forward = new AsyncRelayCommand(OnForwardAsync);
@@ -62,9 +58,6 @@ namespace UnoDrive.ViewModels
 		public bool IsPageEmpty => !IsStatusBarLoading && !FilesAndFolders.Any();
 
 		public string CurrentFolderPath => FilesAndFolders.FirstOrDefault()?.Path;
-
-		public bool IsNetworkConnected =>
-			networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess;
 
 		string noDataMessage;
 		public string NoDataMessage
@@ -201,11 +194,7 @@ namespace UnoDrive.ViewModels
 
 		public async Task InitializeAsync()
 		{
-			networkConnectivity.NetworkStatusChanged += OnNetworkStatusChanged;
 			await LoadDataAsync();
 		}
-
-		void OnNetworkStatusChanged(object sender, EventArgs args) =>
-			OnPropertyChanged(nameof(IsNetworkConnected));
 	}
 }
