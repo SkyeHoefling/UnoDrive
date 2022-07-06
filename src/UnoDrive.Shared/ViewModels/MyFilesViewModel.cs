@@ -6,52 +6,28 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 using UnoDrive.Models;
+using System.Collections.Generic;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace UnoDrive.ViewModels
 {
-    public class MyFilesViewModel : IAuthenticationProvider
+    public class MyFilesViewModel : ObservableObject, IAuthenticationProvider
     {
         public MyFilesViewModel()
         {
+            FilesAndFolders = new List<OneDriveItem>();
             LoadData();
-            FilesAndFolders = new ObservableCollection<OneDriveItem>(new[]
-            {
-                new OneDriveItem
-                {
-                    Name = "Test",
-                    FileSize = "100MB",
-                    Modified = DateTime.Now,
-                    ModifiedBy = "Andrew",
-                    Sharing = ""
-                },
-                new OneDriveItem
-                {
-                    Name = "Test 1",
-                    FileSize = "100MB",
-                    Modified = DateTime.Now,
-                    ModifiedBy = "Andrew",
-                    Sharing = ""
-                },
-                new OneDriveItem
-                {
-                    Name = "Test 2",
-                    FileSize = "100MB",
-                    Modified = DateTime.Now,
-                    ModifiedBy = "Andrew",
-                    Sharing = ""
-                },
-                new OneDriveItem
-                {
-                    Name = "Test 3",
-                    FileSize = "100MB",
-                    Modified = DateTime.Now,
-                    ModifiedBy = "Andrew",
-                    Sharing = ""
-                }
-            });
         }
 
-        public ObservableCollection<OneDriveItem> FilesAndFolders { get; set; }
+        // We are not using an ObservableCollection
+		// by design. It can create significant performance
+		// problems and it wasn't loading correctly on Android.
+        List<OneDriveItem> filesAndFolders;
+        public List<OneDriveItem> FilesAndFolders
+        {
+            get => filesAndFolders;
+            set => SetProperty(ref filesAndFolders, value);
+        }
 
         async void LoadData()
         {
@@ -68,10 +44,8 @@ namespace UnoDrive.ViewModels
                 .Request()
                 .GetAsync();
 
-            FilesAndFolders.Clear();
-            foreach (var driveItem in rootChildren)
-            {
-                FilesAndFolders.Add(new OneDriveItem
+            FilesAndFolders = rootChildren
+                .Select(driveItem => new OneDriveItem
                 {
                     Name = driveItem.Name,
                     FileSize = $"{driveItem.Size}",
@@ -80,8 +54,8 @@ namespace UnoDrive.ViewModels
                     Type = driveItem.Folder != null ? OneDriveItemType.Folder : OneDriveItemType.File
                     //ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
                     //Sharing = ""
-                });
-            }
+                })
+                .ToList();
         }
 
         public Task AuthenticateRequestAsync(HttpRequestMessage request)
