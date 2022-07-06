@@ -140,8 +140,7 @@ namespace UnoDrive.Services
 			{
 				var request = graphClient.Me.Drive
 					.Recent()
-					.Request()
-					.Expand("thumbnails");
+					.Request();
 
 #if __ANDROID__ || __IOS__ || __MACOS__
 				var response = await request.GetResponseAsync(cancellationToken);
