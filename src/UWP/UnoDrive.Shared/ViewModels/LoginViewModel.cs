@@ -1,12 +1,15 @@
 ﻿using System.Windows.Input;
+using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Mvvm.Input;
 
 namespace UnoDrive.ViewModels
 {
     public class LoginViewModel
     {
-        public LoginViewModel()
+        readonly ILogger logger;
+        public LoginViewModel(ILogger<LoginViewModel> logger)
         {
+            this.logger = logger;
             Login = new RelayCommand(OnLogin);
         }
 
@@ -14,6 +17,7 @@ namespace UnoDrive.ViewModels
 
         void OnLogin()
         {
+            logger.LogInformation("Login tapped/clicked");
             System.Console.WriteLine("Perform login");
         }
     }
