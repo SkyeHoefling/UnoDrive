@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
-    <OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.0.7" />
-    <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.0.7" Condition="'$(Configuration)'=='Debug'" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UnoDrive.Skia.WPF\UnoDrive.Skia.Wpf.csproj">
-      <ReferenceSourceTarget></ReferenceSourceTarget>
-    </ProjectReference>
-  </ItemGroup>
+	<PropertyGroup>
+		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.0.7" />
+		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.0.7" Condition="'$(Configuration)'=='Debug'" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UnoDrive.Skia.WPF\UnoDrive.Skia.Wpf.csproj">
+			<ReferenceSourceTarget></ReferenceSourceTarget>
+		</ProjectReference>
+	</ItemGroup>
 </Project>
