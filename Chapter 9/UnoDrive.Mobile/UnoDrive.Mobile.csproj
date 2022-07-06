@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst;net6.0-macos</TargetFrameworks>
+		<LangVersion>9.0</LangVersion>
 		<SingleProject>true</SingleProject>
 		<OutputType>Exe</OutputType>
 		<RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-ios'">iossimulator-x64</RuntimeIdentifier>
@@ -19,6 +20,7 @@
 		<PackageReference Include="Uno.WinUI" Version="4.0.11" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net6.0-android'">

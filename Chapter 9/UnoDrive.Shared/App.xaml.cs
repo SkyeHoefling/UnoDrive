@@ -1,8 +1,11 @@
 ﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using UnoDrive.Logging;
+using UnoDrive.Mvvm;
 using UnoDrive.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -12,7 +15,7 @@ namespace UnoDrive
 	/// <summary>
 	/// Provides application-specific behavior to supplement the default Application class.
 	/// </summary>
-	public sealed partial class App : Application
+	public sealed partial class App : MvvmApplication
 	{
 		public Window Window { get; private set; }
 
@@ -20,7 +23,7 @@ namespace UnoDrive
 		/// Initializes the singleton application object.  This is the first line of authored code
 		/// executed, and as such is the logical equivalent of main() or WinMain().
 		/// </summary>
-		public App()
+		public App() : base()
 		{
 			InitializeLogging();
 
@@ -29,6 +32,11 @@ namespace UnoDrive
 #if HAS_UNO || NETFX_CORE
 			this.Suspending += OnSuspending;
 #endif
+		}
+
+		protected override void ConfigureServices(IServiceCollection services)
+		{
+			services.AddLoggingForUnoDrive();
 		}
 
 		/// <summary>
@@ -111,7 +119,7 @@ namespace UnoDrive
 			//TODO: Save application state and stop any background activity
 			deferral.Complete();
 		}
-
+		
 		/// <summary>
 		/// Configures global Uno Platform logging
 		/// </summary>
@@ -126,7 +134,7 @@ namespace UnoDrive
 #elif NETFX_CORE
                 builder.AddDebug();
 #else
-                builder.AddConsole();
+				builder.AddConsole();
 #endif
 
 				// Exclude logs below this level

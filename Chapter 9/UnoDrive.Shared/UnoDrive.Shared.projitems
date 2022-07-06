@@ -21,6 +21,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.windows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.macos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.ios.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.gtk.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DashboardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
@@ -106,5 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
   </ItemGroup>
 </Project>

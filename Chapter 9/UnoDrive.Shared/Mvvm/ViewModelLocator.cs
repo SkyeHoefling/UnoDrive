@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using Microsoft.Extensions.Logging;
+using UnoDrive.ViewModels;
 
 namespace UnoDrive.Mvvm
 {
@@ -31,7 +34,8 @@ namespace UnoDrive.Mvvm
 				Type viewModelType = FindViewModel(frameworkElement.GetType());
 
 				// NOTE - This uses reflection and can cause linking issues
-				frameworkElement.DataContext = Activator.CreateInstance(viewModelType);
+				IServiceProvider container = MvvmApplication.Current.Container;
+				frameworkElement.DataContext = ActivatorUtilities.GetServiceOrCreateInstance(container, viewModelType);
 			}
 		}
 

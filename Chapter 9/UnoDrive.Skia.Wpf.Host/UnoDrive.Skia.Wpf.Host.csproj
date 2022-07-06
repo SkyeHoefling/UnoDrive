@@ -3,6 +3,7 @@
 		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
 		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
+		<LangVersion>9.0</LangVersion>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>

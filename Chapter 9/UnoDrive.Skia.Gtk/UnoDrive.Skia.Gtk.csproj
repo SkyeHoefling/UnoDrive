@@ -3,6 +3,7 @@
 		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
 		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>9.0</LangVersion>
 	</PropertyGroup>
 	<ItemGroup Condition="exists('..\UnoDrive.UWP')">
 		<EmbeddedResource Include="..\UnoDrive.UWP\Package.appxmanifest" LogicalName="Package.appxmanifest" />
