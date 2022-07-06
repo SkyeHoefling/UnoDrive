@@ -9,26 +9,37 @@
 
 	<Page.Resources>
 		<ResourceDictionary>
-			<Style TargetType="TextBlock">
+			<Style TargetType="TextBlock" x:Name="WelcomeHeader">
 				<Setter Property="HorizontalTextAlignment" Value="Center" />
+				<Setter Property="HorizontalAlignment" Value="Center" />
+			</Style>
+
+			<Style TargetType="Grid">
+				<Setter Property="HorizontalAlignment" Value="Center" />
+			</Style>
+			
+			<Style TargetType="StackPanel">
+				<Setter Property="VerticalAlignment" Value="Center" />
 			</Style>
 		</ResourceDictionary>
 	</Page.Resources>
 
-	<Grid HorizontalAlignment="Center">
+	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<StackPanel Grid.Row="0" VerticalAlignment="Center">
+		<StackPanel Grid.Row="0">
 			<TextBlock 
-				Text="Welcom to UnoDrive!" 
+				Style="{StaticResource WelcomeHeader}"
+				Text="Welcom to UnoDrive!"
 				FontSize="40" />
 			<TextBlock 
+				Style="{StaticResource WelcomeHeader}"
 				Text="Uno Platform ♥ OneDrive = UnoDrive" 
 				FontSize="24" />
 		</StackPanel>
-		<StackPanel Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center">
+		<StackPanel Grid.Row="0" Grid.RowSpan="2">
 			<Button 
 				Content="Login to UnoDrive"
 				FontSize="40"
