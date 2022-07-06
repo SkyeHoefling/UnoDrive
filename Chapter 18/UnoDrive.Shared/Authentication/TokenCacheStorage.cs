@@ -2,6 +2,7 @@
 using System.IO;
 using LiteDB;
 using Microsoft.Identity.Client;
+using Windows.Storage;
 
 namespace UnoDrive.Authentication
 {
@@ -10,10 +11,10 @@ namespace UnoDrive.Authentication
 		static string GetConnectionString()
 		{
 #if HAS_UNO_SKIA_WPF
-			var applicationFolder = Path.Combine(Windows.Storage.ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
+			var applicationFolder = Path.Combine(ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
 			var databaseFile = Path.Combine(applicationFolder, "UnoDrive_MSAL_TokenCache.db");
 #else
-			var databaseFile = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "UnoDrive_MSAL_TokenCache.db");
+			var databaseFile = Path.Combine(ApplicationData.Current.LocalFolder.Path, "UnoDrive_MSAL_TokenCache.db");
 #endif
 
 			return $"Filename={databaseFile};Password=UnoPlatformIsGreat!";
