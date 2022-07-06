@@ -11,7 +11,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.0.11" />
-		<PackageReference Include="Uno.WinUI.Lottie" Version="4.0.11" />
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.0.11" Condition="'$(Configuration)'=='Debug'" />
 	</ItemGroup>
 	<ItemGroup>

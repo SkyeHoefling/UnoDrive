@@ -43,7 +43,6 @@ namespace UnoDrive
 			services.AddAuthentication();
 			services.AddTransient<INavigationService, NavigationService>();
 			services.AddTransient<INetworkConnectivityService, NetworkConnectivityService>();
-			services.AddTransient<IGraphFileService, GraphFileService>();
 		}
 
 		/// <summary>
