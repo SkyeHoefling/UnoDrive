@@ -45,8 +45,8 @@ namespace UnoDrive.Authentication
                 Logger.LogInformation($"Authentication Scopes: {JsonConvert.SerializeObject(_scopes)}");
 
                 authResult = await PublicClientApp
-                        .AcquireTokenInteractive(_scopes)
-                        .ExecuteAsync();
+                    .AcquireTokenInteractive(_scopes)
+                    .ExecuteAsync();
             }
             catch (MsalException ex)
             {
