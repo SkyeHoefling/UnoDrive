@@ -12,6 +12,7 @@ namespace UnoDrive.Services
 	public interface IGraphFileService
 	{
 		Task<IEnumerable<OneDriveItem>> GetRootFiles();
+		Task<IEnumerable<OneDriveItem>> GetFiles(string id);
 	}
 
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
@@ -36,6 +37,26 @@ namespace UnoDrive.Services
 				.GetAsync();
 
 			return rootChildren
+				.Select(driveItem => new OneDriveItem
+				{
+					Id = driveItem.Id,
+					Name = driveItem.Name,
+					FileSize = $"{driveItem.Size}",
+					Modified = driveItem.LastModifiedDateTime.HasValue ?
+						driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
+					Type = driveItem.Folder != null ? OneDriveItemType.Folder : OneDriveItemType.File
+					//ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
+					//Sharing = ""
+				});
+		}
+
+		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id)
+		{
+			var children = await graphClient.Me.Drive.Items[id].Children
+				.Request()
+				.GetAsync();
+			
+			return children
 				.Select(driveItem => new OneDriveItem
 				{
 					Id = driveItem.Id,
