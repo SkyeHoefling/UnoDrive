@@ -35,7 +35,7 @@
         
 
             <DataTemplate x:Key="DriveItemTemplate" x:DataType="model:OneDriveItem">
-                <StackPanel Spacing="20">
+                <StackPanel Spacing="20" android:Width="175" android:Height="250">
                     <win:Image
                         Stretch="UniformToFill"
                         Source="ms-appx:///Assets/Images/file.png"
@@ -52,12 +52,13 @@
                     <TextBlock
                         Text="{x:Bind Name}"
                         HorizontalAlignment="Center"
-                        HorizontalTextAlignment="Center"  />
+                        HorizontalTextAlignment="Center"
+                        TextWrapping="WrapWholeWords" />
                 </StackPanel>    
             </DataTemplate>
 
             <DataTemplate x:Key="DriveFolderTemplate" x:DataType="model:OneDriveItem">
-                <StackPanel Spacing="20">
+                <StackPanel Spacing="20" android:Width="175" android:Height="250">
                     <win:Image
                         Stretch="UniformToFill"
                         Source="ms-appx:///Assets/Images/folder.png"
@@ -74,7 +75,8 @@
                     <TextBlock
                         Text="{x:Bind Name}"
                         HorizontalAlignment="Center"
-                        HorizontalTextAlignment="Center"  />
+                        HorizontalTextAlignment="Center"
+                        TextWrapping="WrapWholeWords" />
                 </StackPanel>
             </DataTemplate>
 
@@ -95,7 +97,8 @@
             AllowDrop="False"
             CanReorderItems="False"
             SelectionMode="Single"
-            FlowDirection="LeftToRight" />
+            FlowDirection="LeftToRight"
+            HorizontalContentAlignment="Center"/>
     </ScrollViewer>
     
 </Page>
