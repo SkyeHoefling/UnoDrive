@@ -11,6 +11,7 @@
 	xmlns:macos="http://uno.ui/macos"
 	xmlns:mvvm="using:UnoDrive.Mvvm"
 	mvvm:ViewModelLocator.AutoWireViewModel="True"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d android ios macos">
 
 	<Page.Resources>

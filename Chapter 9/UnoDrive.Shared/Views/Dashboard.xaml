@@ -15,6 +15,7 @@
 	xmlns:c="using:UnoDrive.Controls"
 	xmlns:mvvm="using:UnoDrive.Mvvm"
 	mvvm:ViewModelLocator.AutoWireViewModel="True"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d android ios macos wasm skia">
 
 	<NavigationView 

@@ -13,6 +13,7 @@
     xmlns:wasm="http://uno.ui/wasm"
 	xmlns:skia="http://uno.ui/skia"
 	xmlns:c="using:UnoDrive.Controls"
+	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d android ios macos wasm skia">
 
 	<NavigationView 
