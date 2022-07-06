@@ -25,7 +25,11 @@
             android:FontSize="16"
             android:Padding="0, 4" />
 
-		<!--<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+		<StackPanel 
+			Grid.Column="1"
+			Orientation="Horizontal" 
+			HorizontalAlignment="Right" 
+			Spacing="10">
 			<Button Background="#0078D4" Foreground="#fff">
 				<Button.Content>
 					<StackPanel Orientation="Horizontal" Spacing="10" Margin="5, 2">
@@ -42,7 +46,7 @@
 					</StackPanel>
 				</Button.Content>
 			</Button>
-		</StackPanel>-->
+		</StackPanel>
 	</Grid>
 
 </UserControl>
