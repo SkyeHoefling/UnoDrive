@@ -18,14 +18,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.wasm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.gtk.wpf.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.android.ios.macos.windows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\AuthenticationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authentication\IAuthenticationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.gtk.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.windows.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.macos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.ios.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.gtk.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.wpf.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.wasm.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\LoggingConfiguration.cs" />
@@ -33,7 +40,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\MvvmApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mvvm\ViewModelLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\INetworkConnectivityService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkConnectivityService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DashboardViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MyFilesViewModel.cs" />

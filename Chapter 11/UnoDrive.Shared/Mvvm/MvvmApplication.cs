@@ -13,7 +13,7 @@ namespace UnoDrive.Mvvm
 		}
 
 		public static new MvvmApplication Current { get; private set; }
-		public IServiceProvider Container { get; }
+		public IServiceProvider Container { get; private set; }
 
 		IServiceProvider ConfigureDependencyInjection()
 		{
@@ -23,5 +23,5 @@ namespace UnoDrive.Mvvm
 		}
 
 		protected abstract void ConfigureServices(IServiceCollection services);
-    }
+	}
 }

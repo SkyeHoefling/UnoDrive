@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using UnoDrive.Authentication;
 using UnoDrive.Logging;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
@@ -18,6 +19,7 @@ namespace UnoDrive
 	/// </summary>
 	public sealed partial class App : MvvmApplication
 	{
+		public Microsoft.Identity.Client.AuthenticationResult AuthenticationResult { get; set; }
 		public Window Window { get; private set; }
 
 		/// <summary>
@@ -38,7 +40,9 @@ namespace UnoDrive
 		protected override void ConfigureServices(IServiceCollection services)
 		{
 			services.AddLoggingForUnoDrive();
+			services.AddAuthentication();
 			services.AddTransient<INavigationService, NavigationService>();
+			services.AddTransient<INetworkConnectivityService, NetworkConnectivityService>();
 		}
 
 		/// <summary>
