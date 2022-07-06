@@ -9,7 +9,7 @@
 
 	<Page.Resources>
 		<ResourceDictionary>
-			<Style TargetType="TextBlock" x:Name="WelcomeHeader">
+			<Style TargetType="TextBlock">
 				<Setter Property="HorizontalTextAlignment" Value="Center" />
 				<Setter Property="HorizontalAlignment" Value="Center" />
 			</Style>
@@ -31,11 +31,9 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
 			<TextBlock 
-				Style="{StaticResource WelcomeHeader}"
 				Text="Welcom to UnoDrive!"
 				FontSize="40" />
 			<TextBlock 
-				Style="{StaticResource WelcomeHeader}"
 				Text="Uno Platform ♥ OneDrive = UnoDrive" 
 				FontSize="24" />
 		</StackPanel>
