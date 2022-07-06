@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,16 +15,16 @@ using System.Windows.Shapes;
 
 namespace UnoDrive.WPF.Host
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            root.Content = new global::Uno.UI.Skia.Platform.WpfHost(Dispatcher, () => new UnoDrive.App());
-        }
-    }
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
+	
+			root.Content = new global::Uno.UI.Skia.Platform.WpfHost(Dispatcher, () => new UnoDrive.App());
+		}
+	}
 }
