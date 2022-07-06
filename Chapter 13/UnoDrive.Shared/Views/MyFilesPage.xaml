@@ -9,7 +9,9 @@
 	mvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
-	<Grid>
+	<StackPanel>
 		<TextBlock Text="My Files page" />
-	</Grid>
+		<Image Height="300" Source="ms-appx:///Assets/Images/file.png" />
+		<Image Height="300"  Source="ms-appx:///Assets/Images/folder.png" />
+	</StackPanel>
 </Page>
