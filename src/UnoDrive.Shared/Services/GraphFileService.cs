@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using UnoDrive.Data;
 using Windows.Networking.Connectivity;
@@ -16,6 +18,7 @@ namespace UnoDrive.Services
 	{
 		Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
 		Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
+		Task<Stream> GetThumbnailAsync(string id, CancellationToken cancellationToken);
 	}
 
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
@@ -26,10 +29,12 @@ namespace UnoDrive.Services
 
 		readonly GraphServiceClient graphClient;
 		readonly INetworkConnectivityService networkConnectivity;
+		readonly ILogger logger;
 		readonly CachedGraphFileService cachedService;
-		public GraphFileService(INetworkConnectivityService networkConnectivity)
+		public GraphFileService(INetworkConnectivityService networkConnectivity, ILogger<GraphFileService> logger)
 		{
 			this.networkConnectivity = networkConnectivity;
+			this.logger = logger;
 
 #if __WASM__
             var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
@@ -116,9 +121,13 @@ namespace UnoDrive.Services
 			await Task.Delay(ApiDelayInMilliseconds, cancellationToken);
 #endif
 
-			var children = (await graphClient.Me.Drive.Items[id].Children
+			var oneDriveItems = (await graphClient.Me.Drive.Items[id].Children
 				.Request()
+				.Expand("thumbnails")
 				.GetAsync(cancellationToken))
+				.ToArray();
+
+			var childrenTable = oneDriveItems
 				.Select(driveItem => new OneDriveItem
 				{
 					Id = driveItem.Id,
@@ -133,12 +142,78 @@ namespace UnoDrive.Services
 					//Sharing = ""
 				})
 				.OrderByDescending(item => item.Type)
-				.ThenBy(item => item.Name);
+				.ThenBy(item => item.Name)
+				.ToDictionary(x => x.Id);
 
 			cancellationToken.ThrowIfCancellationRequested();
 
+			if (cachedCallback != null)
+				cachedCallback(childrenTable.Select(x => x.Value), false);
+
+			var children = childrenTable.Select(x => x.Value).ToArray();
 			await cachedService.SaveCachedFilesAsync(children);
+
+			for (int index = 0; index < oneDriveItems.Length; index++)
+			{
+				var currentItem = oneDriveItems[index];
+				var thumbnails = currentItem.Thumbnails?.FirstOrDefault();
+				if (thumbnails != null && !childrenTable.ContainsKey(currentItem.Id))
+					continue;
+
+				var url = thumbnails.Medium.Url;
+
+				var client = new HttpClient();
+				var response = await client.GetAsync(url);
+				if (!response.IsSuccessStatusCode)
+					continue;
+
+				var imagesFolder = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "thumbnails");
+				var name = $"{currentItem.Id}.jpeg";
+				var localFilePath = Path.Combine(imagesFolder, name);
+
+				try
+				{
+					if (!System.IO.Directory.Exists(imagesFolder))
+						System.IO.Directory.CreateDirectory(imagesFolder);
+
+					if (System.IO.File.Exists(localFilePath))
+						System.IO.File.Delete(localFilePath);
+
+					await System.IO.File.WriteAllBytesAsync(localFilePath, await response.Content.ReadAsByteArrayAsync(), cancellationToken);
+					childrenTable[currentItem.Id].ThumbnailPath = localFilePath;
+
+					if (cachedCallback != null)
+						cachedCallback(childrenTable.Select(x => x.Value), false);
+
+					using (var dbContext = new UnoDriveDbContext())
+					{
+						var findCachedFile = await dbContext.OneDriveItems.FindAsync(currentItem.Id);
+						if (findCachedFile != null)
+						{
+							findCachedFile.ThumbnailPath = localFilePath;
+							await dbContext.SaveChangesAsync();
+						}
+					}
+
+					cancellationToken.ThrowIfCancellationRequested();
+				}
+				catch (TaskCanceledException ex)
+				{
+					logger.LogWarning(ex, ex.Message);
+					throw ex;
+				}
+				catch (Exception ex)
+				{
+					logger.LogError(ex, ex.Message);
+				}
+			}
+
 			return children;
+		}
+
+		public Task<Stream> GetThumbnailAsync(string id, CancellationToken cancellationToken)
+		{
+			throw new NotImplementedException();
 		}
 
 		Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)

@@ -5,7 +5,10 @@
 
 	<DataTemplate x:Key="DriveItemTemplate">
 		<StackPanel Spacing="20" Width="175" Height="250">
-			<Image Source="ms-appx:///Assets/Images/file.png" />
+			<Image Source="ms-appx:///Assets/Images/file.png"
+				   Visibility="{Binding ThumbnailPath, Converter={StaticResource IsEmptyEqualsVisibileConverter}}"/>
+			<Image Source="{Binding ThumbnailPath}"
+				   Visibility="{Binding ThumbnailPath, Converter={StaticResource IsEmptyEqualsCollapsedConverter}}"/>
 			<TextBlock
 				Text="{Binding Name}"
 				HorizontalAlignment="Center"

@@ -23,5 +23,6 @@ namespace UnoDrive.Data
 		public string FileSize { get; set; }
 		public string Sharing { get; set; }
 		public OneDriveItemType Type { get; set; }
+		public string ThumbnailPath { get; set; }
 	}
 }

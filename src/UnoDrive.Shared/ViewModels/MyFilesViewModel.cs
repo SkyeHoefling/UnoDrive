@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,8 +34,6 @@ namespace UnoDrive.ViewModels
 			Back = new AsyncRelayCommand(OnBackAsync);
 
 			FilesAndFolders = new List<OneDriveItem>();
-
-
 		}
 
 		public ICommand Forward { get; }
@@ -166,6 +165,7 @@ namespace UnoDrive.ViewModels
 					data = await graphFileService.GetFiles(pathId, UpdateFiles, cancellationToken);
 
 				UpdateFiles(data);
+				//await LoadThumbnailsAsync();
 			}
 			catch (OperationCanceledException ex)
 			{
@@ -204,6 +204,7 @@ namespace UnoDrive.ViewModels
 
 				// TODO - The screen flashes briefly when loading the data from the API
 				FilesAndFolders = files.ToList();
+				IsMainFrameLoading = !files.Any();
 
 				if (isCached)
 					callback?.Invoke();
