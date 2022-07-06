@@ -5,10 +5,12 @@
 	xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:android="http://uno.ui/android"
 	xmlns:skia="http://uno.ui/skia"
-	mc:Ignorable="android skia">
+	xmlns:wasm="http://uno.ui/wasm"
+	mc:Ignorable="android skia wasm">
 
 	<win:FontFamily x:Key="SegoeMDL2Assets">Segoe MDL2 Assets</win:FontFamily>
 	<android:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</android:FontFamily>
 	<skia:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</skia:FontFamily>
+	<wasm:FontFamily x:Key="SegoeMDL2Assets">ms-appx:///Assets/Fonts/SegMDL2.ttf#Segoe MDL2 Assets</wasm:FontFamily>
 	
 </ResourceDictionary>
