@@ -25,11 +25,11 @@ namespace UnoDrive.Views
 			}
 		}
 
-		void MenuItemSelected(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+		async void MenuItemSelected(NavigationView sender, NavigationViewItemInvokedEventArgs args)
 		{
 			if (signOut == args.InvokedItemContainer)
 			{
-				navigation.SignOut();
+				await navigation.SignOutAsync();
 				return;
 			}
 

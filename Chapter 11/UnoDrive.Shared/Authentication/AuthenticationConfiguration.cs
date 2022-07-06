@@ -13,7 +13,7 @@ namespace UnoDrive.Authentication
 			// platforms.
 
 			var builder = PublicClientApplicationBuilder
-				.Create("a7410051-6505-4852-9b08-45a54d07c0bc")
+				.Create("00e0a500-b640-4b46-81aa-8e3125ce932c")
 				.WithRedirectUri(GetRedirectUri())
 				.WithUnoHelpers();
 

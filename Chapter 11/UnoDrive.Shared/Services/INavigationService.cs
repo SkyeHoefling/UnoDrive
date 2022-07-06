@@ -1,8 +1,10 @@
-﻿namespace UnoDrive.Services
+﻿using System.Threading.Tasks;
+
+namespace UnoDrive.Services
 {
 	public interface INavigationService
 	{
 		void NavigateToDashboard();
-		void SignOut();
+		Task SignOutAsync();
 	}
 }
