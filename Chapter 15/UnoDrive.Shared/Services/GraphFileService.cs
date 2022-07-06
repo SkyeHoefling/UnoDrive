@@ -36,7 +36,6 @@ namespace UnoDrive.Services
 
 		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync()
 		{
-			await Task.Delay(10000);
 			var rootPathId = string.Empty;
 
 			try
