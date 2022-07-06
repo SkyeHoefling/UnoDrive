@@ -13,6 +13,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Newtonsoft.Json;
 using UnoDrive.Data;
 using Windows.Networking.Connectivity;
+using Windows.Storage;
 
 namespace UnoDrive.Services
 {
@@ -183,10 +184,10 @@ namespace UnoDrive.Services
 					continue;
 
 #if HAS_UNO_SKIA_WPF
-				var applicationFolder = Path.Combine(Windows.Storage.ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
+				var applicationFolder = Path.Combine(ApplicationData.Current.TemporaryFolder.Path, "UnoDrive");
 				var imagesFolder = Path.Combine(applicationFolder, "thumbnails");
 #else
-				var imagesFolder = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "thumbnails");
+				var imagesFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "thumbnails");
 #endif
 
 				var name = $"{currentItem.Id}.jpeg";
