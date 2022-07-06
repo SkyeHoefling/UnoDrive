@@ -13,7 +13,6 @@ namespace UnoDrive.ViewModels
 {
 	public class MyFilesViewModel : ObservableObject, IInitialize
 	{
-		Location location = new Location();
 		IGraphFileService graphFileService;
 		ILogger logger;
 
@@ -74,11 +73,6 @@ namespace UnoDrive.ViewModels
 
 				UpdateFiles(data);
 			}
-			catch (OperationCanceledException ex)
-			{
-				logger.LogInformation("API cancelled, user selected new file or folder");
-				logger.LogInformation(ex, ex.Message);
-			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex, ex.Message);
@@ -110,10 +104,6 @@ namespace UnoDrive.ViewModels
 		public async Task InitializeAsync()
 		{
 			await LoadDataAsync();
-
-			var firstItem = FilesAndFolders.FirstOrDefault();
-			if (firstItem != null)
-				location.Id = firstItem.PathId;
 		}
 	}
 }

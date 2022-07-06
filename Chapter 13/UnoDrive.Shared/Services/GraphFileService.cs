@@ -17,10 +17,6 @@ namespace UnoDrive.Services
 {
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
     {
-#if DEBUG
-		const int ApiDelayInMilliseconds = 5000;
-#endif
-
 		GraphServiceClient graphClient;
 		ILogger logger;
 
@@ -40,13 +36,14 @@ namespace UnoDrive.Services
 
 		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync()
 		{
+			await Task.Delay(10000);
 			var rootPathId = string.Empty;
 
 			try
 			{
 				var request = graphClient.Me.Drive.Root.Request();
 
-#if __ANDROID__
+#if __ANDROID__ || __IOS__ || __MACOS__
 				var response = await request.GetResponseAsync();
 				var data = await response.Content.ReadAsStringAsync();
 				var rootNode = JsonConvert.DeserializeObject<DriveItem>(data);
@@ -69,7 +66,7 @@ namespace UnoDrive.Services
 			}
 			catch (Exception ex)
 			{
-				logger.LogWarning("Unable to retrieve root OneDrive folder, attempting to use local data instead");
+				logger.LogWarning("Unable to retrieve root OneDrive folder");
 				logger.LogWarning(ex, ex.Message);
 			}
 
@@ -78,15 +75,11 @@ namespace UnoDrive.Services
 
 		public async Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id)
 		{
-#if DEBUG
-			await Task.Delay(ApiDelayInMilliseconds);
-#endif
-
 			var request = graphClient.Me.Drive.Items[id].Children
 				.Request()
 				.Expand("thumbnails");
 
-#if __ANDROID__
+#if __ANDROID__ || __IOS__ || __MACOS__
 			var response = await request.GetResponseAsync();
 			var data = await response.Content.ReadAsStringAsync();
 			var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
@@ -109,10 +102,15 @@ namespace UnoDrive.Services
 				})
 				.OrderByDescending(item => item.Type)
 				.ThenBy(item => item.Name)
-				.ToDictionary(x => x.Id);
+				.ToDictionary(item => item.Id);
 
-			var children = childrenTable.Select(x => x.Value).ToArray();
 
+			await StoreThumbnailsAsync(oneDriveItems, childrenTable);
+			return childrenTable.Select(x => x.Value);
+		}
+
+		async Task StoreThumbnailsAsync(DriveItem[] oneDriveItems, IDictionary<string, OneDriveItem> childrenTable)
+		{
 			for (int index = 0; index < oneDriveItems.Length; index++)
 			{
 				var currentItem = oneDriveItems[index];
@@ -160,7 +158,7 @@ namespace UnoDrive.Services
 
 
 
-#if __UNO_DRIVE_WINDOWS__ || __ANDROID__
+#if __UNO_DRIVE_WINDOWS__ || __ANDROID__ || __IOS__ || __MACOS__
 					var image = new BitmapImage(new Uri(localFilePath));
 #else
 					var image = new BitmapImage();
@@ -174,8 +172,6 @@ namespace UnoDrive.Services
 					logger.LogError(ex, ex.Message);
 				}
 			}
-
-			return children;
 		}
 
 		Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)

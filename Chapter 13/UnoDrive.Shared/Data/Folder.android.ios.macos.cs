@@ -1,4 +1,4 @@
-﻿#if __ANDROID__
+﻿#if __ANDROID__ || __IOS__ || __MACOS__
 using System;
 using Newtonsoft.Json;
 using Microsoft.Graph;
