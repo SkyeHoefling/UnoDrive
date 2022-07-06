@@ -9,12 +9,6 @@
 
 	<Page.Resources>
 		<ResourceDictionary>
-			<!-- this can be removed -->
-			<!--<Style TargetType="TextBlock">
-				<Setter Property="HorizontalTextAlignment" Value="Center" />
-				<Setter Property="HorizontalAlignment" Value="Center" />
-			</Style>-->
-
 			<Style TargetType="Grid">
 				<Setter Property="HorizontalAlignment" Value="Center" />
 			</Style>
