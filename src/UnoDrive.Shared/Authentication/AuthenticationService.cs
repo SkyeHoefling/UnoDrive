@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using Uno.UI.MSAL;
 using UnoDrive.Services;
 using Windows.Networking.Connectivity;
-using Xamarin.Essentials;
 
 using MsalAuthenticationResult = Microsoft.Identity.Client.AuthenticationResult;
 using MsalException = Microsoft.Identity.Client.MsalException;
@@ -25,11 +24,11 @@ namespace UnoDrive.Authentication
 	public class AuthenticationService : IAuthenticationService
 	{
 		string[] scopes;
-		
+
 		readonly MsalIPublicClientApplication publicClientApp;
 		readonly INetworkConnectivityService networkService;
 		readonly ILogger logger;
-		
+
 		public AuthenticationService(
 			MsalIPublicClientApplication publicClientApp,
 			INetworkConnectivityService networkService,
@@ -99,10 +98,6 @@ namespace UnoDrive.Authentication
 		// request a new token
 		async Task<IAuthenticationResult> AcquireSilentTokenAsync()
 		{
-			// In WPF/WASM the cache does not work correctly. If we want to leverage
-			// a refresh token we will need to manually store it and invoke the
-			// API via HttpClient.
-
 			string message = string.Empty;
 			MsalAuthenticationResult msalAuthResult = null;
 
