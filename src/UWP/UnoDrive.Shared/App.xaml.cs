@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using UnoDrive.Mvvm;
+using UnoDrive.Authentication;
 
 namespace UnoDrive
 {
@@ -50,6 +51,7 @@ namespace UnoDrive
         protected override void ConfigureServices(IServiceCollection services)
         {
             ConfigureLogging(services);
+            services.UseAuthentication();
         }
 
         void ConfigureLogging(IServiceCollection services)
