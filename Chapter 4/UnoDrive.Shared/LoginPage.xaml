@@ -9,10 +9,11 @@
 
 	<Page.Resources>
 		<ResourceDictionary>
-			<Style TargetType="TextBlock">
+			<!-- this can be removed -->
+			<!--<Style TargetType="TextBlock">
 				<Setter Property="HorizontalTextAlignment" Value="Center" />
 				<Setter Property="HorizontalAlignment" Value="Center" />
-			</Style>
+			</Style>-->
 
 			<Style TargetType="Grid">
 				<Setter Property="HorizontalAlignment" Value="Center" />
@@ -31,18 +32,16 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0">
 			<TextBlock 
-				Text="Welcom to UnoDrive!"
-				FontSize="40" />
+				Text="Welcom to UnoDrive!" 
+				Style="{StaticResource Header}" />
 			<TextBlock 
 				Text="Uno Platform ♥ OneDrive = UnoDrive" 
-				FontSize="24" />
+				Style="{StaticResource SubHeader}" />
 		</StackPanel>
 		<StackPanel Grid.Row="0" Grid.RowSpan="2">
 			<Button 
 				Content="Login to UnoDrive"
-				FontSize="40"
-				Padding="40, 10"
-				HorizontalAlignment="Center"/>
+				Style="{StaticResource LoginButton}" />
 		</StackPanel>
 	</Grid>
 
