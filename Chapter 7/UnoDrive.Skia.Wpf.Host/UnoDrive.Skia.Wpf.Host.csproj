@@ -6,6 +6,8 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Assets\Fonts\FluentSystemIcons-Regular.ttf" />
+	  <None Remove="Assets\Fonts\MaterialIcons-Regular.ttf" />
 	  <None Remove="Assets\Fonts\SegMDL2.ttf" />
 	</ItemGroup>
 	<ItemGroup>
@@ -14,7 +16,7 @@
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.8" Condition="'$(Configuration)'=='Debug'" />
 	</ItemGroup>
 	<ItemGroup>
-		<Content Include="Assets\Fonts\SegMDL2.ttf" />
+		<Content Include="Assets\Fonts\MaterialIcons-Regular.ttf" />
 		<Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
 	</ItemGroup>
 	<ItemGroup>

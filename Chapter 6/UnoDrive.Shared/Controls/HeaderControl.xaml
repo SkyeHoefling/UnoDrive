@@ -31,7 +31,7 @@
 			ios:FontSize="20"
 			android:Padding="0, 4" />
 
-		<StackPanel
+		<!--<StackPanel
 			Grid.Column="1"
 			Orientation="Horizontal"
 			HorizontalAlignment="Right"
@@ -100,7 +100,7 @@
 				</Button.Content>
 			</Button>
 
-		</StackPanel>
+		</StackPanel>-->
 	</Grid>
 
 </UserControl>
