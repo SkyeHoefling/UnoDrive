@@ -160,9 +160,9 @@ namespace UnoDrive.ViewModels
 
 				IEnumerable<OneDriveItem> data;
 				if (string.IsNullOrEmpty(pathId))
-					data = await graphFileService.GetRootFiles(UpdateFiles, cancellationToken);
+					data = await graphFileService.GetRootFilesAsync(UpdateFiles, cancellationToken);
 				else
-					data = await graphFileService.GetFiles(pathId, UpdateFiles, cancellationToken);
+					data = await graphFileService.GetFilesAsync(pathId, UpdateFiles, cancellationToken);
 
 				UpdateFiles(data);
 				//await LoadThumbnailsAsync();

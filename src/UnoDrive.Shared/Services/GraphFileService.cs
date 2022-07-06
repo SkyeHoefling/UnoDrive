@@ -16,8 +16,8 @@ namespace UnoDrive.Services
 {
 	public interface IGraphFileService
 	{
-		Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
-		Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
+		Task<IEnumerable<OneDriveItem>> GetRootFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
+		Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default);
 		Task<Stream> GetThumbnailAsync(string id, CancellationToken cancellationToken);
 	}
 
@@ -47,62 +47,44 @@ namespace UnoDrive.Services
 			graphClient.AuthenticationProvider = this;
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetRootFiles(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
+		public async Task<IEnumerable<OneDriveItem>> GetRootFilesAsync(Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
-			if (cachedCallback != null)
+			var rootPathId = await cachedService.GetRootId();
+			if (networkConnectivity.Connectivity == NetworkConnectivityLevel.InternetAccess)
 			{
-				var rootId = await cachedService.GetRootId();
-				if (!string.IsNullOrEmpty(rootId))
+				try
 				{
-					var cachedRootChildren = await cachedService.GetCachedFilesAsync(rootId);
-					cachedCallback(cachedRootChildren, true);
+					var rootNode = await graphClient.Me.Drive.Root
+						.Request()
+						.GetAsync(cancellationToken);
+
+					if (rootNode == null || string.IsNullOrEmpty(rootNode.Id))
+						throw new KeyNotFoundException("Unable to find OneDrive Root Folder");
+
+					await cachedService.SaveRootIdAsync(rootNode.Id);
+					rootPathId = rootNode.Id;
 				}
-				else
-					cachedCallback(new OneDriveItem[0], true);
+				catch (TaskCanceledException ex)
+				{
+					throw ex;
+				}
+				catch (KeyNotFoundException ex)
+				{
+					logger.LogWarning("Unable to retrieve data from Graph API, it may not exist or there could be a connection issue");
+					logger.LogWarning(ex, ex.Message);
+					throw ex;
+				}
+				catch (Exception ex)
+				{
+					logger.LogWarning("Unable to retrieve root OneDrive folder, attempting to use local data instead");
+					logger.LogWarning(ex, ex.Message);
+				}
 			}
 
-			// If the response is null that means we couldn't retrieve data
-			// due to no internet connectivity
-			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
-				return null;
-
-			cancellationToken.ThrowIfCancellationRequested();
-
-#if DEBUG
-			await Task.Delay(ApiDelayInMilliseconds, cancellationToken);
-#endif
-
-			var rootChildren = (await graphClient.Me.Drive.Root.Children
-				.Request()
-				.GetAsync(cancellationToken))
-				.Select(driveItem => new OneDriveItem
-				{
-					Id = driveItem.Id,
-					Name = driveItem.Name,
-					Path = driveItem.ParentReference.Path,
-					PathId = driveItem.ParentReference.Id,
-					FileSize = $"{driveItem.Size}",
-					Modified = driveItem.LastModifiedDateTime.HasValue ?
-						driveItem.LastModifiedDateTime.Value.LocalDateTime : DateTime.Now,
-					Type = driveItem.Folder != null ? OneDriveItemType.Folder : OneDriveItemType.File
-					//ModifiedBy = driveItem.LastModifiedByUser.DisplayName,
-					//Sharing = ""
-				})
-				.OrderByDescending(item => item.Type)
-				.ThenBy(item => item.Name);
-
-			cancellationToken.ThrowIfCancellationRequested();
-
-			if (!rootChildren.Any())
-				return new OneDriveItem[0];
-
-			await cachedService.SaveCachedFilesAsync(rootChildren);
-			await cachedService.SaveRootIdAsync(rootChildren.FirstOrDefault().PathId);
-
-			return rootChildren;
+			return await GetFilesAsync(rootPathId, cachedCallback, cancellationToken);
 		}
 
-		public async Task<IEnumerable<OneDriveItem>> GetFiles(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
+		public async Task<IEnumerable<OneDriveItem>> GetFilesAsync(string id, Action<IEnumerable<OneDriveItem>, bool> cachedCallback = null, CancellationToken cancellationToken = default)
 		{
 			if (cachedCallback != null)
 			{
@@ -151,13 +133,13 @@ namespace UnoDrive.Services
 				cachedCallback(childrenTable.Select(x => x.Value), false);
 
 			var children = childrenTable.Select(x => x.Value).ToArray();
-			await cachedService.SaveCachedFilesAsync(children);
+			await cachedService.SaveCachedFilesAsync(children, id);
 
 			for (int index = 0; index < oneDriveItems.Length; index++)
 			{
 				var currentItem = oneDriveItems[index];
 				var thumbnails = currentItem.Thumbnails?.FirstOrDefault();
-				if (thumbnails != null && !childrenTable.ContainsKey(currentItem.Id))
+				if (thumbnails == null || !childrenTable.ContainsKey(currentItem.Id))
 					continue;
 
 				var url = thumbnails.Medium.Url;
@@ -273,14 +255,25 @@ namespace UnoDrive.Services
 				}
 			}
 
-			public async Task SaveCachedFilesAsync(IEnumerable<OneDriveItem> children)
+			public async Task SaveCachedFilesAsync(IEnumerable<OneDriveItem> children, string pathId)
 			{
-				// TODO - ensure stale data is removed
-				if (!children.Any())
-					return;
-
 				using (var dbContext = new UnoDriveDbContext())
 				{
+					var childrenIds = children.Select(c => c.Id).ToArray();
+					var staleItems = await dbContext.OneDriveItems
+						.Where(i => i.PathId == pathId && !childrenIds.Any(c => c == i.Id))
+						.ToArrayAsync();
+
+					if (staleItems != null && staleItems.Any())
+					{
+						dbContext.OneDriveItems.RemoveRange(staleItems);
+						foreach (var item in staleItems.Where(i => !string.IsNullOrEmpty(i.ThumbnailPath)))
+						{
+							if (System.IO.File.Exists(item.ThumbnailPath))
+								System.IO.File.Delete(item.ThumbnailPath);
+						}
+					}
+
 					foreach (var item in children)
 					{
 						var findItem = await dbContext.OneDriveItems.AsNoTracking()
