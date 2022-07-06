@@ -13,11 +13,11 @@
 		<UpToDateCheckInput Include="..\UnoDrive.Shared\**\*.xaml" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
-		<PackageReference Include="Uno.WinUI.Skia.Gtk" Version="4.0.11" />
-		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.0.11" Condition="'$(Configuration)'=='Debug'" />
+		<PackageReference Include="Uno.WinUI.Skia.Gtk" Version="4.3.8" />
+		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.8" Condition="'$(Configuration)'=='Debug'" />
 	</ItemGroup>
 	<Import Project="..\UnoDrive.Shared\UnoDrive.Shared.projitems" Label="Shared" />
 </Project>
