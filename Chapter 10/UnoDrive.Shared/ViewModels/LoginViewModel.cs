@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using Microsoft.Extensions.Logging;
-using Microsoft.Toolkit.Mvvm.Input;
+using CommunityToolkit.MvvmInput;
 using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
