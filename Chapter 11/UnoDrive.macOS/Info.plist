@@ -5,7 +5,7 @@
 	<key>CFBundleName</key>
 	<string>UnoWinUI.macOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.HoeflingSoftware.UnoWinUI</string>
+	<string>com.SkyeHoefling.UnoDrive</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
