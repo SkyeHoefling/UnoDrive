@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Skia.Wpf", "UnoDri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnoDrive.Skia.Wpf.Host", "UnoDrive.Skia.Wpf.Host\UnoDrive.Skia.Wpf.Host.csproj", "{4CC1420C-83F4-4631-ABB8-E678C07F8F5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnoDrive.macOS", "UnoDrive.macOS\UnoDrive.macOS.csproj", "{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -411,6 +413,62 @@ Global
 		{4CC1420C-83F4-4631-ABB8-E678C07F8F5D}.Release|x64.Build.0 = Release|Any CPU
 		{4CC1420C-83F4-4631-ABB8-E678C07F8F5D}.Release|x86.ActiveCfg = Release|Any CPU
 		{4CC1420C-83F4-4631-ABB8-E678C07F8F5D}.Release|x86.Build.0 = Release|Any CPU
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|ARM.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|ARM.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|ARM64.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|ARM64.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|iPhone.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|iPhone.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|x64.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|x64.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|x86.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Ad-Hoc|x86.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|ARM.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|ARM.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|ARM64.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|ARM64.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|iPhone.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|iPhone.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|x64.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|x64.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|x86.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.AppStore|x86.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|ARM.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|ARM.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|ARM64.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|ARM64.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|iPhone.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|iPhone.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|x64.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|x64.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|x86.ActiveCfg = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Debug|x86.Build.0 = Debug|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|ARM.ActiveCfg = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|ARM.Build.0 = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|ARM64.ActiveCfg = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|ARM64.Build.0 = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|iPhone.ActiveCfg = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|iPhone.Build.0 = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|x64.ActiveCfg = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|x64.Build.0 = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|x86.ActiveCfg = Release|iPhoneSimulator
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F}.Release|x86.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -422,6 +480,7 @@ Global
 		{748FDF6E-1C6B-4CB8-A5ED-75E7AD3ACB26} = {59CD02F9-5B32-4314-8EB5-037683574A7F}
 		{4814949D-7FAD-4EE8-8999-5A0A53AA9A34} = {59CD02F9-5B32-4314-8EB5-037683574A7F}
 		{4CC1420C-83F4-4631-ABB8-E678C07F8F5D} = {59CD02F9-5B32-4314-8EB5-037683574A7F}
+		{919A3AF0-6AB3-4343-B85F-AC7EEEEE409F} = {59CD02F9-5B32-4314-8EB5-037683574A7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7433AE2-B1A0-4C1A-887E-5CAA7AAF67A6}
@@ -432,6 +491,7 @@ Global
 		UnoDrive.Shared\UnoDrive.Shared.projitems*{6279c845-92f8-4333-ab99-3d213163593c}*SharedItemsImports = 13
 		UnoDrive.Shared\UnoDrive.Shared.projitems*{748fdf6e-1c6b-4cb8-a5ed-75e7ad3acb26}*SharedItemsImports = 5
 		UnoDrive.Shared\UnoDrive.Shared.projitems*{89dfa340-405f-41ad-a0ca-e791f40a64e0}*SharedItemsImports = 5
+		UnoDrive.Shared\UnoDrive.Shared.projitems*{919a3af0-6ab3-4343-b85f-ac7eeeee409f}*SharedItemsImports = 4
 		UnoDrive.Shared\UnoDrive.Shared.projitems*{dc489cb6-d71d-480f-9ab5-313c843f58bb}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
