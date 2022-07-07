@@ -5,13 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using System.Text.Json;
-using UnoDrive.Mvvm;
-
-#if __MACOS__ && !NET6_0_OR_GREATER
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-#else
 using CommunityToolkit.Mvvm.ComponentModel;
-#endif
+using UnoDrive.Mvvm;
 
 namespace UnoDrive.ViewModels
 {

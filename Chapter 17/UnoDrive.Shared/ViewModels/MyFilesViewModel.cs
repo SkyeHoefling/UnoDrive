@@ -5,18 +5,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
-
-#if __MACOS__ && !NET6_0_OR_GREATER
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-#else
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-#endif
 
 namespace UnoDrive.ViewModels
 {

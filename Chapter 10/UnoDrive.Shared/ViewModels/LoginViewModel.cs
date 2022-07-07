@@ -1,12 +1,7 @@
 ﻿using System.Windows.Input;
 using Microsoft.Extensions.Logging;
-using UnoDrive.Services;
-
-#if __MACOS__ && !NET6_0_OR_GREATER
-using Microsoft.Toolkit.Mvvm.Input;
-#else
 using CommunityToolkit.Mvvm.Input;
-#endif
+using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
 {
