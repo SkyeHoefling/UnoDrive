@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
+using System.Text.Json;
 using UnoDrive.Mvvm;
 
 namespace UnoDrive.ViewModels
@@ -36,12 +36,7 @@ namespace UnoDrive.ViewModels
 		{
 			try
 			{
-#if __WASM__
-				var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
-#else
 				var httpClient = new HttpClient();
-#endif
-
 				var graphClient = new GraphServiceClient(httpClient);
 				graphClient.AuthenticationProvider = this;
 
@@ -57,7 +52,7 @@ namespace UnoDrive.ViewModels
 #if __ANDROID__ || __IOS__ || __MACOS__
 				var response = await request.GetResponseAsync();
 				var data = await response.Content.ReadAsStringAsync();
-				var me = JsonConvert.DeserializeObject<User>(data);
+				var me = JsonSerializer.Deserialize<User>(data);
 #else
 				var me = await request.GetAsync();
 #endif
