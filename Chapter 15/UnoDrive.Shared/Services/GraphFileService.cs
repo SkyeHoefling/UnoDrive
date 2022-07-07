@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Newtonsoft.Json;
+using System.Text.Json;
 using UnoDrive.Data;
 
 namespace UnoDrive.Services

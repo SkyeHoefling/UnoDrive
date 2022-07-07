@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
-using Newtonsoft.Json;
+using System.Text.Json;
 using UnoDrive.Mvvm;
 
 #if __MACOS__ && !NET6_0_OR_GREATER
@@ -62,7 +62,7 @@ namespace UnoDrive.ViewModels
 #if __ANDROID__ || __IOS__ || __MACOS__
 				var response = await request.GetResponseAsync();
 				var data = await response.Content.ReadAsStringAsync();
-				var me = JsonConvert.DeserializeObject<User>(data);
+				var me = JsonSerializer.Deserialize<User>(data);
 #else
 				var me = await request.GetAsync();
 #endif
