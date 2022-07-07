@@ -11,7 +11,7 @@ namespace UnoDrive.Selectors
 
 		protected override DataTemplate SelectTemplateCore(object item)
 		{
-			if (item == null || item is not OneDriveItem oneDriveItem)
+			if (item is not OneDriveItem oneDriveItem)
 				return FolderTemplate;
 
 			return oneDriveItem.Type == OneDriveItemType.Folder ?
