@@ -4,9 +4,14 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
-using CommunityToolkit.Mvvm.ComponentModel;
 using System.Text.Json;
 using UnoDrive.Mvvm;
+
+#if __MACOS__ && !NET6_0_OR_GREATER
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+#else
+using CommunityToolkit.Mvvm.ComponentModel;
+#endif
 
 namespace UnoDrive.ViewModels
 {

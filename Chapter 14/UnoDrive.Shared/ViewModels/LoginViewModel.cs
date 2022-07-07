@@ -3,11 +3,17 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using UnoDrive.Authentication;
 using UnoDrive.Services;
 using Windows.Networking.Connectivity;
+
+#if __MACOS__ && !NET6_0_OR_GREATER
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+#else
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+#endif
 
 namespace UnoDrive.ViewModels
 {
