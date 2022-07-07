@@ -27,14 +27,14 @@ namespace UnoDrive.ViewModels
 			this.graphFileService = graphFileService;
 			this.logger = logger;
 
-			Forward = new AsyncRelayCommand(OnForwardAsync);
-			Back = new AsyncRelayCommand(OnBackAsync);
+			Forward = new AsyncRelayCommand(OnForwardAsync, () => location.CanMoveForward);
+			Back = new AsyncRelayCommand(OnBackAsync, () => location.CanMoveBack);
 
 			FilesAndFolders = new List<OneDriveItem>();
 		}
 
-		public ICommand Forward { get; }
-		public ICommand Back { get; }
+		public IRelayCommand Forward { get; }
+		public IRelayCommand Back { get; }
 
 		// We are not using an ObservableCollection
 		// by design. It can create significant performance
@@ -82,14 +82,14 @@ namespace UnoDrive.ViewModels
 			{
 				try
 				{
-					await LoadDataAsync(oneDriveItem.Id);
-
 					location.Forward = new Location
 					{
 						Id = oneDriveItem.Id,
 						Back = location
 					};
 					location = location.Forward;
+
+					await LoadDataAsync(oneDriveItem.Id);
 				}
 				catch (Exception ex)
 				{
@@ -100,9 +100,6 @@ namespace UnoDrive.ViewModels
 
 		Task OnForwardAsync()
 		{
-			if (!location.CanMoveForward)
-				return Task.CompletedTask;
-
 			var forwardId = location.Forward.Id;
 			location = location.Forward;
 			return LoadDataAsync(forwardId);
@@ -110,9 +107,6 @@ namespace UnoDrive.ViewModels
 
 		Task OnBackAsync()
 		{
-			if (!location.CanMoveBack)
-				return Task.CompletedTask;
-
 			var backId = location.Back.Id;
 			location = location.Back;
 			return LoadDataAsync(backId);
@@ -138,6 +132,9 @@ namespace UnoDrive.ViewModels
 			}
 			finally
 			{
+				Forward.NotifyCanExecuteChanged();
+				Back.NotifyCanExecuteChanged();
+
 				IsStatusBarLoading = false;
 			}
 		}

@@ -79,14 +79,14 @@ namespace UnoDrive.ViewModels
 			{
 				try
 				{
-					await LoadDataAsync(oneDriveItem.Id);
-
 					Location.Forward = new Location
 					{
 						Id = oneDriveItem.Id,
 						Back = Location
 					};
 					Location = Location.Forward;
+
+					await LoadDataAsync(oneDriveItem.Id);
 				}
 				catch (Exception ex)
 				{
@@ -100,7 +100,7 @@ namespace UnoDrive.ViewModels
 		CancellationTokenSource cancellationTokenSource;
 		CancellationToken cancellationToken;
 		TaskCompletionSource<bool> currentLoadDataTask;
-		protected async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
+		protected virtual async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
 		{
 			if (cancellationTokenSource != null && !cancellationTokenSource.IsCancellationRequested)
 			{

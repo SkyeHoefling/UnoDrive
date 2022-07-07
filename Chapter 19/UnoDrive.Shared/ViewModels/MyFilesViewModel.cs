@@ -19,18 +19,15 @@ namespace UnoDrive.ViewModels
 			IGraphFileService graphFileService,
 			ILogger<MyFilesViewModel> logger) : base(graphFileService, logger)
 		{
-			Forward = new AsyncRelayCommand(OnForwardAsync);
-			Back = new AsyncRelayCommand(OnBackAsync);
+			Forward = new AsyncRelayCommand(OnForwardAsync, () => location.CanMoveForward);
+			Back = new AsyncRelayCommand(OnBackAsync, () => location.CanMoveBack);
 		}
 
-		public ICommand Forward { get; }
-		public ICommand Back { get; }
+		public IRelayCommand Forward { get; }
+		public IRelayCommand Back { get; }
 
 		Task OnForwardAsync()
 		{
-			if (!Location.CanMoveForward)
-				return Task.CompletedTask;
-
 			var forwardId = Location.Forward.Id;
 			Location = Location.Forward;
 			return LoadDataAsync(forwardId);
@@ -38,9 +35,6 @@ namespace UnoDrive.ViewModels
 
 		Task OnBackAsync()
 		{
-			if (!Location.CanMoveBack)
-				return Task.CompletedTask;
-
 			var backId = Location.Back.Id;
 			Location = Location.Back;
 			return LoadDataAsync(backId);
@@ -50,6 +44,13 @@ namespace UnoDrive.ViewModels
 			GraphFileService.GetMyFilesAsync(pathId, callback, cancellationToken);
 
 		public override void OnItemClick(object sender, ItemClickEventArgs args) => base.OnItemClick(sender, args);
+
+		protected override async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
+		{
+			await base.LoadDataAsync(pathId, presentationCallback);
+			Forward.NotifyCanExecuteChanged();
+			Back.NotifyCanExecuteChanged();
+		}
 
 		public Task InitializeAsync() =>
 			LoadDataAsync();
