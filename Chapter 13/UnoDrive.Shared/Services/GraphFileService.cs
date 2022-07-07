@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Newtonsoft.Json;
+using System.Text.Json;
 using UnoDrive.Data;
 
 namespace UnoDrive.Services
@@ -45,7 +45,7 @@ namespace UnoDrive.Services
 #if __ANDROID__ || __IOS__ || __MACOS__
 				var response = await request.GetResponseAsync();
 				var data = await response.Content.ReadAsStringAsync();
-				var rootNode = JsonConvert.DeserializeObject<DriveItem>(data);
+				var rootNode = JsonSerializer.Deserialize<DriveItem>(data);
 #else
 				var rootNode = await request.GetAsync();
 #endif
@@ -81,7 +81,7 @@ namespace UnoDrive.Services
 #if __ANDROID__ || __IOS__ || __MACOS__
 			var response = await request.GetResponseAsync();
 			var data = await response.Content.ReadAsStringAsync();
-			var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+			var collection = JsonSerializer.Deserialize<UnoDrive.Models.DriveItemCollection>(data);
 			var oneDriveItems = collection.Value;
 #else
 			var oneDriveItems = (await request.GetAsync()).ToArray();
