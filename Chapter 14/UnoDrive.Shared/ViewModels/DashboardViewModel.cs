@@ -18,14 +18,14 @@ namespace UnoDrive.ViewModels
 			this.logger = logger;
 		}
 
-		string name;
+		string name = "Placeholder";
 		public string Name
 		{
 			get => name;
 			set => SetProperty(ref name, value);
 		}
 
-		string email;
+		string email = "Placeholder";
 		public string Email
 		{
 			get => email;
