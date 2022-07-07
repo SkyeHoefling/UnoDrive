@@ -7,12 +7,16 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
 		<PackageReference Include="Microsoft.Identity.Client" Version="4.45.0" />
 		<PackageReference Include="Microsoft.Graph" Version="4.32.0" />
 		<PackageReference Include="Uno.WinUI.MSAL" Version="4.4.13" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
-		<PackageReference Include="Uno.WinUI.Skia.Gtk" Version="4.4.13" />
+		<PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.4.13" />
+		<PackageReference Include="Uno.WinUI.Lottie" Version="4.4.13" />
+		<PackageReference Include="SkiaSharp.Skottie" Version="2.8.8.1-preview.79" />
+		<PackageReference Include="SkiaSharp.Views.Uno.WinUI" Version="2.8.8.1-preview.79" />
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.4.13" Condition="'$(Configuration)'=='Debug'" />
 		<PackageReference Include="System.Text.Json" Version="6.0.5" />
 	</ItemGroup>
