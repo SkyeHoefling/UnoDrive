@@ -24,12 +24,7 @@ namespace UnoDrive.Services
 		{
 			this.logger = logger;
 
-#if __WASM__
-			var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
-#else
 			var httpClient = new HttpClient();
-#endif
-
 			graphClient = new GraphServiceClient(httpClient);
 			graphClient.AuthenticationProvider = this;
 		}
@@ -123,11 +118,7 @@ namespace UnoDrive.Services
 
 				var url = thumbnails.Medium.Url;
 
-#if __WASM__
-				var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
-#else
 				var httpClient = new HttpClient();
-#endif
 				var thumbnailResponse = await httpClient.GetAsync(url);
 				if (!thumbnailResponse.IsSuccessStatusCode)
 					continue;
