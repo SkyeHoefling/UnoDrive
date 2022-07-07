@@ -8,12 +8,12 @@
 
   <Identity
     Name="27670FDA-697D-40EB-9168-9F6E8F7A0DC4"
-    Publisher="O=AndrewHoefling"
+    Publisher="O=SkyeHoefling"
     Version="1.0.0.0" />
 
   <Properties>
 	<DisplayName>UnoDrive</DisplayName>
-	<PublisherDisplayName>AndrewHoefling</PublisherDisplayName>
+	<PublisherDisplayName>SkyeHoefling</PublisherDisplayName>
 	<Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
