@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Graph;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Newtonsoft.Json;
+using System.Text.Json;
 using UnoDrive.Data;
 using Windows.Networking.Connectivity;
 using Windows.Storage;
@@ -37,12 +37,7 @@ namespace UnoDrive.Services
 			this.networkConnectivity = networkConnectivity;
 			this.logger = logger;
 
-#if __WASM__
-			var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
-#else
 			var httpClient = new HttpClient();
-#endif
-
 			graphClient = new GraphServiceClient(httpClient);
 			graphClient.AuthenticationProvider = this;
 		}
@@ -59,7 +54,7 @@ namespace UnoDrive.Services
 #if __ANDROID__ || __IOS__ || __MACOS__
 					var response = await request.GetResponseAsync(cancellationToken);
 					var data = await response.Content.ReadAsStringAsync();
-					var rootNode = JsonConvert.DeserializeObject<DriveItem>(data);
+					var rootNode = JsonSerializer.Deserialize<DriveItem>(data);
 #else
 					var rootNode = await request.GetAsync(cancellationToken);
 #endif
@@ -126,7 +121,7 @@ namespace UnoDrive.Services
 #if __ANDROID__ || __IOS__ || __MACOS__
 		var response = await request.GetResponseAsync(cancellationToken);
 		var data = await response.Content.ReadAsStringAsync();
-		var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+		var collection = JsonSerializer.Deserialize<UnoDrive.Models.DriveItemCollection>(data);
 		oneDriveItems = collection.Value;
 #else
 		oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
@@ -142,7 +137,7 @@ namespace UnoDrive.Services
 #if __ANDROID__ || __IOS__ || __MACOS__
 		var response = await request.GetResponseAsync(cancellationToken);
 		var data = await response.Content.ReadAsStringAsync();
-		var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+		var collection = JsonSerializer.Deserialize<UnoDrive.Models.DriveItemCollection>(data);
 		oneDriveItems = collection.Value;
 #else
 		oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
@@ -157,7 +152,7 @@ namespace UnoDrive.Services
 #if __ANDROID__ || __IOS__ || __MACOS__
 		var response = await request.GetResponseAsync(cancellationToken);
 		var data = await response.Content.ReadAsStringAsync();
-		var collection = JsonConvert.DeserializeObject<UnoDrive.Models.DriveItemCollection>(data);
+		var collection = JsonSerializer.Deserialize<UnoDrive.Models.DriveItemCollection>(data);
 		oneDriveItems = collection.Value;
 #else
 		oneDriveItems = (await request.GetAsync(cancellationToken)).ToArray();
@@ -236,11 +231,7 @@ namespace UnoDrive.Services
 
 				var url = thumbnails.Medium.Url;
 
-#if __WASM__
-				var httpClient = new HttpClient(new Uno.UI.Wasm.WasmHttpHandler());
-#else
 				var httpClient = new HttpClient();
-#endif
 				var thumbnailResponse = await httpClient.GetAsync(url, cancellationToken);
 				if (!thumbnailResponse.IsSuccessStatusCode)
 					continue;

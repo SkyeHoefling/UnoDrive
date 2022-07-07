@@ -1,12 +1,11 @@
 ﻿#if __ANDROID__ || __IOS__ || __MACOS__
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace UnoDrive.Models
 {
-	[JsonObject]
     public class DriveItemCollection
     {
-		[JsonProperty("value")]
+		[JsonPropertyName("value")]
 		public DriveItem[] Value { get; set; }
     }
 }

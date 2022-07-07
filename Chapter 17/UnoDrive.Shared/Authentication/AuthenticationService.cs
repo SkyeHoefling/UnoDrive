@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
-using Newtonsoft.Json;
+using System.Text.Json;
 using Uno.UI.MSAL;
 using UnoDrive.Services;
 using Windows.Networking.Connectivity;
