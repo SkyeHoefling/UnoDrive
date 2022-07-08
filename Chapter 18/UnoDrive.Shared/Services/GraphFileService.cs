@@ -99,7 +99,7 @@ namespace UnoDrive.Services
 			logger.LogInformation($"Network Connectivity: {networkConnectivity.Connectivity}");
 			if (networkConnectivity.Connectivity != NetworkConnectivityLevel.InternetAccess)
 			{
-				return null;
+				return default;
 			}
 
 			cancellationToken.ThrowIfCancellationRequested();
