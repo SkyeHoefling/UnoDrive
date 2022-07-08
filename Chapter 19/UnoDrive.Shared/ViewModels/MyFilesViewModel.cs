@@ -5,22 +5,23 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using UnoDrive.Data;
 using UnoDrive.Models;
 using UnoDrive.Mvvm;
 using UnoDrive.Services;
 
+
 namespace UnoDrive.ViewModels
 {
-	public class MyFilesViewModel : FilesViewModel, IInitialize
+	public class MyFilesViewModel : BaseFilesViewModel, IInitialize
 	{
 		public MyFilesViewModel(
 			IGraphFileService graphFileService,
 			ILogger<MyFilesViewModel> logger) : base(graphFileService, logger)
 		{
-			Forward = new AsyncRelayCommand(OnForwardAsync, () => location.CanMoveForward);
-			Back = new AsyncRelayCommand(OnBackAsync, () => location.CanMoveBack);
+			Forward = new AsyncRelayCommand(OnForwardAsync, () => Location.CanMoveForward);
+			Back = new AsyncRelayCommand(OnBackAsync, () => Location.CanMoveBack);
 		}
 
 		public IRelayCommand Forward { get; }

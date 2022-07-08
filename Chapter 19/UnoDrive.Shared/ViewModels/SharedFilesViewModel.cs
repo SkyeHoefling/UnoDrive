@@ -10,7 +10,7 @@ using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
 {
-	public class SharedFilesViewModel : FilesViewModel, IInitialize
+	public class SharedFilesViewModel : BaseFilesViewModel, IInitialize
 	{
 		public SharedFilesViewModel(
 			IGraphFileService graphFileService,

@@ -13,15 +13,15 @@ using UnoDrive.Services;
 
 namespace UnoDrive.ViewModels
 {
-	public abstract class FilesViewModel : ObservableObject
+	public abstract class BaseFilesViewModel : ObservableObject
 	{
 		protected Location Location { get; set; } = new Location();
 		protected IGraphFileService GraphFileService { get; set; }
 		protected ILogger Logger { get; set; }
 
-		public FilesViewModel(
+		public BaseFilesViewModel(
 			IGraphFileService graphFileService,
-			ILogger<FilesViewModel> logger)
+			ILogger<BaseFilesViewModel> logger)
 		{
 			GraphFileService = graphFileService;
 			Logger = logger;

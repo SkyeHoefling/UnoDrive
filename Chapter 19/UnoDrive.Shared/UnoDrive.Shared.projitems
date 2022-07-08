@@ -41,7 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Selectors\OneDriveItemTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\DataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\IDataStore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FilesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseFilesViewModel.cs" />
     <Compile Include="..\UnoDrive.Shared\Converters\NullToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\OneDriveItemType.cs" />
