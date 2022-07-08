@@ -268,7 +268,10 @@ namespace UnoDrive.Services
 
 					if (cachedCallback != null)
 					{
-						cachedCallback(childrenTable.Select(item => item.Value), false);
+						var children = childrenTable
+							.Select(item => item.Value)
+							.ToArray();
+						cachedCallback(children, false);
 					}
 
 					dataStore.UpdateCachedFileById(currentItem.Id, localFilePath);
