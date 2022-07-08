@@ -98,7 +98,6 @@ namespace UnoDrive.ViewModels
 		protected abstract Task<IEnumerable<OneDriveItem>> GetGraphDataAsync(string pathId, Action<IEnumerable<OneDriveItem>, bool> callback, CancellationToken cancellationToken);
 
 		CancellationTokenSource cancellationTokenSource;
-		CancellationToken cancellationToken;
 		TaskCompletionSource<bool> currentLoadDataTask;
 		protected virtual async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
 		{
@@ -112,7 +111,7 @@ namespace UnoDrive.ViewModels
 
 			currentLoadDataTask = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 			cancellationTokenSource = new CancellationTokenSource();
-			cancellationToken = cancellationTokenSource.Token;
+			var cancellationToken = cancellationTokenSource.Token;
 
 			try
 			{

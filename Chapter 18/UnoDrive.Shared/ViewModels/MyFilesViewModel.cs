@@ -118,7 +118,6 @@ namespace UnoDrive.ViewModels
 		}
 
 		CancellationTokenSource cancellationTokenSource;
-		CancellationToken cancellationToken;
 		TaskCompletionSource<bool> currentLoadDataTask;
 		async Task LoadDataAsync(string pathId = null, Action presentationCallback = null)
 		{
@@ -132,7 +131,7 @@ namespace UnoDrive.ViewModels
 
 			currentLoadDataTask = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 			cancellationTokenSource = new CancellationTokenSource();
-			cancellationToken = cancellationTokenSource.Token;
+			var cancellationToken = cancellationTokenSource.Token;
 
 			try
 			{
