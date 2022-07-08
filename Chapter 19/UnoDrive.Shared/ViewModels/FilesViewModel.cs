@@ -106,7 +106,7 @@ namespace UnoDrive.ViewModels
 				cancellationTokenSource.Cancel();
 
 				// prevents race condition
-				await currentLoadDataTask.Task;
+				await currentLoadDataTask?.Task;
 			}
 
 			currentLoadDataTask = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
