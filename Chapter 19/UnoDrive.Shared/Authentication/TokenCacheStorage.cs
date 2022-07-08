@@ -35,10 +35,10 @@ namespace UnoDrive.Authentication
 		{
 			using (var db = new LiteDatabase(GetConnectionString()))
 			{
-				var tokens = db.GetCollection<TokenCache>();
-				var tokenCache = tokens.Query().FirstOrDefault();
-				var serializedCache = tokenCache != null ?
-					Convert.FromBase64String(tokenCache.Data) : null;
+				var tokens = db.GetCollection<TokenRecord>();
+				var tokenRecord = tokens.Query().FirstOrDefault();
+				var serializedCache = tokenRecord != null ?
+					Convert.FromBase64String(tokenRecord.Data) : null;
 
 				args.TokenCache.DeserializeMsalV3(serializedCache);
 			}
@@ -51,13 +51,13 @@ namespace UnoDrive.Authentication
 
 			using (var db = new LiteDatabase(GetConnectionString()))
 			{
-				var tokens = db.GetCollection<TokenCache>();
+				var tokens = db.GetCollection<TokenRecord>();
 				tokens.DeleteAll();
-				tokens.Insert(new TokenCache { Data = serializedCache });
+				tokens.Insert(new TokenRecord { Data = serializedCache });
 			}
 		}
 
-		class TokenCache
+		class TokenRecord
 		{
 			public string Data { get; set; }
 		}
