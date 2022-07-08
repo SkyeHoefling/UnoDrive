@@ -22,7 +22,7 @@ namespace UnoDrive.Authentication
 			var databaseFile = Path.Combine(ApplicationData.Current.LocalFolder.Path, "UnoDrive_MSAL_TokenCache.db");
 #endif
 
-			return $"Filename={databaseFile}";
+			return $"Filename={databaseFile};Password=UnoIsGreat!";
 		}
 
 		public static void EnableSerialization(ITokenCache tokenCache)

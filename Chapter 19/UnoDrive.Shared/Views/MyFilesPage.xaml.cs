@@ -12,7 +12,7 @@ namespace UnoDrive.Views
 		public MyFilesPage()
 		{
 			this.InitializeComponent();
-			SizeChanged += OnSizeChanged;
+			//SizeChanged += OnSizeChanged;
 		}
 
 		public MyFilesViewModel ViewModel => (MyFilesViewModel)DataContext;
@@ -25,10 +25,10 @@ namespace UnoDrive.Views
 				await initializeViewModel.InitializeAsync();
 		}
 
-		void OnSizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			var window = ((App)App.Current).Window;
-			scrollViewer.Height = window.Bounds.Height - rootGrid.RowDefinitions[0].ActualHeight;
-		}
+		//void OnSizeChanged(object sender, SizeChangedEventArgs e)
+		//{
+		//	var window = ((App)App.Current).Window;
+		//	scrollViewer.Height = window.Bounds.Height - rootGrid.RowDefinitions[0].ActualHeight;
+		//}
 	}
 }
