@@ -56,7 +56,7 @@ namespace UnoDrive.Services
 			{
 				logger.LogWarning("Unable to retrieve data from Graph API, it may not exist or there could be a connection issue");
 				logger.LogWarning(ex, ex.Message);
-				throw ex;
+				throw;
 			}
 			catch (Exception ex)
 			{
