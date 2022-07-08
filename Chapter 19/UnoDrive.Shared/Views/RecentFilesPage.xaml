@@ -52,10 +52,9 @@
 				Visibility="{Binding IsStatusBarLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 		</Grid>
 
-		<StackPanel Grid.Row="1">
-			<ScrollViewer x:Name="scrollViewer">
-				<StackPanel>
-					<GridView
+		<ScrollViewer Grid.Row="1">
+			<StackPanel>
+				<GridView
 					ItemsSource="{Binding FilesAndFolders}"
 					ItemClick="{x:Bind ViewModel.OnItemClick}"
 					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolNegationToVisibilityConverter}}"
@@ -63,17 +62,17 @@
 					ScrollViewer.VerticalScrollBarVisibility="Visible"
 					ScrollViewer.HorizontalScrollMode="Disabled"/>
 
-					<TextBlock
+				<TextBlock
 					Text="No data found"
 					Visibility="{Binding IsPageEmpty, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-					<not_skia:ProgressRing
+				<not_skia:ProgressRing
 					Width="300"
 					Height="300"
 					IsActive="{Binding IsMainContentLoading}"
 					Visibility="{Binding IsMainContentLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-					<skia:TextBlock
+				<skia:TextBlock
 					Text="Loading . . ."
 					FontSize="40"
 					Foreground="Black"
@@ -81,9 +80,8 @@
 					VerticalAlignment="Center"
 					Visibility="{Binding IsMainContentLoading, Converter={StaticResource BoolToVisibilityConverter}}" />
 
-				</StackPanel>
-			</ScrollViewer>
-		</StackPanel>
+			</StackPanel>
+		</ScrollViewer>
 
 	</Grid>
 	
