@@ -66,13 +66,13 @@ namespace UnoDrive.Services
 				catch (TaskCanceledException ex)
 				{
 					logger.LogWarning(ex, ex.Message);
-					throw ex;
+					throw;
 				}
 				catch (KeyNotFoundException ex)
 				{
 					logger.LogWarning("Unable to retrieve data from Graph API, it may not exist or there could be a connection issue");
 					logger.LogWarning(ex, ex.Message);
-					throw ex;
+					throw;
 				}
 				catch (Exception ex)
 				{
@@ -280,7 +280,7 @@ namespace UnoDrive.Services
 				catch (TaskCanceledException ex)
 				{
 					logger.LogWarning(ex, ex.Message);
-					throw ex;
+					throw;
 				}
 				catch (Exception ex)
 				{
