@@ -19,10 +19,6 @@ namespace UnoDrive.Services
 {
 	public class GraphFileService : IGraphFileService, IAuthenticationProvider
     {
-#if DEBUG
-		const int apiDelayInMilliseconds = 5000;
-#endif
-
 		GraphServiceClient graphClient;
 		IDataStore dataStore;
 		INetworkConnectivityService networkConnectivity;
@@ -107,10 +103,6 @@ namespace UnoDrive.Services
 			}
 
 			cancellationToken.ThrowIfCancellationRequested();
-
-#if DEBUG
-			await Task.Delay(apiDelayInMilliseconds, cancellationToken);
-#endif
 
 			var request = graphClient.Me.Drive.Items[id].Children
 				.Request()
