@@ -9,6 +9,7 @@
 	<DataTemplate x:Key="DriveItemTemplate">
 		<StackPanel Spacing="20" Width="175" Height="300">
 			<Image 
+				Height="200"
 				not_macos:Source="ms-appx:///Assets/Images/folder.png"
 				macos:Source="ms-appx:///Assets/Images/folder.scale-300.png"
 				Visibility="{Binding ThumbnailSource, Converter={StaticResource NullEqualsVisibileConverter}}" />
