@@ -82,7 +82,7 @@
     <PackageReference Include="Microsoft.Identity.Client" Version="4.39.0" />
 		<PackageReference Include="Microsoft.Graph" Version="4.32.0" />
     <PackageReference Include="Uno.WinUI.MSAL" Version="4.4.13" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
